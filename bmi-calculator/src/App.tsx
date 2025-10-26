@@ -30,6 +30,8 @@
 
 import type { JSX } from "react";
 
+import BMICalculator from "./components/BMICalculator.tsx";
+
 /**
  * The App component.
  *
@@ -37,9 +39,7 @@ import type { JSX } from "react";
  */
 function App(): JSX.Element {
     return (
-        <div className="flex items-center justify-center min-h-screen bg-green-200">
-            <h1 className="text-3xl font-bold underline">BMI Calculator</h1>
-        </div>
+        <BMICalculator />
     );
 }
 
