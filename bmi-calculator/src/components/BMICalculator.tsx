@@ -40,6 +40,7 @@ import React, { useState, useEffect } from 'react';
  */
 export default function BMICalculator(): JSX.Element {
     // const { t } = useTranslate();
+    const [unit, setUnit] = useState<string>('metric'); // 'metric' or 'imperial'
     const [height, setHeight] = useState<string>('');
     const [weight, setWeight] = useState<string>('');
     const [bmi, setBMI] = useState<string | null>(null);
@@ -72,7 +73,15 @@ export default function BMICalculator(): JSX.Element {
         if (height && weight) {
             const heightAsNumber: number = Number.parseFloat(height);
             const weightAsNumber: number = Number.parseFloat(weight);
-            const bmiAsNumber: number = (weightAsNumber / (heightAsNumber * heightAsNumber));
+
+            let bmiAsNumber: number;
+
+            if (unit ==='metric') {
+                bmiAsNumber = (weightAsNumber / (heightAsNumber * heightAsNumber));
+            } else {
+                bmiAsNumber = (weightAsNumber / (heightAsNumber * heightAsNumber)) * 703;
+            }
+
             const bmiAsString: string = bmiAsNumber.toFixed(2);
 
             setBMI(bmiAsString);
@@ -144,8 +153,120 @@ export default function BMICalculator(): JSX.Element {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-green-200">
-            <h1 className="text-3xl font-bold underline">BMI Calculator</h1>
+        <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl">
+            <h1 className="text-2xl font-bold mb-4 transition-transform duration-300 hover:scale-105">
+                BMI Calculator
+            </h1>
+
+            <div className="mb-4 -ml-10 mr-5 mt-10">
+                <label className="mr-2 font-medium -ml-20">Units:</label>
+                <select
+                    value={ unit }
+                    onChange={ (e) => { setUnit(e.target.value); resetForm(); } }
+                    className="border rounded px-2 py-1"
+                >
+                    <option value="metric">Metric (m, kg)</option>
+                    <option value="imperial">Imperial (in, lbs)</option>
+                </select>
+            </div>
+
+            <form onSubmit={ calculateBMI } className="mb-4">
+                <div className="mb-4 transition-all duration-300">
+                    <label className="block text-left font-medium text-gray-700 mb-1 transition-colors duration-300">
+                        {/* <T keyName="Height"/> */}
+                        Height
+                    </label>
+                    <input
+                        type="number"
+                        value={ height }
+                        onChange={ (e) => setHeight(e.target.value) }
+                        step="0.01"
+                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-300"
+                        placeholder={`Enter height in ${unit==="metric"?"Meters":"Inches"}`}
+                        required
+                    />
+                </div>
+
+                <div className="mb-6 transition-all duration-300">
+                    <label className="block text-left font-medium text-gray-700 mb-1 transition-colors duration-300">
+                        {/* <T keyName="Weight" /> */}
+                        Weight
+                    </label>
+                    <input
+                        type="number"
+                        value={weight}
+                        onChange={ (e) => setWeight(e.target.value) }
+                        step="0.1"
+                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-300"
+                        placeholder={`Enter weight in ${unit==="metric"?"Kgs":"Pounds"}`}
+                        required
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                >
+                    {/* <T keyName="Calculate-BMI" /> */}
+                    Calculate BMI
+                </button>
+            </form>
+
+            {isCalculated && (
+                <div
+                    className={`
+                        transition-all duration-500 transform
+                        ${isAnimating ? 'scale-110 opacity-90' : 'scale-100 opacity-100'}
+                    `}
+                >
+                    <div className="bg-linear-to-r from-blue-50 to-green-50 p-6 rounded-lg border-2 border-gray-100 shadow-inner">
+                        <div className="flex items-center justify-center mb-4">
+                            <div className={ `text-4xl font-bold ${getBMIColor()} transition-all duration-500 transform hover:scale-110` }>
+                                {bmi}
+                            </div>
+                        </div>
+
+                        <p className="text-lg font-semibold mb-2 transition-colors duration-300">
+                            {/* <T keyName="is Your-Bmi" params={{ bmi }} /> */}
+                            is your body mass index
+                        </p>
+
+                        <div
+                            className={`
+                                text-md font-medium p-3 rounded-lg bg-white shadow-sm border
+                                transition-all duration-500 ${getMessageColor()}
+                                ${isAnimating ? 'translate-y-2' : 'translate-y-0'}
+                            `}
+                        >
+                            {message}
+                        </div>
+
+                        {/* BMI Scale Indicator */}
+
+                        <div className="mt-4 bg-gray-200 rounded-full h-2 overflow-hidden">
+                            <div
+                                className={`h-full transition-all duration-1000 ease-out ${
+                                    Number.parseFloat(bmi!) < 18.5 ? 'bg-blue-500 w-1/4' :
+                                        Number.parseFloat(bmi!) < 24.9 ? 'bg-green-500 w-1/2' :
+                                            Number.parseFloat(bmi!) < 29.9 ? 'bg-yellow-500 w-3/4' :
+                                                'bg-red-500 w-full'
+                                }`}
+                                style={{
+                                    transition: 'width 1s ease-out, background-color 1s ease-out'
+                                }}
+                            ></div>
+                        </div>
+
+                        <button
+                            onClick={ resetForm }
+                            className="mt-6 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 active:scale-95 w-full"
+                        >
+                            {/* <T keyName="Reset" /> */}
+                            Reset
+                        </button>
+                    </div>
+                </div>
+                )}
         </div>
     );
 }

@@ -39,7 +39,9 @@ import BMICalculator from "./components/BMICalculator.tsx";
  */
 function App(): JSX.Element {
     return (
-        <BMICalculator />
+        <div className="flex justify-center items-start w-full pt-10 bg-yellow-50 h-screen">
+            <BMICalculator />
+        </div>
     );
 }
 
