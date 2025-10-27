@@ -12,5 +12,7 @@
   "normal-weight": "Normal weight",
   "over-weight": "Over weight",
   "obese": "Obese",
-  "invalid-input": "Invalid input"
+  "invalid-input": "Invalid input",
+  "height-placeholder": "Enter height in {{units}}",
+  "weight-placeholder": "Enter weight in {{units}}"
 }

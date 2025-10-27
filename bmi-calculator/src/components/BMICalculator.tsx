@@ -175,7 +175,7 @@ export default function BMICalculator(): JSX.Element {
                         onChange={ (e) => setHeight(e.target.value) }
                         step="0.01"
                         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-300"
-                        placeholder={`Enter height in ${unit==="metric"?"Meters":"Inches"}`}
+                        placeholder={t('height-placeholder', { units: unit==="metric"?"Meters":"Inches" })}
                         required
                     />
                 </div>
@@ -190,7 +190,7 @@ export default function BMICalculator(): JSX.Element {
                         onChange={ (e) => setWeight(e.target.value) }
                         step="0.1"
                         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-300"
-                        placeholder={`Enter weight in ${unit==="metric"?"Kgs":"Pounds"}`}
+                        placeholder={t('weight-placeholder', { units: unit==="metric"?"Kgs":"Pounds" })}
                         required
                     />
                 </div>
