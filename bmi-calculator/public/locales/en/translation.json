@@ -7,5 +7,10 @@
   "weight": "Weight",
   "calculate": "Calculate BMI",
   "your-bmi": "is your body mass index",
-  "reset": "Reset"
+  "reset": "Reset",
+  "under-weight": "Under weight",
+  "normal-weight": "Normal weight",
+  "over-weight": "Over weight",
+  "obese": "Obese",
+  "invalid-input": "Invalid input"
 }

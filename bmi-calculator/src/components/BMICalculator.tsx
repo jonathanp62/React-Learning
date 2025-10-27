@@ -87,21 +87,16 @@ export default function BMICalculator(): JSX.Element {
             setIsCalculated(true);
 
             if (bmiAsNumber < 18.5) {
-                // setMessage(t('bmi-calculator-underweight'));
-                setMessage('Under weight');
+                setMessage(t('under-weight'));
             } else if (bmiAsNumber < 24.9) {
-                // setMessage(t('bmi-calculator-normal-weight'));
-                setMessage('Normal weight');
+                setMessage(t('normal-weight'));
             } else if (bmiAsNumber < 29.9) {
-                // setMessage(t('bmi-calculator-overweight'));
-                setMessage('Over weight');
+                setMessage(t('over-weight'));
             } else {
-                // setMessage(t('bmi-calculator-obese'));
-                setMessage('Obese');
+                setMessage(t('obese'));
             }
         } else {
-            // setMessage(t('bmi-calculator-invalid-input'));
-            setMessage('Invalid input');
+            setMessage(t('invalid-input'));
         }
     };
 
