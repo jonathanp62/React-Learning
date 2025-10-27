@@ -146,6 +146,9 @@ export default function BMICalculator(): JSX.Element {
         return 'text-red-600';
     };
 
+    const heightPlaceholderUnits: string = unit === 'metric' ? t('meters') : t('inches');
+    const weightPlaceholderUnits: string = unit === 'metric' ? t('kgs') : t('pounds');
+
     return (
         <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl">
             <h1 className="text-2xl font-bold mb-4 transition-transform duration-300 hover:scale-105">
@@ -175,7 +178,7 @@ export default function BMICalculator(): JSX.Element {
                         onChange={ (e) => setHeight(e.target.value) }
                         step="0.01"
                         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-300"
-                        placeholder={t('height-placeholder', { units: unit==="metric"?"Meters":"Inches" })}
+                        placeholder={t('height-placeholder', { units: heightPlaceholderUnits })}
                         required
                     />
                 </div>
@@ -190,7 +193,7 @@ export default function BMICalculator(): JSX.Element {
                         onChange={ (e) => setWeight(e.target.value) }
                         step="0.1"
                         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-300"
-                        placeholder={t('weight-placeholder', { units: unit==="metric"?"Kgs":"Pounds" })}
+                        placeholder={t('weight-placeholder', { units: weightPlaceholderUnits })}
                         required
                     />
                 </div>

@@ -1,7 +1,7 @@
 {
   "title": "BMI Calculator",
   "units": "Units",
-  "metric": "Metric (m, kg)",
+  "metric": "Metric (m, kgs)",
   "imperial": "Imperial (in, lbs)",
   "height": "Height",
   "weight": "Weight",
@@ -13,6 +13,10 @@
   "over-weight": "Over weight",
   "obese": "Obese",
   "invalid-input": "Invalid input",
+  "meters": "meters",
+  "kgs": "kgs",
+  "inches": "inches",
+  "pounds": "pounds",
   "height-placeholder": "Enter height in {{units}}",
   "weight-placeholder": "Enter weight in {{units}}"
 }
