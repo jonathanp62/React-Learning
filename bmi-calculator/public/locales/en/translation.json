@@ -1,0 +1,11 @@
+{
+  "title": "BMI Calculator",
+  "units": "Units",
+  "metric": "Metric (m, kg)",
+  "imperial": "Imperial (in, lbs)",
+  "height": "Height",
+  "weight": "Weight",
+  "calculate": "Calculate BMI",
+  "your-bmi": "is your body mass index",
+  "reset": "Reset"
+}

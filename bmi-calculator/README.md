@@ -74,6 +74,12 @@ export default defineConfig([
 
 ## BMI Calculator
 
+Needed to install react-i18next and i18next-browser-languagedetector as follows:
+
+```bash
+npm install i18next react-i18next i18next-browser-languagedetector
+```
+
 Run this using `npm run dev` from the root directory of the project.
 
 The application can be accessed at http://localhost:5173.

@@ -29,9 +29,8 @@
  */
 
 import type { JSX } from "react";
-
+import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
-//import { useTranslate, T } from '@tolgee/react';
 
 /**
  * The BMI calculator component.
@@ -39,7 +38,7 @@ import React, { useState, useEffect } from 'react';
  * @returns {JSX.Element}
  */
 export default function BMICalculator(): JSX.Element {
-    // const { t } = useTranslate();
+    const { t } = useTranslation();
     const [unit, setUnit] = useState<string>('metric'); // 'metric' or 'imperial'
     const [height, setHeight] = useState<string>('');
     const [weight, setWeight] = useState<string>('');
@@ -155,26 +154,25 @@ export default function BMICalculator(): JSX.Element {
     return (
         <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl">
             <h1 className="text-2xl font-bold mb-4 transition-transform duration-300 hover:scale-105">
-                BMI Calculator
+                {t('title')}
             </h1>
 
             <div className="mb-4 -ml-10 mr-5 mt-10">
-                <label className="mr-2 font-medium -ml-20">Units:</label>
+                <label className="mr-2 font-medium -ml-20">{t('units')}</label>
                 <select
                     value={ unit }
                     onChange={ (e) => { setUnit(e.target.value); resetForm(); } }
                     className="border rounded px-2 py-1"
                 >
-                    <option value="metric">Metric (m, kg)</option>
-                    <option value="imperial">Imperial (in, lbs)</option>
+                    <option value="metric">{t('metric')}</option>
+                    <option value="imperial">{t('imperial')}</option>
                 </select>
             </div>
 
             <form onSubmit={ calculateBMI } className="mb-4">
                 <div className="mb-4 transition-all duration-300">
                     <label className="block text-left font-medium text-gray-700 mb-1 transition-colors duration-300">
-                        {/* <T keyName="Height"/> */}
-                        Height
+                        {t('height')}
                     </label>
                     <input
                         type="number"
@@ -189,8 +187,7 @@ export default function BMICalculator(): JSX.Element {
 
                 <div className="mb-6 transition-all duration-300">
                     <label className="block text-left font-medium text-gray-700 mb-1 transition-colors duration-300">
-                        {/* <T keyName="Weight" /> */}
-                        Weight
+                        {t('weight')}
                     </label>
                     <input
                         type="number"
@@ -207,8 +204,7 @@ export default function BMICalculator(): JSX.Element {
                     type="submit"
                     className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                 >
-                    {/* <T keyName="Calculate-BMI" /> */}
-                    Calculate BMI
+                    {t('calculate')}
                 </button>
             </form>
 
@@ -227,8 +223,7 @@ export default function BMICalculator(): JSX.Element {
                         </div>
 
                         <p className="text-lg font-semibold mb-2 transition-colors duration-300">
-                            {/* <T keyName="is Your-Bmi" params={{ bmi }} /> */}
-                            is your body mass index
+                            {t('your-bmi')}
                         </p>
 
                         <div
@@ -261,8 +256,7 @@ export default function BMICalculator(): JSX.Element {
                             onClick={ resetForm }
                             className="mt-6 px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 active:scale-95 w-full"
                         >
-                            {/* <T keyName="Reset" /> */}
-                            Reset
+                            {t('reset')}
                         </button>
                     </div>
                 </div>
