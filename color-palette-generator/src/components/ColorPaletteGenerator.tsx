@@ -57,13 +57,11 @@ export default function ColorPaletteGenerator(): JSX.Element {
         ];
 
         const generatedPalette: string[][] = baseColors.map((baseColor: string): string[] => {
-            const colorVariations: string[] = [
+            return [
                 baseColor,
                 shadeColor(baseColor, -20),
                 shadeColor(baseColor, 20),
             ];
-
-            return colorVariations;
         });
 
         setPaletteStates((prevStates: boolean[]): boolean[] => [...prevStates, true]);
@@ -72,9 +70,9 @@ export default function ColorPaletteGenerator(): JSX.Element {
     }
 
     const deletePalette: (index: number) => void = (index: number): void => {
-        const updatedPalettes = [...palettes];
-        const updatedStates = [...paletteStates];
-        const updatedRotation = [...rotation];
+        const updatedPalettes: string[][][] = [...palettes];
+        const updatedStates: boolean[] = [...paletteStates];
+        const updatedRotation: number[] = [...rotation];
 
         updatedPalettes.splice(index, 1);
         updatedStates.splice(index, 1);
@@ -86,10 +84,13 @@ export default function ColorPaletteGenerator(): JSX.Element {
     };
 
     const togglePalette: (index: number) => void = (index: number): void => {
-        const updatedStates = [...paletteStates];
+        const updatedStates: boolean[] = [...paletteStates];
+
         updatedStates[index] = !updatedStates[index];
         setPaletteStates(updatedStates);
-        const updatedRotation = [...rotation];
+
+        const updatedRotation: number[] = [...rotation];
+
         updatedRotation[index] = updatedStates[index] ? -90 : 0;
         setRotation(updatedRotation);
     };
@@ -120,11 +121,11 @@ export default function ColorPaletteGenerator(): JSX.Element {
      * @return              {string}
      */
     function shadeColor(color: string, percent: number): string {
-        const num = Number.parseInt(color.slice(1), 16);
-        const amt = Math.round(2.55 * percent);
-        const R = (num >> 16) + amt;
-        const G = ((num >> 8) & 0x00ff) + amt;
-        const B = (num & 0x0000ff) + amt;
+        const num: number = Number.parseInt(color.slice(1), 16);
+        const amt: number = Math.round(2.55 * percent);
+        const R: number = (num >> 16) + amt;
+        const G: number = ((num >> 8) & 0x00ff) + amt;
+        const B: number = (num & 0x0000ff) + amt;
 
         return `#${((1 << 24) | (R << 16) | (G << 8) | B)
             .toString(16)
@@ -142,12 +143,12 @@ export default function ColorPaletteGenerator(): JSX.Element {
                     Generate 8-Color Palette
                 </button>
             </nav>
-            {palettes.map((palette: string[][], index: number) => (
+            {palettes.map((palette: string[][], index: number): JSX.Element => (
                 <div key={index} className="mb-8">
                     <div className="flex items-center justify-between p-2 w-[100vw] md:w-[50vw]">
                         <h2
                             className="text-lg font-semibold mb-2 cursor-pointer flex items-center"
-                            onClick={(): void => togglePalette(index)}
+                            onClick={ (): void => togglePalette(index) }
                         >
                             <IoIosArrowDropdownCircle
                                 className="text-2xl mr-2"
@@ -160,11 +161,32 @@ export default function ColorPaletteGenerator(): JSX.Element {
                         </h2>
                         <button
                             className="text-red-500 hover:underline font-semibold"
-                            onClick={(): void => deletePalette(index)}
+                            onClick={ (): void => deletePalette(index) }
                             type="button"
                         >
                             Delete Palette
                         </button>
+                    </div>
+                    <div
+                        className={`flex flex-wrap items-center justify-around w-full transition-all duration-300 ${
+                            paletteStates[index] ? "opacity-100 h-auto" : "opacity-0 h-0"
+                        }`}
+                    >
+                        {palette.map((colors: string[], colorIndex: number): JSX.Element => (
+                            <div key={colorIndex} className="flex flex-col items-center m-2">
+                                <div
+                                    className="w-16 h-16 rounded-full cursor-pointer transition-all duration-300 hover:scale-105"
+                                    style={{ backgroundColor: colors[0] }}
+                                    onClick={ () => copyToClipboard(colors[0]) }
+                                />
+                                    <span
+                                        className="mt-2 cursor-pointer"
+                                        onClick={ () => copyToClipboard(colors[0]) }
+                                    >
+                                        { copiedColor === colors[0] ? "Copied!" : colors[0] }
+                                    </span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}
