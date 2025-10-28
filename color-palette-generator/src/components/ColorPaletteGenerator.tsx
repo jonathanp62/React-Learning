@@ -159,7 +159,7 @@ export default function ColorPaletteGenerator(): JSX.Element {
                                     transition: "transform 0.3s ease",
                                 }}
                             />
-                            { t("palette") } {index + 1}{" "}   {/* TODO: Improve */}
+                            { t("palette", { number: index + 1}) }
                         </h2>
                         <button
                             className="text-red-500 hover:underline font-semibold"

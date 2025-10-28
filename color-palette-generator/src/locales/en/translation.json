@@ -1,6 +1,6 @@
 {
   "generate-palette": "Generate 8-Color Palette",
-  "palette": "Palette",
+  "palette": "Palette {{number}}",
   "delete-palette": "Delete Palette",
   "copied": "Copied"
 }
