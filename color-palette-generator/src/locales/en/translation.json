@@ -1,3 +1,6 @@
 {
-  "title": "Color Palette Generator"
+  "generate-palette": "Generate 8-Color Palette",
+  "palette": "Palette",
+  "delete-palette": "Delete Palette",
+  "copied": "Copied"
 }

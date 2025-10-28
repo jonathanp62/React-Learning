@@ -30,7 +30,8 @@
 
 import type { JSX } from "react";
 
-import React, { useState } from "react";
+import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 
 /**
@@ -39,6 +40,7 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
  * @returns {JSX.Element}
  */
 export default function ColorPaletteGenerator(): JSX.Element {
+    const { t } = useTranslation();
     const [palettes, setPalettes] = useState<string[][][]>([]);
     const [copiedColor, setCopiedColor] = useState<string | null>(null);
     const [paletteStates, setPaletteStates] = useState<boolean[]>([]);
@@ -140,7 +142,7 @@ export default function ColorPaletteGenerator(): JSX.Element {
                     onClick={ generateRandomMatchingColors }
                     type="button"
                 >
-                    Generate 8-Color Palette
+                    { t("generate-palette") }
                 </button>
             </nav>
             {palettes.map((palette: string[][], index: number): JSX.Element => (
@@ -157,14 +159,14 @@ export default function ColorPaletteGenerator(): JSX.Element {
                                     transition: "transform 0.3s ease",
                                 }}
                             />
-                            Palette {index + 1}{" "}
+                            { t("palette") } {index + 1}{" "}   {/* TODO: Improve */}
                         </h2>
                         <button
                             className="text-red-500 hover:underline font-semibold"
                             onClick={ (): void => deletePalette(index) }
                             type="button"
                         >
-                            Delete Palette
+                            { t("delete-palette") }
                         </button>
                     </div>
                     <div
@@ -183,7 +185,7 @@ export default function ColorPaletteGenerator(): JSX.Element {
                                         className="mt-2 cursor-pointer"
                                         onClick={ () => copyToClipboard(colors[0]) }
                                     >
-                                        { copiedColor === colors[0] ? "Copied!" : colors[0] }
+                                        { copiedColor === colors[0] ? t("copied") : colors[0] }
                                     </span>
                             </div>
                         ))}
