@@ -33,6 +33,12 @@ import type {ChangeEvent, JSX} from "react";
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/** The interface for the component's props for clarity and type safety. */
+export interface Props {
+    readonly exchangeRateApi: string;
+}
+
+/** The interface for the exchange rate data for clarity and type safety. */
 type ExchangeRateData = {
     provider: string;
     WARNING_UPGRADE_TO_V6: string;
@@ -50,7 +56,7 @@ type ExchangeRateData = {
  *
  * @returns {JSX.Element}
  */
-export default function CurrencyConverter(): JSX.Element {
+export default function CurrencyConverter({ exchangeRateApi }: Props): JSX.Element {
     const { t } = useTranslation();
     const [amount, setAmount] = useState<number>(1);
     const [fromCurrency, setFromCurrency] = useState<string>('USD');
@@ -63,7 +69,7 @@ export default function CurrencyConverter(): JSX.Element {
     useEffect((): void => {
         const fetchCurrencies: () => Promise<void> = async (): Promise<void> => {
             try {
-                const response: Response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
+                const response: Response = await fetch(`${exchangeRateApi}/USD`);
                 const data: ExchangeRateData = await response.json();
 
                 setCurrencies(Object.keys(data.rates)); // Set currencies as an array of keys (currency codes)
@@ -73,7 +79,7 @@ export default function CurrencyConverter(): JSX.Element {
         };
 
         fetchCurrencies();
-    }, [t]);
+    }, [exchangeRateApi, t]);
 
     // Fetch exchange rate whenever `fromCurrency` or `toCurrency` changes
 
@@ -85,7 +91,7 @@ export default function CurrencyConverter(): JSX.Element {
             }
 
             try {
-                const response: Response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
+                const response: Response = await fetch(`${exchangeRateApi}/${fromCurrency}`);
                 const data: ExchangeRateData = await response.json();
 
                 setExchangeRate(data.rates[toCurrency]);
@@ -96,7 +102,7 @@ export default function CurrencyConverter(): JSX.Element {
         };
 
         fetchExchangeRate();
-    }, [fromCurrency, toCurrency, t]);
+    }, [fromCurrency, toCurrency, exchangeRateApi, t]);
 
     // Handle amount change
     const handleAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>): void => setAmount(Number(e.target.value));

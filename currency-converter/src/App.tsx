@@ -31,6 +31,7 @@
 import type { JSX } from "react";
 
 import CurrencyConverter from "./components/CurrencyConverter.tsx";
+import packageJson from "../package.json";
 
 /**
  * The App component.
@@ -38,8 +39,10 @@ import CurrencyConverter from "./components/CurrencyConverter.tsx";
  * @returns {JSX.Element}
  */
 function App(): JSX.Element {
+    const exchangeRateApi: string = packageJson.appConfig.exchangeRateApi;
+
     return (
-        <CurrencyConverter />
+        <CurrencyConverter exchangeRateApi={ exchangeRateApi }/>
     );
 }
 
