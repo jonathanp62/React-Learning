@@ -77,3 +77,6 @@ export default defineConfig([
 Run this using `npm run dev` from the root directory of the project.
 
 The application can be accessed at http://localhost:5173.
+
+The following API is used: https://api.exchangerate-api.com/v4/latest/{currency}
+See https://www.exchangerate-api.com/docs/free for using the latest version.

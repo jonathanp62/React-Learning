@@ -1,3 +1,10 @@
 {
-  "title": "Currency Converter"
+  "title": "Currency Converter",
+  "error-currencies": "Error fetching currencies",
+  "error-exchange-rate": "Error fetching exchange rate",
+  "amount": "Amount",
+  "from": "From",
+  "swap-currencies": "Swap Currencies",
+  "to": "To",
+  "converted-amount": "Converted Amount"
 }
