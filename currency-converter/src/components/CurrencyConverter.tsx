@@ -38,14 +38,22 @@ export interface Props {
     readonly exchangeRateApi: string;
 }
 
-/** The interface for the exchange rate data for clarity and type safety. */
+/**
+ * The interface for the exchange rate data for clarity and type safety.
+ * This type reflects the output from https://open.er-api.com/v6/latest.
+ * The endpoint is set in the package JSON.
+ */
 type ExchangeRateData = {
+    result: string;
     provider: string;
-    WARNING_UPGRADE_TO_V6: string;
-    terms: string;
-    base: string;
-    date: string;
-    time_last_updated: number;
+    documentation: string;
+    terms_of_use: string;
+    time_last_update_unix: string;
+    time_last_update_utc: string;
+    time_next_update_unix: string;
+    time_next_update_utc: string;
+    time_eol_unix: string;
+    base_code: string;
     rates: {
         [key: string]: number;
     };

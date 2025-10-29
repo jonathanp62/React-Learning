@@ -20,7 +20,7 @@
     "tailwindcss": "^4.1.16"
   },
   "appConfig": {
-    "exchangeRateApi": "https://api.exchangerate-api.com/v4/latest"
+    "exchangeRateApi": "https://open.er-api.com/v6/latest"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
