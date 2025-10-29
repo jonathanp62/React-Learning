@@ -6,5 +6,6 @@
   "from": "From",
   "swap-currencies": "Swap Currencies",
   "to": "To",
-  "converted-amount": "Converted Amount"
+  "converted-amount": "Converted Amount",
+  "reset": "Reset"
 }

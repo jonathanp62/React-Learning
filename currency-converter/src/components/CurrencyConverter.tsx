@@ -177,6 +177,17 @@ export default function CurrencyConverter({ exchangeRateApi }: Props): JSX.Eleme
                         ))}
                     </select>
                 </div>
+
+                <button
+                    onClick={(): void => {
+                        setAmount(1);
+                        setFromCurrency('USD');
+                        setToCurrency('EUR');
+                    }}
+                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+                >
+                    { t("reset") }
+                </button>
             </div>
 
             <div className="flex items-center justify-between">
