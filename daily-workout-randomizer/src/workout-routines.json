@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Full Body Circuit",
+    "exercises": [
+      "10 Push-ups",
+      "15 Squats",
+      "20 Jumping Jacks",
+      "10 Burpees",
+      "30-sec Plank"
+    ]
+  },
+  {
+    "name": "Upper Body Strength",
+    "exercises": [
+      "15 Dumbbell Curls",
+      "10 Push-ups",
+      "12 Shoulder Press",
+      "15 Tricep Dips",
+      "20 Mountain Climbers"
+    ]
+  },
+  {
+    "name": "Core Blast",
+    "exercises": [
+      "20 Russian Twists",
+      "15 Bicycle Crunches",
+      "10 Leg Raises",
+      "30-sec Plank",
+      "20 Flutter Kicks"
+    ]
+  },
+  {
+    "name": "Lower Body Workout",
+    "exercises": [
+      "20 Lunges",
+      "15 Squats",
+      "20 Calf Raises",
+      "30-sec Wall Sit",
+      "15 Glute Bridges"
+    ]
+  },
+  {
+    "name": "HIIT Cardio",
+    "exercises": [
+      "30-sec High Knees",
+      "15 Burpees",
+      "30-sec Jump Rope",
+      "20 Mountain Climbers",
+      "15 Jump Squats"
+    ]
+  }
+]
