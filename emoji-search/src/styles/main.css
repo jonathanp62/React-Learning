@@ -1,5 +1,5 @@
 /*
- * (#)styles.css    0.2.0   10/30/2025
+ * (#)main.css  0.2.0   10/30/2025
  *
  * @author  Jonathan Parker
  * @version 0.2.0
@@ -29,3 +29,6 @@
  */
 
 @import "tailwindcss";
+@import "tailwindcss/preflight";
+
+@tailwind utilities;

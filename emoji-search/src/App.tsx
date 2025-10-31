@@ -30,6 +30,7 @@
 
 import type { JSX } from "react";
 
+import './styles/App.css';
 import EmojiSearch from "./components/EmojiSearch.tsx";
 
 /**
