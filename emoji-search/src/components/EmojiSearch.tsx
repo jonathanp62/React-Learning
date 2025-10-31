@@ -31,7 +31,7 @@
 import type { JSX } from "react";
 
 import React, { useState } from 'react';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 type Emoji = {
@@ -68,7 +68,10 @@ export default function EmojiSearch(): JSX.Element {
     );
 
     return (
-        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg text-center ">
+
+        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg text-center">
+            {/* See the BMI calculator for learning how to set a Tailwind property dynamically */}
+
             <h1 className="text-2xl font-bold mb-4 border border-box rounded bg-yellow-100">{ t("title") }</h1>
 
             <input

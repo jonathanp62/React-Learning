@@ -32,6 +32,7 @@ import type { JSX } from "react";
 
 import './styles/App.css';
 import EmojiSearch from "./components/EmojiSearch.tsx";
+import ThemeToggle from "./components/ThemeToggle.tsx";
 
 /**
  * The App component.
@@ -40,7 +41,13 @@ import EmojiSearch from "./components/EmojiSearch.tsx";
  */
 function App(): JSX.Element {
     return (
-        <EmojiSearch />
+        <div className="flex items-center justify-center min-h-screen bg-red-100 ">
+            <EmojiSearch />
+
+            <div className='absolute top-4 right-4'>
+                <ThemeToggle />
+            </div>
+        </div>
     );
 }
 
