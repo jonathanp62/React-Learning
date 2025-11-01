@@ -39,5 +39,4 @@ export default {
         extend: {},
     },
     plugins: [],
-    darkMode: 'class', // Enable dark mode based on the 'dark' class on the HTML element
 };

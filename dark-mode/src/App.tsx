@@ -39,7 +39,11 @@ import DarkMode from "./components/DarkMode.tsx";
  */
 function App(): JSX.Element {
     return (
-        <DarkMode />
+        <>
+            <p className="bg-amber-200 text-black dark:bg-amber-400 dark:text-white text-center">Header</p>
+            <DarkMode />
+            <p className="bg-amber-200 text-black dark:bg-amber-400 dark:text-white text-center">Footer</p>
+        </>
     );
 }
 

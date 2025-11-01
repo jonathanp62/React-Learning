@@ -1,3 +1,8 @@
 {
-  "title": "Dark Mode"
+  "title": "Dark Mode",
+  "switch-to-dark-mode": "Switch to Dark mode",
+  "switch-to-light-mode": "Switch to Light mode",
+  "main-text": "This is a simple React application with Tailwind CSS and a working dark mode toggle",
+  "example-button": "Example Button",
+  "switch-to-system": "Switch to System"
 }
