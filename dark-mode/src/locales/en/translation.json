@@ -1,8 +1,13 @@
 {
-  "title": "Dark Mode",
+  "dark-title": "Dark Mode",
+  "light-title": "Light Mode",
   "switch-to-dark-mode": "Switch to Dark mode",
   "switch-to-light-mode": "Switch to Light mode",
   "main-text": "This is a simple React application with Tailwind CSS and a working dark mode toggle",
+  "sub-text": "This app should mount using the system theme and can be returned to that theme at any time",
   "example-button": "Example Button",
-  "switch-to-system": "Switch to System"
+  "switch-to-system": "Switch to System",
+  "switch-to-system-theme": "Switch to the system theme",
+  "click-me": "Click me",
+  "example-clicked": "You clicked the example button"
 }

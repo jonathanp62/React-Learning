@@ -31,6 +31,7 @@
 import type { JSX } from "react";
 
 import DarkMode from "./components/DarkMode.tsx";
+import packageJson from "../package.json";
 
 /**
  * The App component.
@@ -38,11 +39,28 @@ import DarkMode from "./components/DarkMode.tsx";
  * @returns {JSX.Element}
  */
 function App(): JSX.Element {
+    const header: string = packageJson.appConfig.header;
+
+    const formattedDate: () => string = (): string => {
+        const today: Date = new Date();
+
+        // Options object to specify the desired format components
+
+        const options: Intl.DateTimeFormatOptions = {
+            weekday: 'long',  // "Sunday"
+            year: 'numeric',  // "2025"
+            month: 'long',    // "November"
+            day: 'numeric'    // "1"
+        };
+
+        return today.toLocaleDateString('en-US', options);
+    }
+
     return (
         <>
-            <p className="bg-amber-200 text-black dark:bg-amber-400 dark:text-white text-center">Header</p>
+            <p className="bg-amber-200 text-black dark:bg-amber-500 dark:text-white text-center">{ header }</p>
             <DarkMode />
-            <p className="bg-amber-200 text-black dark:bg-amber-400 dark:text-white text-center">Footer</p>
+            <p className="bg-amber-200 text-black dark:bg-amber-500 dark:text-white text-center">{ formattedDate() }</p>
         </>
     );
 }

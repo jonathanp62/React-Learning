@@ -32,6 +32,7 @@ import type { JSX } from "react";
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 /**
  * The dark mode component.
@@ -50,12 +51,8 @@ export default function DarkMode(): JSX.Element {
         document.documentElement.classList.remove('dark');
 
         if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
             setIsDarkMode(true);
         } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
             setIsDarkMode(false);
         }
     }, []);
@@ -98,11 +95,15 @@ export default function DarkMode(): JSX.Element {
         }
      };
 
+    const exampleClicked: () => void = (): void => {
+        globalThis.alert(`${t("example-clicked")}!`);
+    };
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
             <header className="p-4 flex justify-between items-center bg-white dark:bg-gray-800 shadow-md">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    { t("title") }
+                    { isDarkMode ? t("dark-title") : t("light-title") }
                 </h1>
 
                 <button
@@ -118,9 +119,13 @@ export default function DarkMode(): JSX.Element {
                         dark:hover:bg-green-600"
                 >
                     { isDarkMode ? (
-                        t('switch-to-light-mode')
+                        <div title={ t("switch-to-light-mode") }>
+                            <SunIcon className="h-6 w-6 text-yellow-400" />
+                        </div>
                         ) : (
-                        t('switch-to-dark-mode')
+                            <div title={ t("switch-to-dark-mode") }>
+                                <MoonIcon className="h-6 w-6 text-indigo-600" />
+                            </div>
                         )
                     }
                 </button>
@@ -135,6 +140,7 @@ export default function DarkMode(): JSX.Element {
                         dark:bg-gray-700
                         dark:text-gray-200
                         dark:hover:bg-green-600"
+                    title={ t("switch-to-system-theme") }
                 >
                     { t("switch-to-system") }
                 </button>
@@ -146,17 +152,23 @@ export default function DarkMode(): JSX.Element {
                     <p className="text-gray-700 dark:text-gray-300">
                         { t("main-text") }.
                     </p>
-                    <button className="
-                        p-2
-                        rounded-full
-                        bg-blue-300
-                        text-gray-900
-                        hover:bg-blue-400
-                        focus:ring-blue-400
-                        dark:bg-blue-500
-                        dark:hover:bg-blue-600
-                        dark:focus:ring-blue-500
-                        dark:text-gray-200"
+                    <p className="text-gray-700 dark:text-gray-300">
+                        { t("sub-text") }.
+                    </p>
+                    <button onClick={ exampleClicked }
+                            className="
+                                mt-4
+                                p-2
+                                rounded-full
+                                bg-blue-300
+                                text-gray-900
+                                hover:bg-blue-400
+                                focus:ring-blue-400
+                                dark:bg-blue-500
+                                dark:hover:bg-blue-600
+                                dark:focus:ring-blue-500
+                                dark:text-gray-200"
+                            title={ t("click-me") }
                     >
                         { t("example-button") }
                     </button>
