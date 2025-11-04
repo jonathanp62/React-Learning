@@ -69,24 +69,47 @@ export default function EmojiSearch(): JSX.Element {
 
     return (
 
-        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg text-center">
+        <div className="w-full max-w-md p-6 bg-white dark:bg-black rounded-lg shadow-lg text-center">
             {/* See the BMI calculator for learning how to set a Tailwind property dynamically */}
 
-            <h1 className="text-2xl font-bold mb-4 border border-box rounded bg-yellow-100">{ t("title") }</h1>
+            <h1 className="text-2xl font-bold mb-4 border border-box rounded bg-yellow-100 dark:bg-yellow-500">{ t("title") }</h1>
 
             <input
                 type="text"
                 placeholder={ `${t("search-for-an-emoji")}...` }
                 value={ searchTerm }
                 onChange={ (e: React.ChangeEvent<HTMLInputElement>): void => setSearchTerm(e.target.value) }
-                className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 hover:shadow-xl transition-shadow duration-220"
+                className="w-full
+                    px-3
+                    py-2
+                    mb-4
+                    border
+                    rounded-lg
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-blue-500
+                    hover:shadow-xl
+                    transition-shadow
+                    duration-220
+                    bg-white
+                    dark:bg-gray-700
+                    text-gray-900
+                    dark:text-white
+                    dark:border-gray-600"
             />
 
             <div className="grid grid-cols-3 gap-4">
                 {filteredEmojis.map((emoji: Emoji): JSX.Element => (
                     <motion.div
                         key={emoji.symbol}
-                        className="p-4 border rounded-lg hover:bg-gray-100 text-2xl"
+                        className="p-4
+                            border
+                            border-gray-300
+                            dark:border-gray-600
+                            rounded-lg
+                            hover:bg-gray-100
+                            dark:hover:bg-gray-600
+                            text-2xl"
                         initial={{ y: 50, opacity: 0.5}}
                         animate={{ y: 0, opacity: 1}}
                         whileHover={{ y: -20, scale: 1.2}}
@@ -97,7 +120,7 @@ export default function EmojiSearch(): JSX.Element {
                         }}
                     >
                         <span>{emoji.symbol}</span>
-                        <p className="text-sm mt-1">{emoji.name}</p>
+                        <p className="text-sm mt-1 text-black dark:text-white">{emoji.name}</p>
                     </motion.div>
                 ))}
             </div>

@@ -31,6 +31,7 @@
 import type { JSX } from "react";
 
 import './styles/App.css';
+import { useEffect } from "react";
 import EmojiSearch from "./components/EmojiSearch.tsx";
 import ThemeToggle from "./components/ThemeToggle.tsx";
 
@@ -40,8 +41,28 @@ import ThemeToggle from "./components/ThemeToggle.tsx";
  * @returns {JSX.Element}
  */
 function App(): JSX.Element {
+    // Run once to match the system theme
+
+    useEffect(() => {
+        document.documentElement.classList.remove('dark');
+
+        if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+
+        // Return a cleanup function to remove the theme
+
+        return () => {
+            localStorage.removeItem('theme');
+        }
+    }, []);
+
     return (
-        <div className="flex items-center justify-center min-h-screen bg-red-100 ">
+        <div className="flex items-center justify-center min-h-screen bg-red-100 dark:bg-red-700 ">
             <EmojiSearch />
 
             <div className='absolute top-4 right-4'>

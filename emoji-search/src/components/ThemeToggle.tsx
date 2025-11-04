@@ -39,7 +39,9 @@ import { useState, useEffect } from 'react';
  */
 export default function ThemeToggle(): JSX.Element {
     const [theme, setTheme] = useState((): string => {
-        // Load theme from localStorage or default to 'light'
+        // Load theme from localStorage
+
+        console.log(localStorage.getItem('theme') || 'light');
         return localStorage.getItem('theme') || 'light';
     });
 
@@ -47,8 +49,13 @@ export default function ThemeToggle(): JSX.Element {
 
     useEffect((): void => {
         // Apply the theme to the body
-        document.body.classList.remove('light', 'dark');
-        document.body.classList.add(theme);
+        // Changing to light mode really just means removing dark mode
+
+        if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add(theme);
+        }
 
         localStorage.setItem('theme', theme); // Save theme to localStorage
     }, [theme]);
