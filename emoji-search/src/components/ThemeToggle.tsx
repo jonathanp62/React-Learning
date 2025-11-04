@@ -39,16 +39,28 @@ import { useState, useEffect } from 'react';
  */
 export default function ThemeToggle(): JSX.Element {
     const [theme, setTheme] = useState((): string => {
-        // Load theme from localStorage
+        /*
+         * The function passed to useState (the lazy initializer) runs only once during
+         * the component's initial render to determine the initial state. In all subsequent
+         * re-renders, React ignores this initializer function and returns the current state
+         * value, which is managed internally by React.
+         */
 
-        console.log(localStorage.getItem('theme') || 'light');
-        return localStorage.getItem('theme') || 'light';
+        let systemTheme: string;
+
+        if (globalThis.matchMedia('(prefers-color-scheme: dark)').matches) {
+            systemTheme = 'dark';
+        } else {
+            systemTheme = 'light';
+        }
+
+        return systemTheme;
     });
 
     const [isHovered , setIsHovered] = useState<boolean>(false);
 
     useEffect((): void => {
-        // Apply the theme to the body
+        // Apply the theme to the document
         // Changing to light mode really just means removing dark mode
 
         if (theme === 'light') {
@@ -56,8 +68,6 @@ export default function ThemeToggle(): JSX.Element {
         } else {
             document.documentElement.classList.add(theme);
         }
-
-        localStorage.setItem('theme', theme); // Save theme to localStorage
     }, [theme]);
 
     const toggleTheme: () => void = (): void => {
