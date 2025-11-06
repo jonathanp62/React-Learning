@@ -1,3 +1,6 @@
 {
-  "title": "Fun Fact Generator"
+  "title": "Fun Facts",
+  "prompt": "Click the button to get a fun fact",
+  "loading": "Loading",
+  "get-fun-fact": "Get Fun Tact"
 }

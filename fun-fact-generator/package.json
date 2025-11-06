@@ -20,8 +20,6 @@
     "tailwindcss": "^4.1.16"
   },
   "appConfig": {
-    "header": "Some header",
-    "footer": "Some footer",
     "dataSource": "https://uselessfacts.jsph.pl/random.json?language=en"
   },
   "devDependencies": {
