@@ -30,7 +30,7 @@
 
 import type { JSX } from "react";
 
-import { useState, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type CryptoResponse = {
@@ -51,30 +51,55 @@ type CryptoResponse = {
     };
 }
 
+type CryptoSymbol = keyof CryptoResponse;
+
 /**
  * The crypto price checker component.
  *
  * @returns {JSX.Element}
  */
 export default function CryptoPriceChecker(): JSX.Element {
+    const defaultPrices = {
+        bitcoin: {
+            usd: 0
+        },
+        cardano: {
+            usd: 0
+        },
+        dogecoin: {
+            usd: 0
+        },
+        ethereum: {
+            usd: 0
+        },
+        litecoin: {
+            usd: 0
+        }
+    }
+
     const { t } = useTranslation();
-    const [prices, setPrices] = useState<CryptoResponse>();
+    const [prices, setPrices] = useState<CryptoResponse>(defaultPrices);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const cryptoSymbols: string[] = ["bitcoin", "ethereum", "dogecoin", "cardano", "litecoin"];
+    /*
+     * Memoize cryptoSymbols using useMemo. This ensures the array's reference remains
+     * stable across re-renders, preventing the useEffect from running unnecessarily.
+     */
+
+    const cryptoSymbols: CryptoSymbol[] = useMemo((): CryptoSymbol[] => ["bitcoin", "ethereum", "dogecoin", "cardano", "litecoin"], []);
 
     useEffect((): void => {
         const fetchPrices: () => Promise<void> = async (): Promise<void> => {
             try {
                 setIsLoading(true);
 
-                const symbols: string[] = ["bitcoin", "ethereum", "dogecoin", "cardano", "litecoin"];
                 const response: Response = await fetch(
-                    `https://api.coingecko.com/api/v3/simple/price?ids=${symbols.join(
+                    `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoSymbols.join(
                         ","
                     )}&vs_currencies=usd`
                 );
+
                 const data: CryptoResponse = await response.json();
 
                 setPrices(data);
@@ -87,19 +112,33 @@ export default function CryptoPriceChecker(): JSX.Element {
         };
 
         fetchPrices();
-    }, []);
+    }, [cryptoSymbols]);
 
     if (isLoading) {
         return <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">Loading data...</div>;
     }
 
     if (error) {
-        return <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">Error: {error}</div>;
+        return <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg text-red-500">Error: { error }</div>;
     }
 
     return (
         <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold mb-4 text-gray-800">{ t("title") }</h1>
+
+            <div className="space-y-4">
+                { cryptoSymbols.map((crypto: CryptoSymbol): JSX.Element => (
+                    <div
+                        key={ crypto }
+                        className="flex justify-between items-center p-4 bg-gray-100 rounded"
+                    >
+                        <span className="capitalize font-medium text-gray-700">{ crypto }</span>
+                        <span className="font-semibold text-gray-800">
+                            ${prices[crypto].usd.toFixed(2)}
+                        </span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
