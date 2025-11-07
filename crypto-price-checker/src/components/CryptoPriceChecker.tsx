@@ -80,7 +80,7 @@ export default function CryptoPriceChecker(): JSX.Element {
     const { t } = useTranslation();
     const [prices, setPrices] = useState<CryptoResponse>(defaultPrices);
     const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     /*
      * Memoize cryptoSymbols using useMemo. This ensures the array's reference remains
@@ -114,6 +114,26 @@ export default function CryptoPriceChecker(): JSX.Element {
         fetchPrices();
     }, [cryptoSymbols]);
 
+    const refreshPrices: () => void = (): void => {
+        const refresh: () => Promise<void> = async (): Promise<void> => {
+            try {
+                const response: Response = await fetch(
+                    `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoSymbols.join(
+                        ","
+                    )}&vs_currencies=usd`
+                );
+
+                const data: CryptoResponse = await response.json();
+
+                setPrices(data);
+            } catch (error) {
+                setError(`Failed to fetch data: ${error}`);
+            }
+        };
+
+        refresh();
+    };
+
     if (isLoading) {
         return <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">Loading data...</div>;
     }
@@ -124,7 +144,7 @@ export default function CryptoPriceChecker(): JSX.Element {
 
     return (
         <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800">{ t("title") }</h1>
+            <h1 className="text-2xl text-center font-bold mb-4 text-gray-800">{ t("title") }</h1>
 
             <div className="space-y-4">
                 { cryptoSymbols.map((crypto: CryptoSymbol): JSX.Element => (
@@ -138,6 +158,23 @@ export default function CryptoPriceChecker(): JSX.Element {
                         </span>
                     </div>
                 ))}
+                <div className="flex justify-center items-center p-4 bg-gray-100 rounded">
+                    <button
+                        onClick={ refreshPrices }
+                        className="px-6
+                                    py-3
+                                    rounded-full
+                                    text-lg
+                                    font-semibold
+                                    shadow-lg
+                                    transition-transform
+                                    duration-300
+                                    transform hover:scale-105
+                                    bg-gray-200 text-gray-700"
+                    >
+                        Refresh Prices
+                    </button>
+                </div>
             </div>
         </div>
     );
