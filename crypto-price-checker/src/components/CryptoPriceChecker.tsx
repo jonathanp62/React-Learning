@@ -30,7 +30,26 @@
 
 import type { JSX } from "react";
 
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
+type CryptoResponse = {
+    bitcoin: {
+        usd: number;
+    };
+    cardano: {
+        usd: number;
+    };
+    dogecoin: {
+        usd: number;
+    };
+    ethereum: {
+        usd: number;
+    };
+    litecoin: {
+        usd: number;
+    };
+}
 
 /**
  * The crypto price checker component.
@@ -39,10 +58,48 @@ import { useTranslation } from 'react-i18next';
  */
 export default function CryptoPriceChecker(): JSX.Element {
     const { t } = useTranslation();
+    const [prices, setPrices] = useState<CryptoResponse>();
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const cryptoSymbols: string[] = ["bitcoin", "ethereum", "dogecoin", "cardano", "litecoin"];
+
+    useEffect((): void => {
+        const fetchPrices: () => Promise<void> = async (): Promise<void> => {
+            try {
+                setIsLoading(true);
+
+                const symbols: string[] = ["bitcoin", "ethereum", "dogecoin", "cardano", "litecoin"];
+                const response: Response = await fetch(
+                    `https://api.coingecko.com/api/v3/simple/price?ids=${symbols.join(
+                        ","
+                    )}&vs_currencies=usd`
+                );
+                const data: CryptoResponse = await response.json();
+
+                setPrices(data);
+            } catch (error) {
+                setError(`Failed to fetch data: ${error}`);
+                setIsLoading(false);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchPrices();
+    }, []);
+
+    if (isLoading) {
+        return <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">Loading data...</div>;
+    }
+
+    if (error) {
+        return <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">Error: {error}</div>;
+    }
 
     return (
-        <div className="flex justify-center items-start w-full pt-10 bg-yellow-50 h-screen">
-            <p>{ t("title") }</p>
+        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold mb-4 text-gray-800">{ t("title") }</h1>
         </div>
     );
 }
