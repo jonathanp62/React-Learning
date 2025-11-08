@@ -1,3 +1,11 @@
 {
-  "title": "Contact Manager"
+  "title": "Contact Manager",
+  "add-contact": "Add Contact",
+  "name": "Name",
+  "phone": "Phone",
+  "email": "Email",
+  "address": "Address",
+  "parsing-error": "Error parsing contacts from local storage",
+  "available-contacts": "Available Contact List",
+  "search-contact": "Search Contact"
 }

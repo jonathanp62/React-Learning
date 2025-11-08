@@ -29,17 +29,12 @@
  */
 
 import type { JSX } from "react";
+import type { ContactType } from "../types/ContactType.jsx";
 
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-
-type ContactType = {
-    id: number;
-    name: string;
-    phone: string;
-    email: string;
-    address: string;
-}
+import NavBar from "./NavBar.tsx";
+import ContactAdder from "./ContactAdder.tsx";
 
 /**
  * The contact manager component.
@@ -57,7 +52,7 @@ export default function ContactManager(): JSX.Element {
         try {
             getContacts = JSON.parse(storedContacts) as ContactType[];
         } catch (e) {
-            console.error("Error parsing contacts from localStorage", e);
+            console.error(t("parsing-error"), e);
         }
     }
 
@@ -107,6 +102,43 @@ export default function ContactManager(): JSX.Element {
     };
 
     return (
-        <p>{ t("title") }</p>
+        <>
+            <NavBar />
+            <div className="flex_container">
+                <div className="contact_adder">
+                    <ContactAdder addContactFunction={ addContact }  />
+                </div>
+
+                <div className="contact_list">
+                    <h2>{ t("available-contacts") }</h2>
+                    <input
+                        type="text"
+                        placeholder={ t("search-contact") }
+                        className="search_input"
+                    />
+
+                    <table id="contacts_table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {contacts.map((data: ContactType): JSX.Element => (
+                            <Contact
+                                key={data.id}
+                                data={data}
+                                onDelete={deleteContact}
+                                onEdit={editContact}
+                            />
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </>
     );
 }
