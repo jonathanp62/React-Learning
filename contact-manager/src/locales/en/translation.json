@@ -6,6 +6,10 @@
   "email": "Email",
   "address": "Address",
   "parsing-error": "Error parsing contacts from local storage",
-  "available-contacts": "Available Contact List",
-  "search-contact": "Search Contact"
+  "available-contacts": "Available Contacts",
+  "search-contact": "Search Contact",
+  "save": "Save",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "delete": "Delete"
 }

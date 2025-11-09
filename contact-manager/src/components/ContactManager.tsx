@@ -33,7 +33,9 @@ import type { ContactType } from "../types/ContactType.jsx";
 
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
+
 import NavBar from "./NavBar.tsx";
+import Contact from "./Contact.tsx";
 import ContactAdder from "./ContactAdder.tsx";
 
 /**
@@ -46,17 +48,21 @@ export default function ContactManager(): JSX.Element {
 
     const storedContacts: string | null = localStorage.getItem("contacts");
 
-    let getContacts: ContactType[] | null = null; // Initialize as null or a default object
+    let getContacts: ContactType[];
 
-    if (storedContacts !== null) {
+    if (storedContacts === null) {
+        getContacts = [];
+    } else {
         try {
             getContacts = JSON.parse(storedContacts) as ContactType[];
         } catch (e) {
             console.error(t("parsing-error"), e);
+
+            getContacts = [];
         }
     }
 
-    const [contacts, setContacts] = useState<ContactType[] | null>(getContacts);
+    const [contacts, setContacts] = useState<ContactType[]>(getContacts);
 
     const addContact: (contact: ContactType) => void  = (contact: ContactType): void => {
         const newContacts: ContactType[] = [...(contacts ?? []), contact];
@@ -70,10 +76,6 @@ export default function ContactManager(): JSX.Element {
     };
 
     const editContact: (id: number, updatedContact: ContactType) => void = (id: number, updatedContact: ContactType): void => {
-        if (contacts === null) {
-            return;
-        }
-
         const updatedContacts: ContactType[] = contacts.map((contact: ContactType): ContactType =>
             contact.id === id ? { ...contact, ...updatedContact } : contact
         );
@@ -87,10 +89,6 @@ export default function ContactManager(): JSX.Element {
     };
 
     const deleteContact: (id: number) => void = (id: number): void => {
-        if (contacts === null) {
-            return;
-        }
-
         const updatedContacts: ContactType[] = contacts.filter((contact: ContactType): boolean => contact.id !== id);
 
         setContacts(updatedContacts);
@@ -119,22 +117,22 @@ export default function ContactManager(): JSX.Element {
 
                     <table id="contacts_table">
                         <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {contacts.map((data: ContactType): JSX.Element => (
-                            <Contact
-                                key={data.id}
-                                data={data}
-                                onDelete={deleteContact}
-                                onEdit={editContact}
-                            />
-                        ))}
+                            {contacts.map((data: ContactType): JSX.Element => (
+                                <Contact
+                                    key={ data.id }
+                                    contact={ data }
+                                    onDelete={ deleteContact }
+                                    onEdit={ editContact }
+                                />
+                            ))}
                         </tbody>
                     </table>
                 </div>

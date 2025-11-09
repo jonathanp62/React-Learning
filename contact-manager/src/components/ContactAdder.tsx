@@ -32,7 +32,7 @@ import type { JSX } from "react";
 import type { ContactType } from "../types/ContactType.tsx";
 import type ContactAdderProps from "../types/ContactAdderProps.tsx";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -40,7 +40,7 @@ import { useTranslation } from 'react-i18next';
  *
  * @returns {JSX.Element}
  */
-export default function ContactAdder({ addContactFunction }: ContactAdderProps ): JSX.Element {
+export default function ContactAdder({ addContactFunction }: Readonly<ContactAdderProps> ): JSX.Element {
     const {t} = useTranslation();
 
     const [name, setName] = useState<string>("");
@@ -68,28 +68,28 @@ export default function ContactAdder({ addContactFunction }: ContactAdderProps )
                 type="text"
                 value={ name }
                 placeholder={ t("name") }
-                onChange={(e): void => setName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setName(e.target.value)}
             />
             <br /> <br />
             <input
                 type="text"
                 value={ phone }
                 placeholder={ t("phone") }
-                onChange={(e): void => setPhone(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setPhone(e.target.value)}
             />
             <br /> <br />
             <input
                 type="text"
                 value={ email }
                 placeholder={ t("email") }
-                onChange={(e): void => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setEmail(e.target.value)}
             />
             <br /> <br />
             <input
                 type="text"
                 value={ address }
                 placeholder={ t("address") }
-                onChange={(e): void => setAddress(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setAddress(e.target.value)}
             />
             <br /> <br />
             <button onClick={ onClickHandler }>{ t("add-contact") }</button>
