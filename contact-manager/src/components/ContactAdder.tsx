@@ -33,6 +33,7 @@ import type { ContactType } from "../types/ContactType.tsx";
 import type ContactAdderProps from "../types/ContactAdderProps.tsx";
 
 import React, { useState } from "react";
+import { Plus } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -92,7 +93,10 @@ export default function ContactAdder({ addContactFunction }: Readonly<ContactAdd
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setAddress(e.target.value)}
             />
             <br /> <br />
-            <button onClick={ onClickHandler }>{ t("add-contact") }</button>
+            <button onClick={ onClickHandler }>
+                { t("add-contact") }
+                <Plus size={ 25 } />
+            </button>
         </div>
     );
 }

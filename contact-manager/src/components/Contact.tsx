@@ -32,6 +32,7 @@ import type { JSX } from "react";
 import type ContactProps from "../types/ContactProps.tsx";
 
 import React, { useState } from "react";
+import { Edit, Trash2, Save, X } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -125,11 +126,11 @@ export default function Contact({ contact, onEdit, onDelete }: Readonly<ContactP
                         <div className="action_buttons">
                             <button onClick={ handleSave } className="save_button">
                                 { t("save") }
-                                {/*<Save size={22} /> */}
+                                <Save size={ 22 } />
                             </button>
-                            <button onClick={handleCancel} className="cancel_button">
+                            <button onClick={ handleCancel } className="cancel_button">
                                 { t("cancel") }
-                                {/* <X size={22} /> */}
+                                <X size={ 22 } />
                             </button>
                         </div>
                     </td>
@@ -144,11 +145,11 @@ export default function Contact({ contact, onEdit, onDelete }: Readonly<ContactP
                         <div className="action_buttons">
                             <button onClick={ handleEdit } className="edit_button">
                                 { t("edit") }
-                                {/* <Edit size={22} /> */}
+                                <Edit size={ 22 } />
                             </button>
                             <button onClick={ handleDelete } className="delete_button">
                                 { t("delete") }
-                                {/* <Trash2 size={22} /> */}
+                                <Trash2 size={ 22 } />
                             </button>
                         </div>
                     </td>
