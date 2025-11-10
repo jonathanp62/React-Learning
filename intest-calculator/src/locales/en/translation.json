@@ -1,3 +1,16 @@
 {
-  "title": "Interest Calculator"
+  "title": "Interest Calculator",
+  "invalid-input": "Please enter valid inputs",
+  "principal-amount": "Principal Amount",
+  "enter-principal-amount": "Enter principal amount",
+  "interest-rate": "Interest Rate",
+  "enter-interest-rate": "Enter interest rate",
+  "time-in-years": "Time in Years",
+  "enter-time-in-years": "Enter time in years",
+  "interest-type": "Interest Type",
+  "simple-interest": "Simple",
+  "compound-interest": "Compound",
+  "calculate": "Calculate",
+  "start-over": "Start Over",
+  "interest": "Interest"
 }
