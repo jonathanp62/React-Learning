@@ -83,6 +83,10 @@ export default function InterestCalculator(): JSX.Element {
         }
     };
 
+    const getResultColorClasses: string = isInputError()
+        ? 'bg-red-100 text-red-800'         // Classes if true (error)
+        : 'bg-green-100 text-green-800';    // Classes if false (success)
+
     return (
         <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold mb-4 text-gray-800">{ t("title") }</h1>
@@ -141,7 +145,7 @@ export default function InterestCalculator(): JSX.Element {
 
             {result && (
                 <>
-                    <div className="mt-4 p-4 bg-green-100 rounded text-green-800 font-semibold">
+                    <div className={`mt-4 p-4 ${getResultColorClasses} font-semibold`}>
                         { isInputError() ? result : t("interest") + ": " + result }
                     </div>
 
