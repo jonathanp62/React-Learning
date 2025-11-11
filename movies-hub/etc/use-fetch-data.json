@@ -1,0 +1,31 @@
+{
+  "dates": {
+    "maximum": "2025-11-12",
+    "minimum": "2025-10-01"
+  },
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/hpXBJxLD2SEf8l2CspmSeiHrBKX.jpg",
+      "genre_ids": [
+        18,
+        27,
+        14
+      ],
+      "id": 1062722,
+      "original_language": "en",
+      "original_title": "Frankenstein",
+      "overview": "Dr. Victor Frankenstein, a brilliant but egotistical scientist, brings a creature to life in a monstrous experiment that ultimately leads to the undoing of both the creator and his tragic creation.",
+      "popularity": 1005.0134,
+      "poster_path": "/v9NLaLBbrkDwq44qG51v8T6sPuI.jpg",
+      "release_date": "2025-10-17",
+      "title": "Frankenstein",
+      "video": false,
+      "vote_average": 7.93,
+      "vote_count": 819
+    }
+  ],
+  "total_pages": 351,
+  "total_results": 7017
+}
