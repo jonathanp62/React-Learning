@@ -35,9 +35,13 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useFetch from "../hooks/useFetch";
 
+/**
+ * The home page component.
+ *
+ * @returns {JSX.Element}
+ */
 export default function Home(): JSX.Element {
     const { t } = useTranslation();
-
     const { data, loading, error } = useFetch("/movie/now_playing");
 
     if (loading)

@@ -33,6 +33,11 @@ import type { JSX } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+/**
+ * The header component.
+ *
+ * @returns {JSX.Element}
+ */
 export default function Header(): JSX.Element {
     const { t } = useTranslation();
 

@@ -30,15 +30,22 @@
 
 import type { MovieApiResponse } from "../types/MovieApiResponse.tsx";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+/**
+ * The useFetch hook.
+ *
+ * @param   {string}    endpoint    The endpoint to fetch data from
+ *
+ * @returns {{data: MovieApiResponse | null, loading: boolean, error: string | null}}
+ */
 const useFetch: (endpoint: string) => {data: MovieApiResponse | null, loading: boolean, error: string | null} = (endpoint: string): {data: MovieApiResponse | null, loading: boolean, error: string | null} => {
     const [data, setData] = useState<MovieApiResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const ACCESS_TOKEN: string = import.meta.env.VITE_ACCESS_TOKEN;
-    const BASE_URL = "https://api.themoviedb.org/3";
+    const ACCESS_TOKEN: string = useMemo((): string => import.meta.env.VITE_ACCESS_TOKEN, []);
+    const BASE_URL: string = useMemo((): string => "https://api.themoviedb.org/3", []);
 
     useEffect((): void => {
         const fetchData: () => Promise<void> = async (): Promise<void> => {
@@ -70,7 +77,7 @@ const useFetch: (endpoint: string) => {data: MovieApiResponse | null, loading: b
         };
 
         fetchData();
-    }, [ACCESS_TOKEN, endpoint]);
+    }, [endpoint]);
 
     return {data, loading, error};
 };

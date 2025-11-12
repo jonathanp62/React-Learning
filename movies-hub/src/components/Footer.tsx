@@ -33,6 +33,11 @@ import type { JSX } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+/**
+ * The footer component.
+ *
+ * @returns {JSX.Element}
+ */
 export default function Footer(): JSX.Element {
     const { t } = useTranslation();
 
