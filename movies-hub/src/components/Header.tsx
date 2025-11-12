@@ -31,8 +31,11 @@
 import type { JSX } from "react";
 
 import { Link, NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Header(): JSX.Element {
+    const { t } = useTranslation();
+
     return (
         <header className="shadow sticky z-50 top-0">
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
@@ -50,14 +53,14 @@ export default function Header(): JSX.Element {
                             to="/login"
                             className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
-                            Log in
+                            { t("log-in") }
                         </Link>
 
                         <Link
                             to="/get-started"
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
-                            Get Started
+                            { t("get-started") }
                         </Link>
                     </div>
 
@@ -74,7 +77,7 @@ export default function Header(): JSX.Element {
                                         } lg:bg-transparent lg:p-0`
                                     }
                                 >
-                                    Home
+                                    { t("home") }
                                 </NavLink>
                             </li>
                             <li>
@@ -88,7 +91,7 @@ export default function Header(): JSX.Element {
                                         } lg:bg-transparent lg:p-0`
                                     }
                                 >
-                                    Movies
+                                    { t("movies") }
                                 </NavLink>
                             </li>
                             <li>
@@ -102,7 +105,7 @@ export default function Header(): JSX.Element {
                                         } lg:bg-transparent lg:p-0`
                                     }
                                 >
-                                    TV Shows
+                                    { t("tv-shows") }
                                 </NavLink>
                             </li>
                         </ul>

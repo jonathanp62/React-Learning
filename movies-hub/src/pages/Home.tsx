@@ -32,16 +32,19 @@ import type { JSX } from "react";
 import type { MovieResult} from "../types/MovieApiResponse.tsx";
 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import useFetch from "../hooks/useFetch";
 
 export default function Home(): JSX.Element {
+    const { t } = useTranslation();
+
     const { data, loading, error } = useFetch("/movie/now_playing");
 
     if (loading)
-        return <div className="min-h-screen flex justify-center">Loading...</div>;
+        return <div className="min-h-screen flex justify-center">{ t("loading") }...</div>;
 
     if (error)
-        return <div className="min-h-screen flex justify-center">{error}</div>;
+        return <div className="min-h-screen flex justify-center">{ error }</div>;
 
     return (
         <div className="min-h-screen bg-white">
@@ -49,25 +52,24 @@ export default function Home(): JSX.Element {
             <section className="py-60 bg-gradient-to-br from-blue-300 to-blue-700">
                 <div className="max-w-screen-xl mx-auto px-4 text-center">
                     <h1 className="font-bold mb-6 text-5xl md:text-6xl">
-                        Welcome to CineHub
+                        { t("welcome") }
                     </h1>
 
                     <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        Browse and discover thousands of movies and TV shows. Browse about
-                        your favourite movies and shows.
+                        { t("browse-discover") }
                     </p>
                     <div className="space-x-4">
                         <Link
                             to="/movies"
                             className="bg-blue-500  text-white font-semibold rounded-lg px-8 py-3 border-2 border-whit hover:bg-blue-600  transition duration-300 inline-block"
                         >
-                            Browse Movies
+                            { t("browse-movies") }
                         </Link>
                         <Link
                             to="/tvshows"
                             className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300 inline-block"
                         >
-                            Browse TV Shows
+                            { t("browse-tv") }
                         </Link>
                     </div>
                 </div>
@@ -75,12 +77,12 @@ export default function Home(): JSX.Element {
             <section className="bg-gray-50 py-16">
                 <div className="max-w-screen-xl mx-auto px-4">
                     <div className="flex justify-between items-center mb-8">
-                        <h2 className="font-bold text-2xl text-gray-800"> Now playing in Cinemas</h2>
+                        <h2 className="font-bold text-2xl text-gray-800">{ t("now-playing") }</h2>
                         <Link
                             to="/movies"
                             className="text-blue-600 hover:text-blue-800 font-medium"
                         >
-                            View All Movies
+                            { t("view-all-movies") }
                         </Link>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

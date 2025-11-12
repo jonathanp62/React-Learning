@@ -31,8 +31,11 @@
 import type { JSX } from "react";
 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Footer(): JSX.Element {
+    const { t } = useTranslation();
+
     return (
         <footer className="bg-gray-800 text-white">
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -50,14 +53,14 @@ export default function Footer(): JSX.Element {
 
                     <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4 lg:mt-0">
                         <div>
-                            <p className="font-medium text-white">Company</p>
+                            <p className="font-medium text-white">{ t("company") }</p>
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
                                     <Link
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        About Us
+                                        { t("about-us") }
                                     </Link>
                                 </li>
                                 <li>
@@ -65,7 +68,7 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Careers
+                                        { t("careers") }
                                     </Link>
                                 </li>
                                 <li>
@@ -73,7 +76,7 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Press
+                                        { t("press") }
                                     </Link>
                                 </li>
                                 <li>
@@ -81,21 +84,21 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Blog
+                                        { t("blog") }
                                     </Link>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <p className="font-medium text-white">Services</p>
+                            <p className="font-medium text-white">{ t("services") }</p>
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
                                     <Link
                                         to="/movies"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Movies
+                                        { t("movies") }
                                     </Link>
                                 </li>
                                 <li>
@@ -103,7 +106,7 @@ export default function Footer(): JSX.Element {
                                         to="/tvshows"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        TV Shows
+                                        { t("tv-shows") }
                                     </Link>
                                 </li>
                                 <li>
@@ -111,7 +114,7 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Top 100 Movies
+                                        { t("top-100-movies") }
                                     </Link>
                                 </li>
                                 <li>
@@ -119,59 +122,21 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Subscription
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <p className="font-medium text-white">Support</p>
-                            <ul className="mt-6 space-y-4 text-sm">
-                                <li>
-                                    <Link
-                                        to="#"
-                                        className="text-gray-300 transition hover:text-white"
-                                    >
-                                        Help Center
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="#"
-                                        className="text-gray-300 transition hover:text-white"
-                                    >
-                                        Contact Us
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="#"
-                                        className="text-gray-300 transition hover:text-white"
-                                    >
-                                        FAQ
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="#"
-                                        className="text-gray-300 transition hover:text-white"
-                                    >
-                                        Customer Support
+                                        { t("subscription") }
                                     </Link>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <p className="font-medium text-white">Legal</p>
+                            <p className="font-medium text-white">{ t("support") }</p>
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
                                     <Link
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Privacy Policy
+                                        { t("help-center") }
                                     </Link>
                                 </li>
                                 <li>
@@ -179,7 +144,7 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Terms of Service
+                                        { t("contact-us") }
                                     </Link>
                                 </li>
                                 <li>
@@ -187,7 +152,7 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Cookie Policy
+                                        { t("faq") }
                                     </Link>
                                 </li>
                                 <li>
@@ -195,7 +160,45 @@ export default function Footer(): JSX.Element {
                                         to="#"
                                         className="text-gray-300 transition hover:text-white"
                                     >
-                                        Disclaimer
+                                        { t("customer-support") }
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <p className="font-medium text-white">{ t("legal") }</p>
+                            <ul className="mt-6 space-y-4 text-sm">
+                                <li>
+                                    <Link
+                                        to="#"
+                                        className="text-gray-300 transition hover:text-white"
+                                    >
+                                        { t("privacy-policy") }
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="#"
+                                        className="text-gray-300 transition hover:text-white"
+                                    >
+                                        { t("terms-of-service") }
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="#"
+                                        className="text-gray-300 transition hover:text-white"
+                                    >
+                                        { t("cookie-policy") }
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="#"
+                                        className="text-gray-300 transition hover:text-white"
+                                    >
+                                        { t("disclaimer") }
                                     </Link>
                                 </li>
                             </ul>
@@ -206,7 +209,7 @@ export default function Footer(): JSX.Element {
                 <div className="mt-8 border-t border-gray-100 pt-8">
                     <div className="sm:flex sm:justify-between">
                         <p className="text-xs text-gray-400">
-                            &copy; 2024 Your Brand. All rights reserved.
+                            &copy; { t("copyright") }
                         </p>
 
                         <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
@@ -215,7 +218,7 @@ export default function Footer(): JSX.Element {
                                     to="#"
                                     className="text-gray-400 transition hover:text-white"
                                 >
-                                    Terms & Conditions
+                                    { t("terms-conditions") }
                                 </Link>
                             </li>
                             <li>
@@ -223,7 +226,7 @@ export default function Footer(): JSX.Element {
                                     to="#"
                                     className="text-gray-400 transition hover:text-white"
                                 >
-                                    Privacy Policy
+                                    { t("privacy-policy") }
                                 </Link>
                             </li>
                             <li>
@@ -231,7 +234,7 @@ export default function Footer(): JSX.Element {
                                     to="#"
                                     className="text-gray-400 transition hover:text-white"
                                 >
-                                    Cookies
+                                    { t("cookies") }
                                 </Link>
                             </li>
                         </ul>
