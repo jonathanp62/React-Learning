@@ -1,5 +1,5 @@
 /*
- * (#)useFetch.tsx  0.3.0   11/11/2025
+ * (#)useSearchMovies.tsx   0.3.0   11/13/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,46 +28,46 @@
  * SOFTWARE.
  */
 
-import type { MovieApiResponse } from "../types/MovieApiResponse.tsx";
+import type { MovieListResponse } from "../types/MovieListResponse.tsx";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-/**
- * The useFetch hook.
- *
- * @param   {string}    endpoint    The endpoint to fetch data from
- *
- * @returns {{data: MovieApiResponse | null, loading: boolean, error: string | null}}
- */
-const useFetch: (endpoint: string) => {data: MovieApiResponse | null, loading: boolean, error: string | null} = (endpoint: string): {data: MovieApiResponse | null, loading: boolean, error: string | null} => {
-    const [data, setData] = useState<MovieApiResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+const useSearchMovies: (searchQuery: string) => { data: MovieListResponse | null, loading: boolean, error: string | null } = (searchQuery: string): { data: MovieListResponse | null, loading: boolean, error: string | null } => {
+    const [data, setQuery] = useState<MovieListResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const ACCESS_TOKEN: string = useMemo((): string => import.meta.env.VITE_ACCESS_TOKEN, []);
     const BASE_URL: string = useMemo((): string => "https://api.themoviedb.org/3", []);
 
     useEffect((): void => {
-        const fetchData: () => Promise<void> = async (): Promise<void> => {
+        const fetchQuery: () => Promise<void> = async (): Promise<void> => {
             try {
-                const response: Response = await fetch(`${BASE_URL}${endpoint}`, {
-                    headers: {
-                        Authorization: `Bearer ${ACCESS_TOKEN}`,
-                        accept: "application/json",
-                    },
-                });
+                setLoading(true);
+
+                const response: Response = await fetch(
+                    `${BASE_URL}/search/movie?query=${encodeURIComponent(
+                        searchQuery
+                    )}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${ACCESS_TOKEN}`,
+                            accept: "application/json",
+                        },
+                    }
+                );
 
                 console.log(response);
 
                 if (response.ok) {
-                    const data: MovieApiResponse = await response.json();
+                    const data: MovieListResponse = await response.json();
 
                     console.log(data);
 
-                    setData(data);
+                    setQuery(data);
                     setError(null);
                 } else {
-                    setError(`Failed to fetch data: ${response.statusText}`)
+                    setError(`Failed to fetch data: ${response.statusText}`);
                 }
             } catch (error) {
                 setError(`Caught error fetching data: ${error}`);
@@ -76,10 +76,10 @@ const useFetch: (endpoint: string) => {data: MovieApiResponse | null, loading: b
             }
         };
 
-        fetchData();
-    }, [endpoint]);
+        fetchQuery();
+    }, [searchQuery]);
 
     return {data, loading, error};
 };
 
-export default useFetch;
+export default useSearchMovies;

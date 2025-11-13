@@ -1,0 +1,47 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/hpXBJxLD2SEf8l2CspmSeiHrBKX.jpg",
+      "genre_ids": [
+        18,
+        27,
+        14
+      ],
+      "id": 1062722,
+      "original_language": "en",
+      "original_title": "Frankenstein",
+      "overview": "Dr. Victor Frankenstein, a brilliant but egotistical scientist, brings a creature to life in a monstrous experiment that ultimately leads to the undoing of both the creator and his tragic creation.",
+      "popularity": 1003.6215,
+      "poster_path": "/g4JtvGlQO7DByTI6frUobqvSL3R.jpg",
+      "release_date": "2025-10-17",
+      "title": "Frankenstein",
+      "video": false,
+      "vote_average": 7.918,
+      "vote_count": 1002
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/wFbPbJ9uRDpjY7micBTeolgkOA4.jpg",
+      "genre_ids": [
+        18,
+        27,
+        878
+      ],
+      "id": 3035,
+      "original_language": "en",
+      "original_title": "Frankenstein",
+      "overview": "Henry Frankenstein pieces together body parts in the hope of bringing a human-like creature to life. The mad scientist’s dreams are shattered by his monstrous creation awakening with rage to a world that hates and fears him.",
+      "popularity": 11.7737,
+      "poster_path": "/mu6wHwH0IwCCaEYtpqujuPJYat1.jpg",
+      "release_date": "1931-11-21",
+      "title": "Frankenstein",
+      "video": false,
+      "vote_average": 7.468,
+      "vote_count": 1707
+    }
+  ],
+  "total_pages": 16,
+  "total_results": 314
+}
