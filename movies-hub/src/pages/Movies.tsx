@@ -29,6 +29,7 @@
  */
 
 import type { JSX } from "react";
+import type { Movie } from "../types/MovieListResponse.tsx";
 
 import React, { useState } from "react";
 import useFetch from "../hooks/useFetch.js";
@@ -57,7 +58,7 @@ export default function Movies(): JSX.Element {
     } = useSearchMovies(searchQuery);
 
     if (error)
-        return <p>{error}</p>;
+        return <p>{ error }</p>;
 
     if (loading)
         return <p className="min-h-screen">Loading...</p>;
@@ -81,6 +82,56 @@ export default function Movies(): JSX.Element {
                 >
                     {queryLoading ? "Loading..." : "Search"}
                 </button>
+            </div>
+
+            {queryError && (
+                <p className="text-center text-red-600 mt-4">
+                    Search Error:{ queryError }
+                </p>
+            )}
+
+            {/* Optional chaining is used (?.) */}
+            {/* ?? is the nullish coalescing operator. It returns the left operand if it is not null or undefined, otherwise it returns the right operand. */}
+
+            {(query?.results?.length ?? 0) > 0 && (
+                <div className="m-8 p-4 border border-yellow-400 bg-yellow-50 rounded-xl shadow-md text-center items-center">
+                    <h2 className="text-xl font-bold text-yellow-800">Results</h2>
+                    {query?.results?.[0] && (
+                        <>
+                            <img
+                                src={`https://image.tmdb.org/t/p/w500/${query?.results?.[0]?.poster_path}`}
+                                className="w-48 h-auto rounded-xl mx-auto"
+                                alt={query?.results?.[0]?.title || "Movie Poster"}
+                            />
+                            <p className="font-bold text-2xl">{query?.results?.[0]?.title}</p>
+                            <p>{query?.results?.[0]?.overview}</p>
+                            <p>{query?.results?.[0]?.vote_average}</p>
+                        </>
+                    )}
+                </div>
+            )}
+
+            {/* Movies section */}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-8">
+                {data?.results?.map((movie: Movie): JSX.Element => (
+                    <div
+                        key={movie.id}
+                        className="bg-white/5 p-3 rounded-xl shadow-md flex flex-col items-center text-center hover:transform hover:scale-105"
+                    >
+                        <img
+                            src={ `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }
+                            alt="poster"
+                            className="w-48 h-auto rounded-xl"
+                        />
+                        <p className="mt-3 font-bold text-gray-900 text-2xl">
+                            { movie.title }
+                        </p>
+                        <p className="text-gray-900 ">{ movie.overview }</p>
+                        <p>{ movie.release_date }</p>
+                        <p>Average rating : { movie.vote_average }</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

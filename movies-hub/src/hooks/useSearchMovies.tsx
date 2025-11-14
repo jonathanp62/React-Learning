@@ -33,7 +33,7 @@ import type { MovieListResponse } from "../types/MovieListResponse.tsx";
 import { useState, useEffect, useMemo } from "react";
 
 const useSearchMovies: (searchQuery: string) => { data: MovieListResponse | null, loading: boolean, error: string | null } = (searchQuery: string): { data: MovieListResponse | null, loading: boolean, error: string | null } => {
-    const [data, setQuery] = useState<MovieListResponse | null>(null);
+    const [data, setData] = useState<MovieListResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -64,7 +64,7 @@ const useSearchMovies: (searchQuery: string) => { data: MovieListResponse | null
 
                     console.log(data);
 
-                    setQuery(data);
+                    setData(data);
                     setError(null);
                 } else {
                     setError(`Failed to fetch data: ${response.statusText}`);
