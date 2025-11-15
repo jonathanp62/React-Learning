@@ -1,5 +1,5 @@
 /*
- * (#)main.tsx  0.3.0   11/11/2025
+ * (#)TvShow.tsx    0.3.0   11/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,34 +28,19 @@
  * SOFTWARE.
  */
 
-import "./i18n.js";
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './styles/styles.css';
-import Layout from "./Layout.jsx";
-import Home from "./pages/Home.tsx";
-import Movies from "./pages/Movies.tsx";
-import TvShows from "./pages/TvShows.tsx";
-
-import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    RouterProvider,
-    Route,
-} from "react-router-dom";
-
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" element={ <Layout /> }>
-            <Route path="" element={ <Home /> } />
-            <Route path="movies" element={ <Movies /> } />
-            <Route path="tvshows" element={ <TvShows /> } />
-        </Route>
-    )
-);
-
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <RouterProvider router={ router } />
-    </StrictMode>,
-)
+export type TvShow = {
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: number[];
+    id: number;
+    origin_country: string[];
+    original_language: string;
+    original_name: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    first_air_date: string; // ISO date string
+    name: string;
+    vote_average: number;
+    vote_count: number;
+};

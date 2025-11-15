@@ -1,5 +1,5 @@
 /*
- * (#)main.tsx  0.3.0   11/11/2025
+ * (#)TvShowListResponse.tsx    0.3.0   11/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,34 +28,11 @@
  * SOFTWARE.
  */
 
-import "./i18n.js";
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './styles/styles.css';
-import Layout from "./Layout.jsx";
-import Home from "./pages/Home.tsx";
-import Movies from "./pages/Movies.tsx";
-import TvShows from "./pages/TvShows.tsx";
+import type { TvShow } from "./TvShow.tsx";
 
-import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    RouterProvider,
-    Route,
-} from "react-router-dom";
-
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" element={ <Layout /> }>
-            <Route path="" element={ <Home /> } />
-            <Route path="movies" element={ <Movies /> } />
-            <Route path="tvshows" element={ <TvShows /> } />
-        </Route>
-    )
-);
-
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <RouterProvider router={ router } />
-    </StrictMode>,
-)
+export type TvShowListResponse = {
+    page: number;
+    results: TvShow[];
+    total_pages: number;
+    total_results: number;
+};

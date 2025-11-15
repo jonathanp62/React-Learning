@@ -76,4 +76,6 @@ export default defineConfig([
 
 Run this using `npm run dev` from the root directory of the project.
 
+The application uses the TMDB API at https://developer.themoviedb.org/docs/getting-started.
+
 The application can be accessed at http://localhost:5173.
