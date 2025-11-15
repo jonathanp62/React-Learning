@@ -29,7 +29,7 @@
  */
 
 import type { JSX } from "react";
-import type { MovieResult } from "../types/MovieApiResponse.tsx";
+import type { Movie } from "../types/Movie.tsx";
 
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -90,7 +90,7 @@ export default function Home(): JSX.Element {
                         </Link>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {data?.results?.map((nowPlaying: MovieResult): JSX.Element => (
+                        {data?.results?.map((nowPlaying: Movie): JSX.Element => (
                             <div
                                 key={nowPlaying.id}
                                 className="bg-white/5 p-3 rounded-xl shadow-md flex flex-col items-center text-center hover:transform hover:scale-105"
