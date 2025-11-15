@@ -31,5 +31,11 @@
   "browse-tv": "Browse TV Shows",
   "now-playing": "Now playing in Cinemas",
   "view-all-movies": "View All Movies",
-  "loading": "Loading"
+  "loading": "Loading",
+  "search": "Search",
+  "search-error": "Search Error",
+  "enter-movie": "Enter movie name",
+  "results": "Results",
+  "movie-poster": "Movie Poster",
+  "poster": "Poster"
 }

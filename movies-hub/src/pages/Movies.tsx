@@ -29,9 +29,10 @@
  */
 
 import type { JSX } from "react";
-import type { Movie } from "../types/MovieListResponse.tsx";
+import type { Movie } from "../types/Movie.tsx";
 
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import useFetch from "../hooks/useFetch.js";
 import useSearchMovies from "../hooks/useSearchMovies.js";
 
@@ -41,6 +42,8 @@ import useSearchMovies from "../hooks/useSearchMovies.js";
  * @returns {JSX.Element}
  */
 export default function Movies(): JSX.Element {
+    const { t } = useTranslation();
+
     const [searchText, setSearchText] = useState<string>("");
     const [searchQuery, setSearchQuery] = useState<string>(""); // Main trigger
     const { data, loading, error } = useFetch("/movie/popular");
@@ -61,7 +64,7 @@ export default function Movies(): JSX.Element {
         return <p>{ error }</p>;
 
     if (loading)
-        return <p className="min-h-screen">Loading...</p>;
+        return <p className="min-h-screen">{ t("loading") }...</p>;
 
     return (
         <div>
@@ -72,7 +75,7 @@ export default function Movies(): JSX.Element {
                     id=""
                     value={ searchText }
                     onChange={ (e: React.ChangeEvent<HTMLInputElement>): void => setSearchText(e.target.value) }
-                    placeholder="Enter movie name"
+                    placeholder={ t("enter-movie") }
                     className="bg-white border border-gray rounded-2xl px-10 py-2 mt-3"
                 />
                 <button
@@ -80,13 +83,13 @@ export default function Movies(): JSX.Element {
                     onClick={ (): void => setSearchQuery(searchText) }
                     disabled={queryLoading}
                 >
-                    {queryLoading ? "Loading..." : "Search"}
+                    { queryLoading ? t("loading") + " ..." : t("search") }
                 </button>
             </div>
 
             {queryError && (
                 <p className="text-center text-red-600 mt-4">
-                    Search Error:{ queryError }
+                    { t("search-error") }:{ queryError }
                 </p>
             )}
 
@@ -95,13 +98,13 @@ export default function Movies(): JSX.Element {
 
             {(query?.results?.length ?? 0) > 0 && (
                 <div className="m-8 p-4 border border-yellow-400 bg-yellow-50 rounded-xl shadow-md text-center items-center">
-                    <h2 className="text-xl font-bold text-yellow-800">Results</h2>
+                    <h2 className="text-xl font-bold text-yellow-800">{ t("results") }</h2>
                     {query?.results?.[0] && (
                         <>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500/${query?.results?.[0]?.poster_path}`}
                                 className="w-48 h-auto rounded-xl mx-auto"
-                                alt={query?.results?.[0]?.title || "Movie Poster"}
+                                alt={ query?.results?.[0]?.title || t("movie-poster") }
                             />
                             <p className="font-bold text-2xl">{query?.results?.[0]?.title}</p>
                             <p>{query?.results?.[0]?.overview}</p>
@@ -121,7 +124,7 @@ export default function Movies(): JSX.Element {
                     >
                         <img
                             src={ `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }
-                            alt="poster"
+                            alt={ t("poster") }
                             className="w-48 h-auto rounded-xl"
                         />
                         <p className="mt-3 font-bold text-gray-900 text-2xl">
