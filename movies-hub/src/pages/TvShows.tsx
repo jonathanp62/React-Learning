@@ -99,13 +99,13 @@ export default function TvShows(): JSX.Element {
 
             {(query?.results?.length ?? 0) > 0 && (
                 <div className="m-8 p-4 border border-yellow-400 bg-yellow-50 rounded-xl shadow-md text-center items-center">
-                    <h2 className="text-xl font-bold text-yellow-800">Result</h2>
+                    <h2 className="text-xl font-bold text-yellow-800">{ t("results") }</h2>
                     {query?.results?.[0] && (
                         <>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500/${query?.results[0]?.poster_path}`}
                                 className="w-48 h-auto rounded-xl mx-auto"
-                                alt={query?.results[0]?.name}
+                                alt={ query?.results[0]?.name || t("tv-poster")}
                             />
                             <p className="font-bold text-2xl">{query?.results[0]?.name}</p>
                             <p>{query?.results[0]?.overview}</p>
@@ -125,14 +125,14 @@ export default function TvShows(): JSX.Element {
                     >
                         <img
                             src={`https://image.tmdb.org/t/p/w500/${tvshow.poster_path}`}
-                            alt="poster"
+                            alt={ t("poster") }
                             className={`w-48 h-auto rounded-xl`}
                         />
                         <p className="mt-3 font-bold text-gray-900 text-2xl">
                             {tvshow.name}
                         </p>
                         <p>{tvshow.first_air_date}</p>
-                        <p>Average rating : {tvshow.vote_average}</p>
+                        <p>{ t("average-rating") }: {tvshow.vote_average}</p>
                     </div>
                 ))}
             </div>

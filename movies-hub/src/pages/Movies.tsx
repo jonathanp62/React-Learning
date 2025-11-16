@@ -132,7 +132,7 @@ export default function Movies(): JSX.Element {
                         </p>
                         <p className="text-gray-900 ">{ movie.overview }</p>
                         <p>{ movie.release_date }</p>
-                        <p>Average rating : { movie.vote_average }</p>
+                        <p>{ t("average-rating") }: { movie.vote_average }</p>
                     </div>
                 ))}
             </div>
