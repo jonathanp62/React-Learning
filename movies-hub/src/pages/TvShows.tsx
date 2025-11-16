@@ -29,10 +29,12 @@
  */
 
 import type { JSX } from "react";
+import type { TvShow } from "../types/TvShow.tsx";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import useFetch from "../hooks/useFetch.js";
+
+import useFetchTvPopular from "../hooks/useFetchTvPopular.tsx";
 import useSearchTvShows from "../hooks/useSearchTvShows.tsx";
 
 /**
@@ -45,7 +47,7 @@ export default function TvShows(): JSX.Element {
 
     const [searchText, setSearchText] = useState<string>("");
     const [searchQuery, setSearchQuery] = useState<string>(""); // Main trigger
-    const { data, loading, error } = useFetch("/tv/popular");
+    const { data, loading, error } = useFetchTvPopular("/tv/popular");
 
     // This is destructuring with renaming. It's a common pattern in React.
     // It's used to avoid naming conflicts and to make the code more readable.
@@ -73,7 +75,7 @@ export default function TvShows(): JSX.Element {
                     name=""
                     id=""
                     value={ searchText }
-                    onChange={(e) => setSearchText(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setSearchText(e.target.value)}
                     placeholder="Enter TV show name"
                     className="bg-white border border-gray rounded-2xl px-10 py-2 mt-3"
                 />
@@ -91,6 +93,49 @@ export default function TvShows(): JSX.Element {
                     { t("search-error") }:{ queryError }
                 </p>
             )}
+
+            {/* Optional chaining is used (?.) */}
+            {/* ?? is the nullish coalescing operator. It returns the left operand if it is not null or undefined, otherwise it returns the right operand. */}
+
+            {(query?.results?.length ?? 0) > 0 && (
+                <div className="m-8 p-4 border border-yellow-400 bg-yellow-50 rounded-xl shadow-md text-center items-center">
+                    <h2 className="text-xl font-bold text-yellow-800">Result</h2>
+                    {query?.results?.[0] && (
+                        <>
+                            <img
+                                src={`https://image.tmdb.org/t/p/w500/${query?.results[0]?.poster_path}`}
+                                className="w-48 h-auto rounded-xl mx-auto"
+                                alt={query?.results[0]?.name}
+                            />
+                            <p className="font-bold text-2xl">{query?.results[0]?.name}</p>
+                            <p>{query?.results[0]?.overview}</p>
+                            <p>{query?.results[0]?.vote_average}</p>
+                        </>
+                    )}
+                </div>
+            )}
+
+            {/* TV shows section */}
+
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 m-8">
+                {data?.results?.map((tvshow: TvShow): JSX.Element => (
+                    <div
+                        key={tvshow.id}
+                        className="bg-white/5 p-3 rounded-xl shadow-md flex flex-col items-center text-center hover:transform hover:scale-105"
+                    >
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500/${tvshow.poster_path}`}
+                            alt="poster"
+                            className={`w-48 h-auto rounded-xl`}
+                        />
+                        <p className="mt-3 font-bold text-gray-900 text-2xl">
+                            {tvshow.name}
+                        </p>
+                        <p>{tvshow.first_air_date}</p>
+                        <p>Average rating : {tvshow.vote_average}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

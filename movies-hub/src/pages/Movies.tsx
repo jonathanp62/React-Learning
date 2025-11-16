@@ -33,7 +33,7 @@ import type { Movie } from "../types/Movie.tsx";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import useFetch from "../hooks/useFetch.js";
+import useFetchMoviesNowPlaying from "../hooks/useFetchMoviesNowPlaying.tsx";
 import useSearchMovies from "../hooks/useSearchMovies.js";
 
 /**
@@ -46,7 +46,7 @@ export default function Movies(): JSX.Element {
 
     const [searchText, setSearchText] = useState<string>("");
     const [searchQuery, setSearchQuery] = useState<string>(""); // Main trigger
-    const { data, loading, error } = useFetch("/movie/popular");
+    const { data, loading, error } = useFetchMoviesNowPlaying("/movie/popular");
 
     // This is destructuring with renaming. It's a common pattern in React.
     // It's used to avoid naming conflicts and to make the code more readable.

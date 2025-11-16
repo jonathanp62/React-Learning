@@ -33,7 +33,8 @@ import type { Movie } from "../types/Movie.tsx";
 
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import useFetch from "../hooks/useFetch";
+
+import useFetchMoviesNowPlaying from "../hooks/useFetchMoviesNowPlaying.tsx";
 
 /**
  * The home page component.
@@ -42,7 +43,7 @@ import useFetch from "../hooks/useFetch";
  */
 export default function Home(): JSX.Element {
     const { t } = useTranslation();
-    const { data, loading, error } = useFetch("/movie/now_playing");
+    const { data, loading, error } = useFetchMoviesNowPlaying("/movie/now_playing");
 
     if (loading)
         return <div className="min-h-screen flex justify-center">{ t("loading") }...</div>;

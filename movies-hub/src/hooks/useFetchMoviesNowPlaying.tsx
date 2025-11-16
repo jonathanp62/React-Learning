@@ -1,5 +1,5 @@
 /*
- * (#)useFetch.tsx  0.3.0   11/11/2025
+ * (#)useFetchMoviesNowPlaying.tsx  0.3.0   11/11/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -39,7 +39,7 @@ import { useEffect, useMemo, useState } from "react";
  *
  * @returns {{data: MovieApiResponse | null, loading: boolean, error: string | null}}
  */
-const useFetch: (endpoint: string) => {data: MovieApiResponse | null, loading: boolean, error: string | null} = (endpoint: string): {data: MovieApiResponse | null, loading: boolean, error: string | null} => {
+const useFetchMoviesNowPlaying: (endpoint: string) => {data: MovieApiResponse | null, loading: boolean, error: string | null} = (endpoint: string): {data: MovieApiResponse | null, loading: boolean, error: string | null} => {
     const [data, setData] = useState<MovieApiResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -82,4 +82,4 @@ const useFetch: (endpoint: string) => {data: MovieApiResponse | null, loading: b
     return {data, loading, error};
 };
 
-export default useFetch;
+export default useFetchMoviesNowPlaying;
