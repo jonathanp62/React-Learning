@@ -22,8 +22,7 @@
     "tailwindcss": "^4.1.17"
   },
   "appConfig": {
-    "header": "Some header",
-    "footer": "Some footer"
+    "apiBaseUrl": "https://api.themoviedb.org/3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
