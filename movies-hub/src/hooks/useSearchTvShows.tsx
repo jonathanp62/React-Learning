@@ -30,15 +30,14 @@
 
 import type { TvShowListResponse } from "../types/TvShowListResponse.tsx";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useContext } from "react";
+import ApiContext from "../ApiContext.tsx";
 
 const useSearchTvShows: (searchQuery: string) => { data: TvShowListResponse | null, loading: boolean, error: string | null } = (searchQuery: string): { data: TvShowListResponse | null, loading: boolean, error: string | null } => {
     const [data, setData] = useState<TvShowListResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-
-    const ACCESS_TOKEN: string = useMemo((): string => import.meta.env.VITE_ACCESS_TOKEN, []);
-    const BASE_URL: string = useMemo((): string => "https://api.themoviedb.org/3", []);
+    const { accessToken, baseUrl } = useContext(ApiContext);
 
     useEffect((): void => {
         const fetchQuery: () => Promise<void> = async (): Promise<void> => {
@@ -46,12 +45,12 @@ const useSearchTvShows: (searchQuery: string) => { data: TvShowListResponse | nu
                 setLoading(true);
 
                 const response: Response = await fetch(
-                    `${BASE_URL}/search/tv?query=${encodeURIComponent(
+                    `${baseUrl}/search/tv?query=${encodeURIComponent(
                         searchQuery
                     )}`,
                     {
                         headers: {
-                            Authorization: `Bearer ${ACCESS_TOKEN}`,
+                            Authorization: `Bearer ${accessToken}`,
                             accept: "application/json",
                         },
                     }

@@ -30,7 +30,8 @@
 
 import type { MovieApiResponse } from "../types/MovieApiResponse.tsx";
 
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import ApiContext from "../ApiContext.tsx";
 
 /**
  * The useFetch hook.
@@ -43,16 +44,14 @@ const useFetchMoviesNowPlaying: (endpoint: string) => {data: MovieApiResponse | 
     const [data, setData] = useState<MovieApiResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
-    const ACCESS_TOKEN: string = useMemo((): string => import.meta.env.VITE_ACCESS_TOKEN, []);
-    const BASE_URL: string = useMemo((): string => "https://api.themoviedb.org/3", []);
+    const { accessToken, baseUrl } = useContext(ApiContext);
 
     useEffect((): void => {
         const fetchData: () => Promise<void> = async (): Promise<void> => {
             try {
-                const response: Response = await fetch(`${BASE_URL}${endpoint}`, {
+                const response: Response = await fetch(`${baseUrl}${endpoint}`, {
                     headers: {
-                        Authorization: `Bearer ${ACCESS_TOKEN}`,
+                        Authorization: `Bearer ${accessToken}`,
                         accept: "application/json",
                     },
                 });

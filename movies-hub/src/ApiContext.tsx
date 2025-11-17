@@ -1,5 +1,5 @@
 /*
- * (#)Layout.tsx    0.3.0   11/11/2025
+ * (#)ApiContext.tsx    0.3.0   11/17/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,31 +28,13 @@
  * SOFTWARE.
  */
 
-import type { JSX } from "react";
 import type { ApiContextType } from "./types/ApiContextType.tsx";
 
-import { useMemo } from "react";
-import { Outlet } from "react-router-dom";
-import ApiContext from "./ApiContext.tsx";
-import Header from"./components/Header.jsx";
-import Footer from"./components/Footer.jsx";
-import packageJson from "../package.json";
+import React from "react";
 
-export default function Layout(): JSX.Element {
-    const apiContext: ApiContextType = {
-        baseUrl: packageJson.appConfig.apiBaseUrl,
-        accessToken: import.meta.env.VITE_ACCESS_TOKEN,
-    }
+const ApiContext: React.Context<ApiContextType> = React.createContext<ApiContextType>({
+    baseUrl: "",
+    accessToken: ""
+});
 
-    const contextValue: ApiContextType = useMemo((): ApiContextType => apiContext, []);
-
-    return (
-        <>
-            <Header />
-            <ApiContext.Provider value={ contextValue } >
-                <Outlet />
-            </ApiContext.Provider>
-            <Footer />
-        </>
-    );
-}
+export default ApiContext;
