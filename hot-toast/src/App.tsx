@@ -31,6 +31,7 @@
 import type { JSX } from "react";
 
 import HotToastDemo from "./components/HotToastDemo.tsx";
+import { Toaster } from 'react-hot-toast';
 
 /**
  * The App component.
@@ -39,7 +40,10 @@ import HotToastDemo from "./components/HotToastDemo.tsx";
  */
 function App(): JSX.Element {
     return (
-        <HotToastDemo />
+        <>
+            <HotToastDemo />
+            <Toaster position="bottom-right" reverseOrder={false} />
+        </>
     );
 }
 

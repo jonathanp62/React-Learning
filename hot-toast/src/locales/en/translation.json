@@ -1,3 +1,13 @@
 {
-  "title": "Hot Toast Demonstration"
+  "title": "Hot Toast Demonstration",
+  "notify": "Here is your toast",
+  "success": "Successfully created",
+  "error": "This is an error",
+  "promise-resolved": "Data fetched successfully",
+  "promise-rejected": "Failed to fetch data",
+  "fetching-data": "Fetching data",
+  "show-default": "Show Default Toast",
+  "show-success": "Show Success Toast",
+  "show-error": "Show Error Toast",
+  "show-promise": "Show Promise Toast"
 }
