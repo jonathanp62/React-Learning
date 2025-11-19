@@ -30,6 +30,7 @@
 
 import type { JSX } from "react";
 
+import ErrorBoundary from "./ErrorBoundary.tsx";
 import HotToastDemo from "./components/HotToastDemo.tsx";
 import { Toaster } from 'react-hot-toast';
 
@@ -41,7 +42,9 @@ import { Toaster } from 'react-hot-toast';
 function App(): JSX.Element {
     return (
         <>
-            <HotToastDemo />
+            <ErrorBoundary>
+                <HotToastDemo />
+            </ErrorBoundary>
             <Toaster position="bottom-right" reverseOrder={false} />
         </>
     );
