@@ -1,5 +1,5 @@
 /*
- * (#)AppComponent.tsx   0.3.0   11/20/2025
+ * (#)NavBar.tsx    0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -33,16 +33,18 @@ import type { JSX } from "react";
 import { useTranslation } from 'react-i18next';
 
 /**
- * The application component.
+ * The footer component.
  *
  * @returns {JSX.Element}
  */
-export default function AppComponent(): JSX.Element {
+function Footer(): JSX.Element {
     const { t } = useTranslation();
 
     return (
-        <div className="flex justify-center items-start w-full pt-10 bg-yellow-50 h-screen">
-            <p>{ t("title") }</p>
-        </div>
+        <footer className="bg-slate-900 text-white w-full py-4 text-center mt-auto">
+            { t("all-rights-reserved") }
+        </footer>
     );
 }
+
+export default Footer;

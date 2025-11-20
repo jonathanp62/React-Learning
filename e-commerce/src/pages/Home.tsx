@@ -33,6 +33,7 @@ import type { JSX } from "react";
 /**
  * The home page.
  *
+ * @todo    This is incomplete.
  * @returns {JSX.Element}
  */
 export default function Home(): JSX.Element {

@@ -1,5 +1,5 @@
 /*
- * (#)App.tsx   0.3.0   11/20/2025
+ * (#)NavBar.tsx    0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -30,34 +30,39 @@
 
 import type { JSX } from "react";
 
-import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/NavBar.tsx";
-import Footer from "./components/Footer.tsx";
-import Home from "./pages/Home.tsx";
-import Cart from "./pages/Cart.tsx";
+import { FaShoppingCart } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
+import { NavLink } from "react-router-dom";
 
 /**
- * The application component.
+ * The navigation bar component.
  *
+ * @todo    This is incomplete.
  * @returns {JSX.Element}
  */
-function App(): JSX.Element {
+export default function NavBar(): JSX.Element {
+    const { t } = useTranslation();
+
     return (
-        <div className="flex flex-col min-h-screen">
-            <div className="bg-slate-900 fixed w-full z-10">
-                <Navbar />
-            </div>
+        <div className="relative">
+            <nav className="flex justify-between items-center h-20 max-w-6xl mx-auto">
+                <NavLink to="/">
+                    <div className="ml-5">
+                        <img src="logo.png" className="h-14" alt="Logo" />
+                    </div>
+                </NavLink>
 
-            <div className="flex-1 pt-16"> {/* pt-16 to offset fixed navbar height */}
-                <Routes>
-                    <Route path="/" element={ <Home /> } />
-                    <Route path="/cart" element={ <Cart /> } />
-                </Routes>
-            </div>
-
-            <Footer />
+                <div className="flex items-center font-medium text-slate-100 mr-5 space-x-6">
+                    <NavLink to="/">
+                        <p>{ t("home") }</p>
+                    </NavLink>
+                </div>
+                <div className="relative font-medium text-slate-100 mr-5 space-x-6">
+                    <NavLink to="/cart">
+                        <FaShoppingCart className="text-2xl" />
+                    </NavLink>
+                </div>
+            </nav>
         </div>
     );
 }
-
-export default App;
