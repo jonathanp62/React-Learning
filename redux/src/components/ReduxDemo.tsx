@@ -31,7 +31,7 @@
 import type { JSX } from "react";
 import type { User } from "../types/User.tsx";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -46,6 +46,24 @@ export default function ReduxDemo(): JSX.Element {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const user: User = useSelector((state: { user: User }): User => state.user);
+
+    const initialUser: User = {
+        name: "John Doe",
+        email: "john.doe@example.com",
+        age: 30,
+        address: "123 Main St.",
+        phone: "123-456-7890",
+        active: true
+    }
+
+    function loadStore(): void {
+        dispatch(setName(initialUser.name));
+        dispatch(setEmail(initialUser.email));
+        dispatch(setAge(initialUser.age));
+        dispatch(setAddress(initialUser.address));
+        dispatch(setPhone(initialUser.phone));
+        dispatch(setActive(initialUser.active));
+    }
 
     const handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>): void => {
         dispatch(setName(e.target.value));
@@ -70,6 +88,10 @@ export default function ReduxDemo(): JSX.Element {
     const handleActiveChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>): void => {
         dispatch(setActive(e.target.checked));
     };
+
+    useEffect((): void => {
+        loadStore();
+    }, []);
 
     return (
         <div className="flex justify-center items-start w-full pt-10 bg-green-300 h-screen">

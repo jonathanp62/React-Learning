@@ -32,12 +32,12 @@ import type { User } from "../types/User.tsx";
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: User = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    age: 30,
-    address: "123 Main St.",
-    phone: "123-456-7890",
-    active: true
+    name: "",
+    email: "",
+    age: 0,
+    address: "",
+    phone: "",
+    active: false
 }
 
 export const userSlice = createSlice({
