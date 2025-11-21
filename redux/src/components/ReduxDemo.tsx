@@ -36,6 +36,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { setName, setEmail, setAge, setAddress, setPhone, setActive } from '../redux/UserSlice';
+import { initialUser } from '../redux/Users';
 
 /**
  * The redux demonstration component.
@@ -47,15 +48,9 @@ export default function ReduxDemo(): JSX.Element {
     const dispatch = useDispatch();
     const user: User = useSelector((state: { user: User }): User => state.user);
 
-    const initialUser: User = {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        age: 30,
-        address: "123 Main St.",
-        phone: "123-456-7890",
-        active: true
-    }
-
+    /**
+     * Loads the initial user data into the store.
+     */
     function loadStore(): void {
         dispatch(setName(initialUser.name));
         dispatch(setEmail(initialUser.email));
