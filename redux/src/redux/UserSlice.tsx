@@ -27,6 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 import type { User } from "../types/User.tsx";
 
 import { createSlice } from '@reduxjs/toolkit';

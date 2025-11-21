@@ -29,11 +29,34 @@
  */
 
 import { configureStore } from '@reduxjs/toolkit';
+import { initialUser } from './Users';
 
 import userReducer from './UserSlice';
+
+const reduxStoreStateKey: string = "reduxStoreState";
+
+let persistedState: {} = {};
+
+try {
+    const serializedState: string | null = localStorage.getItem(reduxStoreStateKey);
+
+    if (serializedState === null) {
+        persistedState = initialUser;
+    } else {
+        persistedState = JSON.parse(serializedState);
+    }
+} catch (e) {
+    console.error("Error loading persisted state: ", e);
+    persistedState = {};
+}
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
     },
+    preloadedState: persistedState,
+});
+
+store.subscribe((): void => {
+    localStorage.setItem(reduxStoreStateKey, JSON.stringify(store.getState()));
 });
