@@ -1,0 +1,9 @@
+{
+  "title": "Redux Demonstration",
+  "name": "Name",
+  "email": "Email",
+  "age": "Age",
+  "address": "Address",
+  "phone": "Phone",
+  "active": "Active"
+}
