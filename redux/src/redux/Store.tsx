@@ -28,6 +28,8 @@
  * SOFTWARE.
  */
 
+import type { User } from "../types/User.tsx";
+
 import { configureStore } from '@reduxjs/toolkit';
 import { initialUser } from './Users';
 
@@ -35,19 +37,16 @@ import userReducer from './UserSlice';
 
 const reduxStoreStateKey: string = "reduxStoreState";
 
-let persistedState: {} = {};
+let persistedState: { user: User } = { user: initialUser };
 
 try {
     const serializedState: string | null = localStorage.getItem(reduxStoreStateKey);
 
-    if (serializedState === null) {
-        persistedState = initialUser;
-    } else {
-        persistedState = JSON.parse(serializedState);
+    if (serializedState !== null) {
+        persistedState = JSON.parse(serializedState) as { user: User };
     }
 } catch (e) {
     console.error("Error loading persisted state: ", e);
-    persistedState = {};
 }
 
 export const store = configureStore({

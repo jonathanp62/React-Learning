@@ -56,7 +56,7 @@ export default function ReduxDemo(): JSX.Element {
     };
 
     const handleAgeChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        dispatch(setAge(e.target.value));
+        dispatch(setAge(Number(e.target.value)));
     };
 
     const handleAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>): void => {
