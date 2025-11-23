@@ -29,12 +29,18 @@
  */
 
 import type { JSX } from "react";
+import type { ApiContextType } from "./types/ApiContextType.tsx";
 
+import { useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { store } from "./redux/Store.tsx"
+import ApiContext from "./ApiContext.tsx";
 import Navbar from "./components/NavBar.tsx";
 import Footer from "./components/Footer.tsx";
 import Home from "./pages/Home.tsx";
 import Cart from "./pages/Cart.tsx";
+import packageJson from "../package.json";
 
 /**
  * The application component.
@@ -42,21 +48,31 @@ import Cart from "./pages/Cart.tsx";
  * @returns {JSX.Element}
  */
 function App(): JSX.Element {
+    const apiContext: ApiContextType = {
+        baseUrl: packageJson.appConfig.apiBaseUrl
+    }
+
+    const contextValue: ApiContextType = useMemo((): ApiContextType => apiContext, []);
+
     return (
-        <div className="flex flex-col min-h-screen">
-            <div className="bg-slate-900 fixed w-full z-10">
-                <Navbar />
-            </div>
+        <ApiContext.Provider value={ contextValue }>
+            <Provider store={ store }>
+                <div className="flex flex-col min-h-screen">
+                    <div className="bg-slate-900 fixed w-full z-10">
+                        <Navbar />
+                    </div>
 
-            <div className="flex-1 pt-16"> {/* pt-16 to offset fixed navbar height */}
-                <Routes>
-                    <Route path="/" element={ <Home /> } />
-                    <Route path="/cart" element={ <Cart /> } />
-                </Routes>
-            </div>
+                    <div className="flex-1 pt-16"> {/* pt-16 to offset fixed navbar height */}
+                        <Routes>
+                            <Route path="/" element={ <Home /> } />
+                            <Route path="/cart" element={ <Cart /> } />
+                        </Routes>
+                    </div>
 
-            <Footer />
-        </div>
+                    <Footer />
+                </div>
+            </Provider>
+        </ApiContext.Provider>
     );
 }
 

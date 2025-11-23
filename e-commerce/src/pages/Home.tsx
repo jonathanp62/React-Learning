@@ -29,6 +29,14 @@
  */
 
 import type { JSX } from "react";
+import type { Product } from "../types/Product.tsx";
+import type { ProductState } from "../types/ProductState.tsx";
+
+import { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts, setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
+
+import ApiContext from "../ApiContext.tsx";
 
 /**
  * The home page.
@@ -37,6 +45,41 @@ import type { JSX } from "react";
  * @returns {JSX.Element}
  */
 export default function Home(): JSX.Element {
+    const { baseUrl } = useContext(ApiContext);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [posts, setPosts] = useState<Product[]>([]);
+
+    const dispatch = useDispatch();
+    const data: Product[] = useSelector((state: ProductState): Product[] => state.data);
+    const filtered: Product[] = useSelector((state: ProductState): Product[] => state.filtered);
+    const selectedCategory: string = useSelector((state: ProductState): string => state.selectedCategory);
+    const selectedPrice: string = useSelector((state: ProductState): string => state.selectedPrice);
+
+    async function fetchProductData(): Promise<void> {
+        setLoading(true);
+
+        try {
+            const res: Response = await fetch(baseUrl);
+            const products: Product[] = await res.json();
+
+            setPosts(products);
+
+            dispatch(setProducts(products));
+            dispatch(updateFilteredProducts(data));
+
+            console.log(products);
+        } catch (err) {
+            alert("Error loading products: " + err);    // @todo Convert to toast
+            setPosts([]);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchProductData();
+    }, []);
+
     return (
         <div className="flex bg-gray-100 p-10 mx-auto space-x-4">
             <p>Home</p>
