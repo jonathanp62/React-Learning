@@ -25,7 +25,8 @@
     "tailwindcss": "^4.1.17"
   },
   "appConfig": {
-    "apiBaseUrl": "https://fakestoreapi.com/products"
+    "apiBaseUrl": "https://fakestoreapi.com/products",
+    "debug": true
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

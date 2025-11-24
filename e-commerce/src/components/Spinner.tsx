@@ -1,5 +1,5 @@
 /*
- * (#)ApiContextType.tsx    0.3.0   11/23/2025
+ * (#)Spinner.tsx   0.3.0   11/24/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,7 +28,19 @@
  * SOFTWARE.
  */
 
-export type ApiContextType = {
-    baseUrl: string,
-    debug: boolean
+import type { JSX } from "react";
+
+/**
+ * The spinnder component.
+ *
+ * @returns {JSX.Element}
+ */
+const Spinner: () => JSX.Element = (): JSX.Element => {
+    return (
+        <div>
+            <div className='spinner'></div>
+        </div>
+    )
 }
+
+export default Spinner;

@@ -39,6 +39,7 @@ import { setProducts, setSelectedCategory, setSelectedPrice, updateFilteredProdu
 
 import toast from 'react-hot-toast';
 import ApiContext from "../ApiContext.tsx";
+import Spinner from "../components/Spinner.tsx";
 
 /**
  * The home page.
@@ -48,7 +49,7 @@ import ApiContext from "../ApiContext.tsx";
  */
 export default function Home(): JSX.Element {
     const { t } = useTranslation();
-    const { baseUrl } = useContext(ApiContext);
+    const { baseUrl, debug } = useContext(ApiContext);
 
     const [loading, setLoading] = useState<boolean>(false);
     const [posts, setPosts] = useState<Product[]>([]);
@@ -120,16 +121,20 @@ export default function Home(): JSX.Element {
 
     const uniqueCategories: string[] = ["All", ...new Set(posts.map((product: Product): string => product.category))];
 
-    console.log(data);
-    console.log(filtered);
+    if (debug) {
+        console.log(data);
+        console.log(filtered);
+    }
 
     return (
         <div className="flex bg-gray-100 p-10 mx-auto space-x-4">
             {/* Sidebar filters */}
+
             <div className="w-64 p-4 rounded border-r-2 border-gray-200 bg-white shadow-sm">
                 {/* Category Filter */}
+
                 <div className="mb-6 mt-5">
-                    <p className="font-semibold text-lg mb-2">Category</p>
+                    <p className="font-semibold text-lg mb-2">{ t("category") }</p>
                     <div className="flex flex-col mt-2 space-y-1">
                         {uniqueCategories.map((cat: string): JSX.Element => (
                             <button
@@ -143,6 +148,61 @@ export default function Home(): JSX.Element {
                         ))}
                     </div>
                 </div>
+
+                {/* Price Filter */}
+
+                <div className="mb-4">
+                    <p className="font-semibold text-lg mb-2">{ t("price") }</p>
+                    <div className="flex flex-col mt-2 space-y-2">
+                        <label className="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="price"
+                                value="0-50"
+                                checked={selectedPrice === "0-50"}
+                                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
+                                className="mr-2"
+                            />
+                            $0 - $50
+                        </label>
+
+                        <label className="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="price"
+                                value="50-100"
+                                checked={selectedPrice === "50-100"}
+                                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
+                                className="mr-2"
+                            />
+                            $50 - $100
+                        </label>
+
+                        <label className="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="price"
+                                value="100+"
+                                checked={selectedPrice === "100+"}
+                                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
+                                className="mr-2"
+                            />
+                            $100+
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {/* Product grid */}
+
+            <div className="flex-1 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {loading ? (
+                    <Spinner />
+                ) : filtered.length > 0 ? (
+                    <p>Data is present</p>
+                ) : (
+                    <p>{ t("no-data-found") }</p>
+                )}
             </div>
         </div>
     );

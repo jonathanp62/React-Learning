@@ -33,7 +33,8 @@ import type { ApiContextType } from "./types/ApiContextType.tsx";
 import React from "react";
 
 const ApiContext: React.Context<ApiContextType> = React.createContext<ApiContextType>({
-    baseUrl: ""
+    baseUrl: "",
+    debug: false
 });
 
 export default ApiContext;

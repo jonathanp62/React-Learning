@@ -1,6 +1,9 @@
 {
   "home": "Home",
   "cart": "Cart",
+  "category": "Category",
+  "price": "Price",
   "all-rights-reserved": "All Rights Reserved",
-  "error-loading": "Error loading products"
+  "error-loading": "Error loading products",
+  "no-data-found": "No products found"
 }

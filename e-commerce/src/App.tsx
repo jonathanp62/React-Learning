@@ -49,7 +49,8 @@ import packageJson from "../package.json";
  */
 function App(): JSX.Element {
     const apiContext: ApiContextType = {
-        baseUrl: packageJson.appConfig.apiBaseUrl
+        baseUrl: packageJson.appConfig.apiBaseUrl,
+        debug: packageJson.appConfig.debug
     }
 
     const contextValue: ApiContextType = useMemo((): ApiContextType => apiContext, []);
