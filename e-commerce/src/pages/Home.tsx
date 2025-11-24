@@ -33,13 +33,14 @@ import type { Product } from "../types/Product.tsx";
 import type { RootState } from "../redux/Store.tsx";
 
 import { useTranslation } from 'react-i18next';
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts, setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
 
 import toast from 'react-hot-toast';
 import ApiContext from "../ApiContext.tsx";
 import Spinner from "../components/Spinner.tsx";
+import ProductItem from "../components/ProductItem.tsx";
 
 /**
  * The home page.
@@ -160,7 +161,7 @@ export default function Home(): JSX.Element {
                                 name="price"
                                 value="0-50"
                                 checked={selectedPrice === "0-50"}
-                                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedPrice(e.target.value))}
                                 className="mr-2"
                             />
                             $0 - $50
@@ -172,7 +173,7 @@ export default function Home(): JSX.Element {
                                 name="price"
                                 value="50-100"
                                 checked={selectedPrice === "50-100"}
-                                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedPrice(e.target.value))}
                                 className="mr-2"
                             />
                             $50 - $100
@@ -184,7 +185,7 @@ export default function Home(): JSX.Element {
                                 name="price"
                                 value="100+"
                                 checked={selectedPrice === "100+"}
-                                onChange={(e) => dispatch(setSelectedPrice(e.target.value))}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedPrice(e.target.value))}
                                 className="mr-2"
                             />
                             $100+
@@ -193,13 +194,13 @@ export default function Home(): JSX.Element {
                 </div>
             </div>
 
-            {/* Product grid */}
+            {/* Product item grid */}
 
             <div className="flex-1 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {loading ? (
                     <Spinner />
                 ) : filtered.length > 0 ? (
-                    <p>Data is present</p>
+                    filtered.map((post: Product): JSX.Element => <ProductItem key={post.id} post={post} />)
                 ) : (
                     <p>{ t("no-data-found") }</p>
                 )}
