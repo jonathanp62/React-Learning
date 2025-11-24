@@ -45,7 +45,6 @@ import ProductItem from "../components/ProductItem.tsx";
 /**
  * The home page.
  *
- * @todo    This is incomplete.
  * @returns {JSX.Element}
  */
 export default function Home(): JSX.Element {
