@@ -30,12 +30,14 @@
 
 import type { JSX } from "react";
 import type { Product } from "../types/Product.tsx";
-import type { ProductState } from "../types/ProductState.tsx";
+import type { RootState } from "../redux/Store.tsx";
 
+import { useTranslation } from 'react-i18next';
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts, setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
 
+import toast from 'react-hot-toast';
 import ApiContext from "../ApiContext.tsx";
 
 /**
@@ -45,16 +47,23 @@ import ApiContext from "../ApiContext.tsx";
  * @returns {JSX.Element}
  */
 export default function Home(): JSX.Element {
+    const { t } = useTranslation();
     const { baseUrl } = useContext(ApiContext);
+
     const [loading, setLoading] = useState<boolean>(false);
     const [posts, setPosts] = useState<Product[]>([]);
 
     const dispatch = useDispatch();
-    const data: Product[] = useSelector((state: ProductState): Product[] => state.data);
-    const filtered: Product[] = useSelector((state: ProductState): Product[] => state.filtered);
-    const selectedCategory: string = useSelector((state: ProductState): string => state.selectedCategory);
-    const selectedPrice: string = useSelector((state: ProductState): string => state.selectedPrice);
+    const data: Product[] = useSelector((state: RootState): Product[] => state.products.data);
+    const filtered: Product[] = useSelector((state: RootState): Product[] => state.products.filtered);
+    const selectedCategory: string = useSelector((state: RootState): string => state.products.selectedCategory);
+    const selectedPrice: string = useSelector((state: RootState): string => state.products.selectedPrice);
 
+    /**
+     * Fetches product data from the API.
+     *
+     * @returns {Promise<void>}
+     */
     async function fetchProductData(): Promise<void> {
         setLoading(true);
 
@@ -65,24 +74,76 @@ export default function Home(): JSX.Element {
             setPosts(products);
 
             dispatch(setProducts(products));
-            dispatch(updateFilteredProducts(data));
-
-            console.log(products);
+            dispatch(updateFilteredProducts(products));
         } catch (err) {
-            alert("Error loading products: " + err);    // @todo Convert to toast
+            toast.error(`${t("error-loading")}: ${err}`);
             setPosts([]);
         } finally {
             setLoading(false);
         }
     }
 
-    useEffect(() => {
+    /* Fetch product data on mount */
+
+    useEffect((): void => {
         fetchProductData();
     }, []);
 
+    /* Apply filters whenever the category or price changes */
+
+    useEffect((): void  => {
+        let filteredData: Product[] = posts;
+
+        // Filter by category
+
+        console.log(selectedCategory);
+        if (selectedCategory && selectedCategory !== "All") {
+            filteredData = filteredData.filter(
+                (item: Product): boolean => item.category.toLowerCase() === selectedCategory.toLowerCase()
+            );
+        }
+
+        // Filter by price
+
+        if (selectedPrice) {
+            filteredData = filteredData.filter((item: Product): boolean => {
+                if (selectedPrice === "0-50") return item.price >= 0 && item.price <= 50;
+                if (selectedPrice === "50-100") return item.price > 50 && item.price <= 100;
+                if (selectedPrice === "100+") return item.price > 100;
+
+                return true;
+            });
+        }
+
+        dispatch(updateFilteredProducts(filteredData));
+    }, [selectedCategory, selectedPrice, posts, dispatch]);
+
+    const uniqueCategories: string[] = ["All", ...new Set(posts.map((product: Product): string => product.category))];
+
+    console.log(data);
+    console.log(filtered);
+
     return (
         <div className="flex bg-gray-100 p-10 mx-auto space-x-4">
-            <p>Home</p>
+            {/* Sidebar filters */}
+            <div className="w-64 p-4 rounded border-r-2 border-gray-200 bg-white shadow-sm">
+                {/* Category Filter */}
+                <div className="mb-6 mt-5">
+                    <p className="font-semibold text-lg mb-2">Category</p>
+                    <div className="flex flex-col mt-2 space-y-1">
+                        {uniqueCategories.map((cat: string): JSX.Element => (
+                            <button
+                                key={cat}
+                                className={`text-left px-2 py-1 rounded hover:bg-gray-200 ${selectedCategory === cat ? "bg-gray-300 font-semibold" : ""
+                                }`}
+                                onClick={() => dispatch(setSelectedCategory(cat))}
+                            >
+                                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

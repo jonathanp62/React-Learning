@@ -1,5 +1,6 @@
 {
   "home": "Home",
   "cart": "Cart",
-  "all-rights-reserved": "All Rights Reserved"
+  "all-rights-reserved": "All Rights Reserved",
+  "error-loading": "Error loading products"
 }
