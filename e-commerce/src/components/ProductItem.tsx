@@ -29,12 +29,14 @@
  */
 
 import type { JSX } from "react";
+import type { RootState } from "../redux/Store.tsx";
+import type { Product } from "../types/Product";
+import type { CartState } from "../types/CartState.tsx";
 
 import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
-
-import type { Product } from "../types/Product";
+import { add, remove } from "../redux/slices/CartSlice";
 
 /**
  * The product item component.
@@ -44,8 +46,19 @@ import type { Product } from "../types/Product";
  */
 const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { post : Product}): JSX.Element => {
     const { t } = useTranslation();
+    const cart: Product[] = useSelector((state: RootState): CartState => state.cart);
 
     const dispatch = useDispatch();
+
+    const addToCart: () => void = (): void =>  {
+        dispatch(add(post));
+        toast.success("Item added to Cart");
+    }
+
+    const removeFromCart: () => void = (): void => {
+        dispatch(remove(post.id));
+        toast.success("Item removed from Cart");
+    }
 
     return (
         <div className="flex
@@ -89,6 +102,53 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
                 <div>
                     <p className="text-green-600 font-semibold ">${ post.price }</p>
                 </div>
+                {
+                    cart.some((product: Product): boolean => product.id === post.id) ?
+                        (<button
+                            className="
+                            text-gray-700
+                            border-2
+                            border-gray-700
+                            rounded-full
+                            font-semibold
+                            text-[12px]
+                            p-1
+                            px-3
+                            uppercase
+                            hover:bg-gray-700
+                            hover:text-white
+                            transition
+                            duration-300
+                            ease-in
+                            group-hover:text-white
+                            group-hover:bg-gray-700"
+                            onClick={ removeFromCart }
+                        >
+                            { t("remove-from-cart") }
+                        </button>) :
+                        (<button
+                            className="
+                            text-gray-700 b
+                            order-2
+                            border-gray-700
+                            rounded-full
+                            font-semibold
+                            text-[12px]
+                            p-1
+                            px-3
+                            uppercase
+                            hover:bg-gray-700
+                            hover:text-white
+                            transition
+                            duration-300
+                            ease-in
+                            group-hover:text-white
+                            group-hover:bg-gray-700"
+                            onClick={ addToCart }
+                        >
+                            { t("add-to-cart") }
+                        </button>)
+                }
             </div>
         </div>
     );

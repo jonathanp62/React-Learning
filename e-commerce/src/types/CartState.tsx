@@ -1,5 +1,5 @@
 /*
- * (#)CartSlice.tsx 0.3.0   11/22/2025
+ * (#)CartState.tsx 0.3.0   11/25/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,26 +28,6 @@
  * SOFTWARE.
  */
 
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type {Product} from "./Product.tsx";
 
-import type { Product } from '../../types/Product';
-import type { CartState } from "../../types/CartState.tsx";
-
-const initialState: CartState = [];
-
-const CartSlice = createSlice({
-    name:"cart",
-    initialState,
-    reducers: {
-        add: (state: CartState, action: PayloadAction<Product>): void => {
-            state.push(action.payload)
-        },
-        remove: (state: CartState, action: PayloadAction<number>): Product[] => {
-            return state.filter((item: Product): boolean => item.id !== action.payload)
-        }
-    }
-})
-
-export const { add, remove } = CartSlice.actions;
-
-export default CartSlice.reducer;
+export type CartState = Product[];

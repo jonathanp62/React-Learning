@@ -6,5 +6,7 @@
   "all-rights-reserved": "All Rights Reserved",
   "error-loading": "Error loading products",
   "no-data-found": "No products found",
+  "add-to-cart": "Add to Cart",
+  "remove-from-cart": "Remove from Cart",
   "product-image": "Product Image"
 }

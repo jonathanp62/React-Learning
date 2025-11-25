@@ -1,5 +1,5 @@
 /*
- * (#)ApiContext.tsx    0.3.0   11/23/2025
+ * (#)ProductState.tsx  0.3.0   11/23/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
