@@ -34,6 +34,8 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { NavLink } from "react-router-dom";
 
+import logo from "../assets/logo.png";
+
 /**
  * The navigation bar component.
  *
@@ -48,7 +50,7 @@ export default function NavBar(): JSX.Element {
             <nav className="flex justify-between items-center h-20 max-w-6xl mx-auto">
                 <NavLink to="/">
                     <div className="ml-5">
-                        <img src="logo.png" className="h-14" alt="Logo" />
+                        <img src={ logo } className="h-14" alt="Logo" />
                     </div>
                 </NavLink>
 
