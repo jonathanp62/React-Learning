@@ -1,5 +1,5 @@
 /*
- * (#)App.tsx   0.3.0   11/20/2025
+ * (#)Layout.tsx    0.3.0   11/27/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -29,44 +29,27 @@
  */
 
 import type { JSX } from "react";
-import type { ApiContextType } from "./types/ApiContextType.tsx";
 
-import { useMemo } from "react";
-import { Route, Routes } from "react-router-dom";
-import { Provider } from 'react-redux';
-import { store } from "./redux/Store.tsx"
+import { Outlet } from "react-router-dom";
 
-import ApiContext from "./ApiContext.tsx";
-import Layout from "./Layout.tsx";
-import Home from "./pages/Home.tsx";
-import Cart from "./pages/Cart.tsx";
-import packageJson from "../package.json";
+import Navbar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 /**
- * The application component.
+ * The layout component.
  *
  * @returns {JSX.Element}
  */
-function App(): JSX.Element {
-    const apiContext: ApiContextType = {
-        baseUrl: packageJson.appConfig.apiBaseUrl,
-        debug: packageJson.appConfig.debug
-    }
-
-    const contextValue: ApiContextType = useMemo((): ApiContextType => apiContext, []);
-
+export default function Layout(): JSX.Element {
     return (
-        <ApiContext.Provider value={contextValue}>
-            <Provider store={store}>
-                <Routes>
-                    <Route element={ <Layout />} >
-                        <Route path="/" element={ <Home /> } />
-                        <Route path="/cart" element={ <Cart /> } />
-                    </Route>
-                </Routes>
-            </Provider>
-        </ApiContext.Provider>
+        <div className="flex flex-col min-h-screen">
+            <div className="bg-slate-900 fixed w-full z-10">
+                <Navbar />
+            </div>
+            <div className="flex-1 pt-16">
+                <Outlet />
+            </div>
+            <Footer />
+        </div>
     );
 }
-
-export default App;
