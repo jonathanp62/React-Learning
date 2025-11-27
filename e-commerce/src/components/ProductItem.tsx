@@ -37,6 +37,7 @@ import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../redux/slices/CartSlice";
+import { formatPrice } from "../utils/Formatters";
 
 /**
  * The product item component.
@@ -100,7 +101,7 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
             </div>
             <div className="flex justify-center gap-12 items-center w-full mt-5">
                 <div>
-                    <p className="text-green-600 font-semibold ">${ post.price }</p>
+                    <p className="text-green-600 font-semibold ">{ formatPrice(post.price) }</p>
                 </div>
                 {
                     cart.some((product: Product): boolean => product.id === post.id) ?
