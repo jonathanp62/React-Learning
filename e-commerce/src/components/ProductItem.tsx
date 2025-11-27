@@ -45,7 +45,7 @@ import { formatPrice } from "../utils/Formatters";
  * @param   {Product}   post - The product to display
  * @returns {JSX.Element}
  */
-const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { post : Product}): JSX.Element => {
+const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { post : Product }): JSX.Element => {
     const { t } = useTranslation();
     const cart: Product[] = useSelector((state: RootState): CartState => state.cart);
 
