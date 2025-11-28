@@ -40,6 +40,7 @@ const ProductSlice = createSlice({
         filtered: [],
         selectedCategory: "All",
         selectedPrice: "",
+        selectedRating: "0-5"
     },
     reducers: {
         setProducts: (state: ProductState, action: PayloadAction<Product[]>): void => {
@@ -55,9 +56,18 @@ const ProductSlice = createSlice({
         setSelectedPrice: (state: ProductState, action: PayloadAction<string>): void => {
             state.selectedPrice = action.payload;
         },
+        setSelectedRating: (state: ProductState, action: PayloadAction<string>): void => {
+            state.selectedRating = action.payload;
+        }
     },
 });
 
-export const { setProducts, updateFilteredProducts, setSelectedCategory, setSelectedPrice } = ProductSlice.actions;
+export const {
+    setProducts,
+    updateFilteredProducts,
+    setSelectedCategory,
+    setSelectedPrice,
+    setSelectedRating
+} = ProductSlice.actions;
 
 export default ProductSlice.reducer;

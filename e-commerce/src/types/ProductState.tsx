@@ -35,4 +35,5 @@ export interface ProductState {
     filtered: Product[];
     selectedCategory: string;
     selectedPrice: string;
+    selectedRating: string;
 }

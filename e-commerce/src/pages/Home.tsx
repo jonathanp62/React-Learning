@@ -35,7 +35,8 @@ import type { RootState } from "../redux/Store.tsx";
 import { useTranslation } from 'react-i18next';
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts, setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
+import { setProducts, setSelectedCategory, setSelectedPrice, setSelectedRating, updateFilteredProducts } from "../redux/slices/ProductSlice";
+import { MdStar } from "react-icons/md";
 
 import toast from 'react-hot-toast';
 import ApiContext from "../ApiContext.tsx";
@@ -59,6 +60,7 @@ export default function Home(): JSX.Element {
     const filtered: Product[] = useSelector((state: RootState): Product[] => state.products.filtered);
     const selectedCategory: string = useSelector((state: RootState): string => state.products.selectedCategory);
     const selectedPrice: string = useSelector((state: RootState): string => state.products.selectedPrice);
+    const selectedRating: string = useSelector((state: RootState): string => state.products.selectedRating);
 
     /**
      * Fetches product data from the API.
@@ -117,8 +119,22 @@ export default function Home(): JSX.Element {
             });
         }
 
+        // Filter by rating
+
+        if (selectedRating) {
+            filteredData = filteredData.filter((item: Product): boolean => {
+                if (selectedRating === "0-5") return true;
+                if (selectedRating === "1-2") return item.rating.rate >= 1 && item.rating.rate <= 2;
+                if (selectedRating === "2-3") return item.rating.rate >= 2 && item.rating.rate <= 3;
+                if (selectedRating === "3-4") return item.rating.rate >= 3 && item.rating.rate <= 4;
+                if (selectedRating === "4-5") return item.rating.rate >= 4 && item.rating.rate <= 5;
+
+                return true;
+            });
+        }
+
         dispatch(updateFilteredProducts(filteredData));
-    }, [selectedCategory, selectedPrice, posts, dispatch]);
+    }, [selectedCategory, selectedPrice, selectedRating, posts, dispatch]);
 
     const uniqueCategories: string[] = ["All", ...new Set(posts.map((product: Product): string => product.category))];
 
@@ -152,7 +168,7 @@ export default function Home(): JSX.Element {
 
                 {/* Price Filter */}
 
-                <div className="mb-4">
+                <div className="mb-6 mt-5">
                     <p className="font-semibold text-lg mb-2">{ t("price") }</p>
                     <div className="flex flex-col mt-2 space-y-2">
                         <label className="cursor-pointer">
@@ -202,6 +218,74 @@ export default function Home(): JSX.Element {
                             />
                             $100+
                         </label>
+                    </div>
+                </div>
+
+                {/* Rating Filter */}
+
+                <div className="mb-4">
+                    <p className="font-semibold text-lg mb-2">{ t("rating") }</p>
+                    <div className="flex flex-col mt-2 space-y-2">
+                        <label className="cursor-pointer flex items-center gap-1">
+                            <input
+                                type="radio"
+                                name="rating"
+                                value="0-5"
+                                checked={selectedRating === "0-5"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedRating(e.target.value))}
+                                className="mr-2"
+                            />
+                            0-5 <MdStar />
+                        </label>
+
+                        <label className="cursor-pointer flex items-center gap-1">
+                            <input
+                                type="radio"
+                                name="rating"
+                                value="1-2"
+                                checked={selectedRating === "1-2"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedRating(e.target.value))}
+                                className="mr-2"
+                            />
+                            1-2 <MdStar />
+                        </label>
+
+                        <label className="cursor-pointer flex items-center gap-1">
+                            <input
+                                type="radio"
+                                name="rating"
+                                value="2-3"
+                                checked={selectedRating === "2-3"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedRating(e.target.value))}
+                                className="mr-2"
+                            />
+                            2-3 <MdStar />
+                        </label>
+
+                        <label className="cursor-pointer flex items-center gap-1">
+                            <input
+                                type="radio"
+                                name="rating"
+                                value="3-4"
+                                checked={selectedRating === "3-4"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedRating(e.target.value))}
+                                className="mr-2"
+                            />
+                            3-4 <MdStar />
+                        </label>
+
+                        <label className="cursor-pointer flex items-center gap-1">
+                            <input
+                                type="radio"
+                                name="rating"
+                                value="4-5"
+                                checked={selectedRating === "4-5"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setSelectedRating(e.target.value))}
+                                className="mr-2"
+                            />
+                            4-5 <MdStar />
+                        </label>
+
                     </div>
                 </div>
             </div>

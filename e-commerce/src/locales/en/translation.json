@@ -20,5 +20,6 @@
   "checkout-unavailable": "Checkout is not available in this demo",
   "stars": "stars",
   "reviews": "reviews",
-  "empty-cart": "Empty Cart"
+  "empty-cart": "Empty Cart",
+  "rating": "Rating"
 }
