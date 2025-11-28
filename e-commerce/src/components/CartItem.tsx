@@ -65,6 +65,7 @@ const CartItem: ({ item }: { item : Product}) => JSX.Element = ({ item }: { item
                     <h1 className="text-sm">{ item.description.split(" ").slice(1,20).join(" ") + "..." }</h1>
                     <div className="flex justify-between">
                         <p className="text-green-700 font-semibold">{ formatPrice(item.price) }</p>
+                        {/* @todo Can I add hover text? */}
                         <div
                             className="bg-pink-200 p-3 rounded-full hover:cursor-pointer"
                             onClick={ removeFromCart }

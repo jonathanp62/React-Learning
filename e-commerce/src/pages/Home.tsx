@@ -108,6 +108,7 @@ export default function Home(): JSX.Element {
 
         if (selectedPrice) {
             filteredData = filteredData.filter((item: Product): boolean => {
+                /* @todo Handle a 0+ filter */
                 if (selectedPrice === "0-50") return item.price >= 0 && item.price <= 50;
                 if (selectedPrice === "50-100") return item.price > 50 && item.price <= 100;
                 if (selectedPrice === "100+") return item.price > 100;
@@ -154,6 +155,7 @@ export default function Home(): JSX.Element {
                 <div className="mb-4">
                     <p className="font-semibold text-lg mb-2">{ t("price") }</p>
                     <div className="flex flex-col mt-2 space-y-2">
+                        {/* @todo Create a $0+ filter */}
                         <label className="cursor-pointer">
                             <input
                                 type="radio"

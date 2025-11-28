@@ -85,6 +85,7 @@ export default function Cart(): JSX.Element {
                         (<div className="h-screen flex justify-center items-center flex-col">
                             <h1>{ t("empty-cart") }</h1>
                             <Link to="/">
+                                {/* @todo Make a click that yields a toasted message */}
                                 <button className="bg-green-700 py-3 px-8 mt-3 rounded-lg text-white">
                                     { t("shop-now") }
                                 </button>
