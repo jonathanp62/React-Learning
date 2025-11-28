@@ -9,5 +9,12 @@
   "add-to-cart": "Add to Cart",
   "remove-from-cart": "Remove from Cart",
   "product-image": "Product Image",
-  "item-removed": "Item Removed"
+  "item-removed": "Item Removed",
+  "total-items": "Total Items",
+  "your-cart": "Your Cart",
+  "summary": "Summary",
+  "checkout-now": "Checkout Now",
+  "total-amount": "Total Amount",
+  "empty-cart": "Your cart is empty",
+  "shop-now": "Shop Now"
 }
