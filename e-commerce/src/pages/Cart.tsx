@@ -38,6 +38,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../utils/Formatters.tsx";
 
+import toast from 'react-hot-toast';
 import CartItem from "../components/CartItem"
 
 /**
@@ -53,6 +54,10 @@ export default function Cart(): JSX.Element {
     useEffect( (): void => {
         setTotalAmount(cart.reduce( (acc: number, product: Product): number => acc + product.price,0) )
     }, [cart])
+
+    const handleClick: () => void = (): void => {
+        toast.success(t("checkout-unavailable"));
+    }
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
@@ -78,14 +83,16 @@ export default function Cart(): JSX.Element {
 
                             <div>
                                 <p className="">{ t("total-amount") }: <span className="font-bold">{ formatPrice(totalAmount) }</span></p>
-                                <button className="mt-2 bg-green-700 w-full text-white py-2 rounded-md">{ t("checkout-now") }</button>
+                                <button className="mt-2 bg-green-700 w-full text-white py-2 rounded-md"
+                                    onClick={ handleClick }>
+                                    { t("checkout-now") }
+                                </button>
                             </div>
                         </div>
                     </div>) :
                         (<div className="h-screen flex justify-center items-center flex-col">
                             <h1>{ t("empty-cart") }</h1>
                             <Link to="/">
-                                {/* @todo Make a click that yields a toasted message */}
                                 <button className="bg-green-700 py-3 px-8 mt-3 rounded-lg text-white">
                                     { t("shop-now") }
                                 </button>

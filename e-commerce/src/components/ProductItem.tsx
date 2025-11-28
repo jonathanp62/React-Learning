@@ -33,11 +33,12 @@ import type { RootState } from "../redux/Store.tsx";
 import type { Product } from "../types/Product";
 import type { CartState } from "../types/CartState.tsx";
 
+import { MdStar } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../redux/slices/CartSlice";
-import { formatPrice } from "../utils/Formatters";
+import { formatPrice, formatRating } from "../utils/Formatters";
 
 /**
  * The product item component.
@@ -101,6 +102,7 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
             </div>
             <div className="flex justify-center gap-12 items-center w-full mt-5">
                 <div>
+                    <p className="text-green-600 font-semibold flex items-center gap-1">{ formatRating(post.rating.rate) } <MdStar /></p>
                     <p className="text-green-600 font-semibold ">{ formatPrice(post.price) }</p>
                 </div>
                 {

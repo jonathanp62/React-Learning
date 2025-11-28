@@ -36,7 +36,7 @@ import { useDispatch } from "react-redux";
 import { remove } from "../redux/slices/CartSlice";
 import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { formatPrice } from "../utils/Formatters";
+import { formatPrice, formatRating } from "../utils/Formatters";
 
 /**
  * The cart item component.
@@ -62,13 +62,14 @@ const CartItem: ({ item }: { item : Product}) => JSX.Element = ({ item }: { item
 
                 <div className="w-[450px] flex flex-col gap-y-4">
                     <h1 className="font-semibold text-lg">{ item.title }</h1>
-                    <h1 className="text-sm">{ item.description.split(" ").slice(1,20).join(" ") + "..." }</h1>
+                    <h1 className="text-sm">{ item.description }</h1>
+                    <h1 className="text-sm">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
                     <div className="flex justify-between">
                         <p className="text-green-700 font-semibold">{ formatPrice(item.price) }</p>
-                        {/* @todo Can I add hover text? */}
                         <div
                             className="bg-pink-200 p-3 rounded-full hover:cursor-pointer"
                             onClick={ removeFromCart }
+                            title={ t("remove-from-cart")}
                         >
                             <MdDelete />
                         </div>

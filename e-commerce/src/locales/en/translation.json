@@ -16,5 +16,8 @@
   "checkout-now": "Checkout Now",
   "total-amount": "Total Amount",
   "empty-cart": "Your cart is empty",
-  "shop-now": "Shop Now"
+  "shop-now": "Shop Now",
+  "checkout-unavailable": "Checkout is not available in this demo",
+  "stars": "stars",
+  "reviews": "reviews"
 }

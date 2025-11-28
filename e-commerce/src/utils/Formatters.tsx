@@ -42,3 +42,13 @@ export const formatPrice: (amount: number) => string = (amount: number): string 
         maximumFractionDigits: 2,
     }).format(amount);
 };
+
+/**
+ * Formats a rating as a string (nn.n).
+ *
+ * @param   {number}    rating  The rating to format
+ * @returns {string}            The formatted rating string
+ */
+export const formatRating: (rating: number) => string = (rating: number): string => {
+    return rating.toFixed(1);
+};
