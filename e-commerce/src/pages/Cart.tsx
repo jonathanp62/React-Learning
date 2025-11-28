@@ -37,6 +37,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../utils/Formatters.tsx";
+import { useDispatch } from 'react-redux';
+import { clear } from '../redux/slices/CartSlice.tsx';
 
 import toast from 'react-hot-toast';
 import CartItem from "../components/CartItem"
@@ -48,6 +50,7 @@ import CartItem from "../components/CartItem"
  */
 export default function Cart(): JSX.Element {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
     const [totalAmount, setTotalAmount] = useState<number>(0);
 
@@ -57,6 +60,11 @@ export default function Cart(): JSX.Element {
 
     const handleClick: () => void = (): void => {
         toast.success(t("checkout-unavailable"));
+    }
+
+    const emptyCart: () => void = (): void => {
+        dispatch(clear());
+        toast.success(t("cart-empty"));
     }
 
     return (
@@ -87,11 +95,15 @@ export default function Cart(): JSX.Element {
                                     onClick={ handleClick }>
                                     { t("checkout-now") }
                                 </button>
+                                <button className="mt-2 bg-red-700 w-full text-white py-2 rounded-md"
+                                        onClick={ emptyCart }>
+                                    { t("empty-cart") }
+                                </button>
                             </div>
                         </div>
                     </div>) :
                         (<div className="h-screen flex justify-center items-center flex-col">
-                            <h1>{ t("empty-cart") }</h1>
+                            <h1>{ t("cart-empty") }</h1>
                             <Link to="/">
                                 <button className="bg-green-700 py-3 px-8 mt-3 rounded-lg text-white">
                                     { t("shop-now") }
