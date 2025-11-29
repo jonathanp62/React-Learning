@@ -285,7 +285,6 @@ export default function Home(): JSX.Element {
                             />
                             4-5 <MdStar />
                         </label>
-
                     </div>
                 </div>
             </div>

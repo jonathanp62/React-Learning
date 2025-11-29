@@ -36,6 +36,14 @@ body {
   background-color: #fff;
 }
 
+.center-spinner {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    height: 100vh;           /* Makes container take full viewport height */
+    width: 100vw;            /* Makes container take full viewport width */
+}
+
 .spinner {
     width: 56px;
     height: 56px;

@@ -52,3 +52,11 @@ export const formatPrice: (amount: number) => string = (amount: number): string 
 export const formatRating: (rating: number) => string = (rating: number): string => {
     return rating.toFixed(1);
 };
+
+export const capitalizeString: (str: string) =>  string = (str: string) : string => {
+    if (str.length === 0) {
+        return '';          // Handle empty or non-string inputs
+    }
+
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}

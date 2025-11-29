@@ -21,5 +21,6 @@
   "stars": "stars",
   "reviews": "reviews",
   "empty-cart": "Empty Cart",
-  "rating": "Rating"
+  "rating": "Rating",
+  "not-found": "Product {{id}} not found"
 }

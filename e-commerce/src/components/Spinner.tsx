@@ -31,14 +31,14 @@
 import type { JSX } from "react";
 
 /**
- * The spinnder component.
+ * The spinner component.
  *
  * @returns {JSX.Element}
  */
 const Spinner: () => JSX.Element = (): JSX.Element => {
     return (
-        <div>
-            <div className='spinner'></div>
+        <div className="center-spinner">
+            <div className="spinner"></div>
         </div>
     )
 }

@@ -33,6 +33,7 @@ import type { RootState } from "../redux/Store.tsx";
 import type { Product } from "../types/Product";
 import type { CartState } from "../types/CartState.tsx";
 
+import { Link } from "react-router-dom";
 import { MdStar } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
@@ -98,7 +99,9 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
                 </p>
             </div>
             <div className="h-[170px]">
-                <img src={ post.image } alt={t("product-image")} className="h-full w-full"/>
+                <Link to={ `/item/${post.id}` }>
+                    <img src={ post.image } alt={t("product-image")} className="h-full w-full"/>
+                </Link>
             </div>
             <div className="flex justify-center gap-12 items-center w-full mt-5">
                 <div>
