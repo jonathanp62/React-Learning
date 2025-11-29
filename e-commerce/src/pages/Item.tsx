@@ -107,6 +107,47 @@ export default function Item(): JSX.Element {
                         <h1 className="text-base">{ capitalizeString(item.category) }</h1>
                         <h1 className="text-base">{ formatPrice(item.price) }</h1>
                         <h1 className="text-base">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
+
+                        <div className=" inlilne-flex space-x-4">
+                            <button className="
+                                text-gray-700
+                                border-2
+                                border-gray-700
+                                rounded-full
+                                font-semibold
+                                text-[12px]
+                                p-1
+                                px-3
+                                uppercase
+                                hover:bg-gray-700
+                                hover:text-white
+                                transition
+                                duration-300
+                                ease-in
+                                group-hover:text-white
+                                group-hover:bg-gray-700">
+                                    Add to cart
+                            </button>
+                            <button className="
+                                text-gray-700
+                                border-2
+                                border-gray-700
+                                rounded-full
+                                font-semibold
+                                text-[12px]
+                                p-1
+                                px-3
+                                uppercase
+                                hover:bg-gray-700
+                                hover:text-white
+                                transition
+                                duration-300
+                                ease-in
+                                group-hover:text-white
+                                group-hover:bg-gray-700">
+                                    Remove from cart
+                            </button>
+                        </div>
                     </div>
                 </div>
                 ) : (
