@@ -91,7 +91,7 @@ export default function Item(): JSX.Element {
     }
 
     return (
-        <div className="w-full p-6 mt-3 flex">
+        <div className="w-full p-6 mt-3">
             { loading ?  (
                 <Spinner />
             ) : (
@@ -111,7 +111,7 @@ export default function Item(): JSX.Element {
                 </div>
                 ) : (
                     <div className="flex justify-center h-screen">
-                        <p className="text-center text-4xl font-bold">{t("not-found", {id: id})}</p>
+                        <p className="text-center text-4xl font-bold">{ t("not-found", {id: id}) }</p>
                     </div>
                 )
             )
