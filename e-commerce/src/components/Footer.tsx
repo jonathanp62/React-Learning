@@ -42,7 +42,7 @@ function Footer(): JSX.Element {
 
     return (
         <footer className="bg-slate-900 text-white w-full py-4 text-center mt-auto">
-            { t("all-rights-reserved") }
+            &copy; 2025 Ecomzy. { t("all-rights-reserved") }
         </footer>
     );
 }
