@@ -59,3 +59,5 @@ export const store = configureStore({
 store.subscribe((): void => {
     localStorage.setItem(reduxStoreStateKey, JSON.stringify(store.getState()));
 });
+
+export type RootState = ReturnType<typeof store.getState>;

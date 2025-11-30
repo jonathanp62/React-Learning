@@ -33,30 +33,30 @@ import type { User } from "../types/User.tsx";
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { initialUser } from './Users';
 
-type UserType = User;
+type UserState = User;
 
-const initialState: UserType = initialUser;
+const initialState: UserState = initialUser;
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setName: (state: UserType, action: PayloadAction<string>) : void=> {
+        setName: (state: UserState, action: PayloadAction<string>) : void=> {
             state.name = action.payload;
         },
-        setEmail: (state: UserType, action: PayloadAction<string>): void => {
+        setEmail: (state: UserState, action: PayloadAction<string>): void => {
             state.email = action.payload;
         },
-        setAge: (state: UserType, action: PayloadAction<number>) : void=> {
+        setAge: (state: UserState, action: PayloadAction<number>) : void=> {
             state.age = action.payload;
         },
-        setAddress: (state: UserType, action: PayloadAction<string>): void => {
+        setAddress: (state: UserState, action: PayloadAction<string>): void => {
             state.address = action.payload;
         },
-        setPhone: (state: UserType, action: PayloadAction<string>) : void=> {
+        setPhone: (state: UserState, action: PayloadAction<string>) : void=> {
             state.phone = action.payload;
         },
-        setActive: (state: UserType, action: PayloadAction<boolean>): void => {
+        setActive: (state: UserState, action: PayloadAction<boolean>): void => {
             state.active = action.payload;
         },
     },

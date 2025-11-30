@@ -30,6 +30,7 @@
 
 import type { JSX } from "react";
 import type { User } from "../types/User.tsx";
+import type { RootState } from "../redux/Store.tsx";
 
 import React from "react";
 
@@ -45,7 +46,7 @@ import { setName, setEmail, setAge, setAddress, setPhone, setActive } from '../r
 export default function ReduxDemo(): JSX.Element {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const user: User = useSelector((state: { user: User }): User => state.user);
+    const user: User = useSelector((state: RootState): User => state.user);
 
     const handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>): void => {
         dispatch(setName(e.target.value));
