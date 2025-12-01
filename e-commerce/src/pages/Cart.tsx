@@ -32,12 +32,11 @@ import type { JSX } from "react";
 import type { Product } from "../types/Product.tsx";
 import type { RootState } from "../redux/Store.tsx";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../utils/Formatters.tsx";
-import { useDispatch } from 'react-redux';
 import { clear } from '../redux/slices/CartSlice.tsx';
 
 import toast from 'react-hot-toast';

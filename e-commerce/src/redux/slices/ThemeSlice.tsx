@@ -1,5 +1,5 @@
 /*
- * (#)Store.tsx 0.3.0   11/22/2025
+ * (#)ThemeSlice.tsx    0.3.0   12/01/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,38 +28,22 @@
  * SOFTWARE.
  */
 
-import { configureStore } from '@reduxjs/toolkit';
+import type { ThemeState } from '../../types/ThemeState';
 
-import cartReducer from './slices/CartSlice';
-import productReducer from './slices/ProductSlice';
-import themeReducer from './slices/ThemeSlice';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-const reduxStoreStateKey: string = "reduxEcommerceStore";
+const initialState = "light" as ThemeState; // This is a type assertion
 
-let persistedState: {} = {};
-
-try {
-    const serializedState: string | null = localStorage.getItem(reduxStoreStateKey);
-
-    if (serializedState !== null) {
-        persistedState = JSON.parse(serializedState);
-    }
-} catch (e) {
-    console.error("Error loading persisted state: ", e);
-    persistedState = {};
-}
-
-export const store = configureStore({
-    reducer: {
-        cart: cartReducer,
-        products: productReducer,
-        theme: themeReducer,
+const ThemeSlice = createSlice({
+    name: "theme",
+    initialState,
+    reducers: {
+        setTheme: (_state: ThemeState, action: PayloadAction<ThemeState>): ThemeState => {
+            return action.payload;
+        },
     },
-    preloadedState: persistedState,
 });
 
-store.subscribe((): void => {
-    localStorage.setItem(reduxStoreStateKey, JSON.stringify(store.getState()));
-});
+export const { setTheme } = ThemeSlice.actions;
 
-export type RootState = ReturnType<typeof store.getState>;
+export default ThemeSlice.reducer;

@@ -41,7 +41,7 @@ function Footer(): JSX.Element {
     const { t } = useTranslation();
 
     return (
-        <footer className="bg-slate-900 text-white w-full py-4 text-center mt-auto">
+        <footer className="bg-slate-300 dark:bg-black text-slate-900 dark:text-white w-full py-4 text-center mt-auto">
             &copy; 2025 Ecomzy. { t("all-rights-reserved") }
         </footer>
     );

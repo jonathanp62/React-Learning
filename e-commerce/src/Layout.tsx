@@ -29,8 +29,12 @@
  */
 
 import type { JSX } from "react";
+import type { RootState } from "./redux/Store.tsx";
+import type { ThemeState } from "./types/ThemeState.tsx";
 
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -41,9 +45,19 @@ import Footer from "./components/Footer";
  * @returns {JSX.Element}
  */
 export default function Layout(): JSX.Element {
+    const theme: ThemeState = useSelector((state: RootState): ThemeState => state.theme);
+
+    useEffect((): void => {
+        if (theme === "dark") {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [theme]);
+
     return (
         <div className="flex flex-col min-h-screen">
-            <div className="bg-slate-900 fixed w-full z-10">
+            <div className="bg-slate-300 dark:bg-black fixed w-full z-10">
                 <Navbar />
             </div>
             <div className="flex-1 pt-16">

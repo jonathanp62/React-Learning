@@ -1,5 +1,5 @@
 /*
- * (#)Store.tsx 0.3.0   11/22/2025
+ * (#)ThemeState.tsx    0.3.0   12/01/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,38 +28,4 @@
  * SOFTWARE.
  */
 
-import { configureStore } from '@reduxjs/toolkit';
-
-import cartReducer from './slices/CartSlice';
-import productReducer from './slices/ProductSlice';
-import themeReducer from './slices/ThemeSlice';
-
-const reduxStoreStateKey: string = "reduxEcommerceStore";
-
-let persistedState: {} = {};
-
-try {
-    const serializedState: string | null = localStorage.getItem(reduxStoreStateKey);
-
-    if (serializedState !== null) {
-        persistedState = JSON.parse(serializedState);
-    }
-} catch (e) {
-    console.error("Error loading persisted state: ", e);
-    persistedState = {};
-}
-
-export const store = configureStore({
-    reducer: {
-        cart: cartReducer,
-        products: productReducer,
-        theme: themeReducer,
-    },
-    preloadedState: persistedState,
-});
-
-store.subscribe((): void => {
-    localStorage.setItem(reduxStoreStateKey, JSON.stringify(store.getState()));
-});
-
-export type RootState = ReturnType<typeof store.getState>;
+export type ThemeState = "light" | "dark";

@@ -32,6 +32,7 @@ import type { JSX } from "react";
 import type { Product } from "../types/Product";
 import type { CartState } from "../types/CartState.tsx";
 import type { RootState } from "../redux/Store.tsx";
+import type { ThemeState } from "../types/ThemeState.tsx";
 
 import { Search } from "lucide-react";
 import { FaShoppingCart } from "react-icons/fa";
@@ -39,6 +40,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
+import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
@@ -58,6 +60,9 @@ export default function NavBar(): JSX.Element {
     const products: Product[] = useSelector((state: RootState): Product[] => state.products.data);
 
     const cart: Product[] = useSelector((state: RootState): CartState => state.cart);
+    const theme: ThemeState = useSelector((state: RootState): ThemeState => state.theme);
+
+    const isDarkMode: boolean = theme === "dark";
 
     const handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const value: string = event.target.value;
@@ -114,7 +119,7 @@ export default function NavBar(): JSX.Element {
                     </div>
                 </NavLink>
 
-                <div className="flex items-center font-medium text-slate-100 mr-5 space-x-6">
+                <div className="flex items-center font-medium text-slate-900 dark:text-white mr-5 space-x-6">
                     <NavLink to="/">
                         <p>{ t("home") }</p>
                     </NavLink>
@@ -183,11 +188,22 @@ export default function NavBar(): JSX.Element {
                                 justify-center
                                 items-center
                                 rounded-full
-                                text-white">
+                                text-slate-900
+                                dark:text-white">
                                 { cart.length }
                             </span>
+
                         )}
                     </NavLink>
+                </div>
+
+                <div>
+                    { isDarkMode ? (
+                            <SunIcon className="h-6 w-6 text-indigo-600" />
+                        ) : (
+                            <MoonIcon className="h-6 w-6 text-indigo-600" />
+                        )
+                    }
                 </div>
             </nav>
         </div>
