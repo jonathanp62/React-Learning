@@ -105,10 +105,10 @@ export default function NavBar(): JSX.Element {
 
     const toggleTheme: () => void = (): void => {
         if (isDarkMode) {
-            document.body.style.backgroundColor = '#F3F4F6';    // Since styles.css set a background color for the body
+            document.body.style.backgroundColor = '#F3F4F6';    // Since styles.css set a background color for the body; gray-100
             dispatch(setTheme("light"));
         } else {
-            document.body.style.backgroundColor = '#374151';
+            document.body.style.backgroundColor = '#374151';    // Gray-700
             dispatch(setTheme("dark"));
         }
     }
