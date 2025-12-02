@@ -40,6 +40,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
+import { setTheme } from "../redux/slices/ThemeSlice.tsx";
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 import React, { useEffect, useState } from "react";
@@ -100,6 +101,16 @@ export default function NavBar(): JSX.Element {
 
         setShowDropdown(false); // Close dropdown
         setInputData("");           // Clear search input if you want
+    }
+
+    const toggleTheme: () => void = (): void => {
+        if (isDarkMode) {
+            document.body.style.backgroundColor = '#F3F4F6';    // Since styles.css set a background color for the body
+            dispatch(setTheme("light"));
+        } else {
+            document.body.style.backgroundColor = '#374151';
+            dispatch(setTheme("dark"));
+        }
     }
 
     // Close dropdown if input is cleared
@@ -198,12 +209,23 @@ export default function NavBar(): JSX.Element {
                 </div>
 
                 <div>
-                    { isDarkMode ? (
-                            <SunIcon className="h-6 w-6 text-indigo-600" />
-                        ) : (
-                            <MoonIcon className="h-6 w-6 text-indigo-600" />
-                        )
-                    }
+                    <button
+                        onClick={ toggleTheme }
+                        className="
+                        p-2
+                        rounded-full
+                        bg-gray-300
+                        hover:bg-gray-400
+                        dark:bg-black
+                        dark:hover:bg-gray-400"
+                    >
+                        { isDarkMode ? (
+                                <SunIcon className="h-6 w-6 text-yellow-300" title={ t("light-mode") } />
+                            ) : (
+                                <MoonIcon className="h-6 w-6 text-indigo-600" title={ t("dark-mode") } />
+                            )
+                        }
+                    </button>
                 </div>
             </nav>
         </div>

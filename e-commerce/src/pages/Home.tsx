@@ -144,19 +144,19 @@ export default function Home(): JSX.Element {
     }
 
     return (
-        <div className="flex bg-gray-100 p-10 mx-auto space-x-4">
+        <div className="flex bg-gray-100 dark:bg-gray-700 p-10 mx-auto space-x-4">
             {/* Sidebar filters */}
 
-            <div className="w-64 p-4 rounded border-r-2 border-gray-200 bg-white shadow-sm">
+            <div className="w-64 p-4 rounded border-r-2 border-gray-200 dark:border-gray-900 bg-white dark:bg-gray-800 shadow-sm">
                 {/* Category Filter */}
 
                 <div className="mb-6 mt-5">
-                    <p className="font-semibold text-lg mb-2">{ t("category") }</p>
+                    <p className="font-semibold text-lg mb-2 dark:text-white">{ t("category") }</p>
                     <div className="flex flex-col mt-2 space-y-1">
                         {uniqueCategories.map((cat: string): JSX.Element => (
                             <button
                                 key={cat}
-                                className={`text-left px-2 py-1 rounded hover:bg-gray-200 ${selectedCategory === cat ? "bg-gray-300 font-semibold" : ""
+                                className={`text-left px-2 py-1 rounded dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 ${selectedCategory === cat ? "bg-gray-300 dark:bg-gray-600 font-semibold" : ""
                                 }`}
                                 onClick={() => dispatch(setSelectedCategory(cat))}
                             >
@@ -169,9 +169,9 @@ export default function Home(): JSX.Element {
                 {/* Price Filter */}
 
                 <div className="mb-6 mt-5">
-                    <p className="font-semibold text-lg mb-2">{ t("price") }</p>
+                    <p className="font-semibold text-lg mb-2 dark:text-white">{ t("price") }</p>
                     <div className="flex flex-col mt-2 space-y-2">
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer dark:text-white">
                             <input
                                 type="radio"
                                 name="price"
@@ -183,7 +183,7 @@ export default function Home(): JSX.Element {
                             $0+
                         </label>
 
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer dark:text-white">
                             <input
                                 type="radio"
                                 name="price"
@@ -195,7 +195,7 @@ export default function Home(): JSX.Element {
                             $0 - $50
                         </label>
 
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer dark:text-white">
                             <input
                                 type="radio"
                                 name="price"
@@ -207,7 +207,7 @@ export default function Home(): JSX.Element {
                             $50 - $100
                         </label>
 
-                        <label className="cursor-pointer">
+                        <label className="cursor-pointer dark:text-white">
                             <input
                                 type="radio"
                                 name="price"
@@ -224,9 +224,9 @@ export default function Home(): JSX.Element {
                 {/* Rating Filter */}
 
                 <div className="mb-4">
-                    <p className="font-semibold text-lg mb-2">{ t("rating") }</p>
+                    <p className="font-semibold text-lg mb-2 dark:text-white">{ t("rating") }</p>
                     <div className="flex flex-col mt-2 space-y-2">
-                        <label className="cursor-pointer flex items-center gap-1">
+                        <label className="cursor-pointer flex items-center gap-1 dark:text-white">
                             <input
                                 type="radio"
                                 name="rating"
@@ -238,7 +238,7 @@ export default function Home(): JSX.Element {
                             0-5 <MdStar />
                         </label>
 
-                        <label className="cursor-pointer flex items-center gap-1">
+                        <label className="cursor-pointer flex items-center gap-1 dark:text-white">
                             <input
                                 type="radio"
                                 name="rating"
@@ -250,7 +250,7 @@ export default function Home(): JSX.Element {
                             1-2 <MdStar />
                         </label>
 
-                        <label className="cursor-pointer flex items-center gap-1">
+                        <label className="cursor-pointer flex items-center gap-1 dark:text-white">
                             <input
                                 type="radio"
                                 name="rating"
@@ -262,7 +262,7 @@ export default function Home(): JSX.Element {
                             2-3 <MdStar />
                         </label>
 
-                        <label className="cursor-pointer flex items-center gap-1">
+                        <label className="cursor-pointer flex items-center gap-1 dark:text-white">
                             <input
                                 type="radio"
                                 name="rating"
@@ -274,7 +274,7 @@ export default function Home(): JSX.Element {
                             3-4 <MdStar />
                         </label>
 
-                        <label className="cursor-pointer flex items-center gap-1">
+                        <label className="cursor-pointer flex items-center gap-1 dark:text-white">
                             <input
                                 type="radio"
                                 name="rating"

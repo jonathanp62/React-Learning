@@ -83,13 +83,13 @@ export default function Cart(): JSX.Element {
                             <div>
                                 <div className="uppercase text-green-700 font-semibold">{ t("your-cart") }</div>
                                 <div className="uppercase text-green-700 font-bold text-4xl">{ t("summary") }</div>
-                                <p className="mt-3 font-bold">
+                                <p className="mt-3 font-bold dark:text-white">
                                     <span>{ t("total-items") }: {cart.length}</span>
                                 </p>
                             </div>
 
                             <div>
-                                <p className="">{ t("total-amount") }: <span className="font-bold">{ formatPrice(totalAmount) }</span></p>
+                                <p className="dark:text-white">{ t("total-amount") }: <span className="font-bold">{ formatPrice(totalAmount) }</span></p>
                                 <button className="mt-2 bg-green-700 w-full text-white py-2 rounded-md"
                                     onClick={ handleClick }>
                                     { t("checkout-now") }

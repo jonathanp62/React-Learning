@@ -61,9 +61,9 @@ const CartItem: ({ item }: { item : Product}) => JSX.Element = ({ item }: { item
                 </div>
 
                 <div className="w-[450px] flex flex-col gap-y-4">
-                    <h1 className="font-semibold text-lg">{ item.title }</h1>
-                    <h1 className="text-sm">{ item.description }</h1>
-                    <h1 className="text-sm">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
+                    <h1 className="font-semibold text-lg dark:text-white">{ item.title }</h1>
+                    <h1 className="text-sm dark:text-white">{ item.description }</h1>
+                    <h1 className="text-sm dark:text-white">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
                     <div className="flex justify-between">
                         <p className="text-green-700 font-semibold">{ formatPrice(item.price) }</p>
                         <div

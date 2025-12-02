@@ -35,7 +35,7 @@
 body {
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
-  background-color: #fff;
+  background-color: #F3F4F6; /* TailwindCSS gray-100: #F3F4F6, gray-700: #374151 */
 }
 
 .center-spinner {

@@ -22,5 +22,7 @@
   "reviews": "reviews",
   "empty-cart": "Empty Cart",
   "rating": "Rating",
-  "not-found": "Product {{id}} not found"
+  "not-found": "Product {{id}} not found",
+  "dark-mode": "Dark Mode",
+  "light-mode": "Light Mode"
 }
