@@ -123,51 +123,48 @@ export default function Item(): JSX.Element {
                     </div>
 
                     <div className="flex-grow flex flex-col gap-y-6">
-                        <h1 className="font-semibold text-lg">{ item.title }</h1>
-                        <h1 className="text-base">{ item.description }</h1>
-                        <h1 className="text-base">{ capitalizeString(item.category) }</h1>
-                        <h1 className="text-base">{ formatPrice(item.price) }</h1>
-                        <h1 className="text-base">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
+                        <h1 className="font-semibold text-lg dark:text-white">{ item.title }</h1>
+                        <h1 className="text-base dark:text-white">{ item.description }</h1>
+                        <h1 className="text-base dark:text-white">{ capitalizeString(item.category) }</h1>
+                        <h1 className="text-base dark:text-white">{ formatPrice(item.price) }</h1>
+                        <h1 className="text-base dark:text-white">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
+                        <h1 className="text-base dark:text-white">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
 
                         <div className=" inlilne-flex space-x-4">
-                            { cart.some((item: Product): boolean => item.id === item.id) ? (
+                            { cart.some((product: Product): boolean => item.id === product.id) ? (
                                 <button className="
-                                    text-gray-700
+                                    text-gray-700 dark:text-white
                                     border-2
-                                    border-gray-700
+                                    border-gray-700 dark:border-white
                                     rounded-full
                                     font-semibold
                                     text-[12px]
                                     p-1
                                     px-3
                                     uppercase
-                                    hover:bg-gray-700
-                                    hover:text-white
+                                    hover:bg-gray-700 dark:hover:bg-white
+                                    hover:text-white dark:hover:text-gray-700
                                     transition
                                     duration-300
-                                    ease-in
-                                    group-hover:text-white
-                                    group-hover:bg-gray-700"
+                                    ease-in"
                                     onClick={ removeFromCart }>
                                     { t("remove-from-cart") }
                                 </button>) : (
                                 <button className="
-                                    text-gray-700
+                                    text-gray-700 dark:text-white
                                     border-2
-                                    border-gray-700
+                                    border-gray-700 dark:border-white
                                     rounded-full
                                     font-semibold
                                     text-[12px]
                                     p-1
                                     px-3
                                     uppercase
-                                    hover:bg-gray-700
-                                    hover:text-white
+                                    hover:bg-gray-700 dark:hover:bg-white
+                                    hover:text-white dark:hover:text-gray-700
                                     transition
                                     duration-300
-                                    ease-in
-                                    group-hover:text-white
-                                    group-hover:bg-gray-700"
+                                    ease-in"
                                     onClick={ addToCart }>
                                     { t("add-to-cart") }
                                 </button>)
