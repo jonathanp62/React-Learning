@@ -128,7 +128,6 @@ export default function Item(): JSX.Element {
                         <h1 className="text-base dark:text-white">{ capitalizeString(item.category) }</h1>
                         <h1 className="text-base dark:text-white">{ formatPrice(item.price) }</h1>
                         <h1 className="text-base dark:text-white">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
-                        <h1 className="text-base dark:text-white">{ formatRating(item.rating.rate) } { t("stars") } ({ item.rating.count } { t("reviews") })</h1>
 
                         <div className=" inlilne-flex space-x-4">
                             { cart.some((product: Product): boolean => item.id === product.id) ? (

@@ -74,6 +74,10 @@ export default defineConfig([
 
 ## E-Commerce Website
 
+This is a simple e-commerce website built using React, TypeScript, and Vite.
+
+It was originally sourced from https://github.com/ianshulx/React-projects-for-beginners/tree/main-616/E-commerce_Website.
+
 Run this using `npm run dev` from the root directory of the project.
 
 The application can be accessed at http://localhost:5173.

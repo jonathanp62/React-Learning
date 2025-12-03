@@ -66,6 +66,7 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
     return (
         <div className="flex
          bg-white
+         dark:bg-gray-800
          flex-col
          items-center
          justify-between
@@ -83,7 +84,7 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
          group
          h-[380px]">
             <div>
-                <p className="text-gray-700
+                <p className="text-gray-700 dark:text-gray-100
                 font-semibold
                 text-lg
                 text-left
@@ -94,7 +95,7 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
                 </p>
             </div>
             <div>
-                <p className="w-40 text-gray-400 font-normal text-[10px] text-left">
+                <p className="w-40 text-gray-500 dark:text-gray-400 font-normal text-[10px] text-left">
                     { post.description.split(" ").slice(0,10).join(" ") + "..." }
                 </p>
             </div>
@@ -112,39 +113,37 @@ const ProductItem: ({ post }: { post : Product}) => JSX.Element = ({ post}: { po
                     cart.some((product: Product): boolean => product.id === post.id) ?
                         (<button
                             className="
-                            text-gray-700
-                            border-2
-                            border-gray-700
+                            text-gray-700 dark:text-white
+                            border-0
+                            border-gray-700 dark:border-white
                             rounded-full
                             font-semibold
                             text-[12px]
                             p-1
                             px-3
                             uppercase
-                            hover:bg-gray-700
-                            hover:text-white
+                            hover:bg-gray-700 dark:hover:bg-white
+                            hover:text-white dark:hover:text-gray-700
                             transition
                             duration-300
-                            ease-in
-                            group-hover:text-white
-                            group-hover:bg-gray-700"
+                            ease-in"
                             onClick={ removeFromCart }
                         >
                             { t("remove-from-cart") }
                         </button>) :
                         (<button
                             className="
-                            text-gray-700 b
-                            order-2
-                            border-gray-700
+                            text-gray-700 dark:text-white
+                            border-0
+                            border-gray-700 dark:border-white
                             rounded-full
                             font-semibold
                             text-[12px]
                             p-1
                             px-3
                             uppercase
-                            hover:bg-gray-700
-                            hover:text-white
+                            hover:bg-gray-700 dark:hover:bg-white
+                            hover:text-white dark:hover:text-gray-700
                             transition
                             duration-300
                             ease-in
