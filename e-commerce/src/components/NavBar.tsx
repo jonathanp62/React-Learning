@@ -185,7 +185,7 @@ export default function NavBar(): JSX.Element {
 
                 <div className="relative font-medium text-slate-100 mr-5 space-x-6">
                     <NavLink to="/cart">
-                        <FaShoppingCart className="text-2xl" />
+                        <FaShoppingCart className="text-2xl text-gray-700 dark:text-white" />
                         {cart.length > 0 && (
                             <span className="
                                 absolute
@@ -203,7 +203,6 @@ export default function NavBar(): JSX.Element {
                                 dark:text-white">
                                 { cart.length }
                             </span>
-
                         )}
                     </NavLink>
                 </div>
