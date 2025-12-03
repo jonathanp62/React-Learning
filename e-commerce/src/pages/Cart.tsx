@@ -102,7 +102,7 @@ export default function Cart(): JSX.Element {
                         </div>
                     </div>) :
                         (<div className="h-screen flex justify-center items-center flex-col">
-                            <h1>{ t("cart-empty") }</h1>
+                            <h1 className="dark:text-white">{ t("cart-empty") }</h1>
                             <Link to="/">
                                 <button className="bg-green-700 py-3 px-8 mt-3 rounded-lg text-white">
                                     { t("shop-now") }
