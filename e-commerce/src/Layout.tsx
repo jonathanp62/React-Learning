@@ -35,6 +35,7 @@ import type { ThemeState } from "./types/ThemeState.tsx";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -56,14 +57,17 @@ export default function Layout(): JSX.Element {
     }, [theme]);
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <div className="bg-slate-300 dark:bg-black fixed w-full z-10">
-                <Navbar />
+        <>
+            <div className="flex flex-col min-h-screen">
+                <div className="bg-slate-300 dark:bg-black fixed w-full z-10">
+                    <Navbar />
+                </div>
+                <div className="flex-1 pt-16">
+                    <Outlet />
+                </div>
+                <Footer />
             </div>
-            <div className="flex-1 pt-16">
-                <Outlet />
-            </div>
-            <Footer />
-        </div>
+            <Toaster />
+        </>
     );
 }
