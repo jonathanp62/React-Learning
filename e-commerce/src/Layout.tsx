@@ -48,6 +48,17 @@ import Footer from "./components/Footer";
 export default function Layout(): JSX.Element {
     const theme: ThemeState = useSelector((state: RootState): ThemeState => state.theme);
 
+    const toastStyles: { background: string; color: string } =
+        theme === 'dark'
+            ? {
+                background: '#333',
+                color: '#fff',
+            }
+            : {
+                background: '#fff',
+                color: '#333',
+            };
+
     useEffect((): void => {
         if (theme === "dark") {
             document.documentElement.classList.add('dark');
@@ -67,7 +78,11 @@ export default function Layout(): JSX.Element {
                 </div>
                 <Footer />
             </div>
-            <Toaster />
+            <Toaster
+                toastOptions={{
+                    style: toastStyles, // Default styles for all toasts
+                }}
+            />
         </>
     );
 }
