@@ -24,5 +24,8 @@
   "rating": "Rating",
   "not-found": "Product {{id}} not found",
   "dark-mode": "Dark Mode",
-  "light-mode": "Light Mode"
+  "light-mode": "Light Mode",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "empty-cart-message": "Are you sure you want to empty your cart"
 }
