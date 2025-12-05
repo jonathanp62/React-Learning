@@ -65,6 +65,9 @@ export default function NavBar(): JSX.Element {
 
     const isDarkMode: boolean = theme === "dark";
 
+    const gray100 = '#F3F4F6';
+    const gray700 = '#374151';
+
     const handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const value: string = event.target.value;
 
@@ -105,12 +108,18 @@ export default function NavBar(): JSX.Element {
 
     const toggleTheme: () => void = (): void => {
         if (isDarkMode) {
-            document.body.style.backgroundColor = '#F3F4F6';    // Since styles.css set a background color for the body; gray-100
+            document.body.style.backgroundColor = gray100;    // Since styles.css set a background color for the body
             dispatch(setTheme("light"));
         } else {
-            document.body.style.backgroundColor = '#374151';    // Gray-700
+            document.body.style.backgroundColor = gray700;
             dispatch(setTheme("dark"));
         }
+    }
+
+    if (isDarkMode) {
+      document.body.style.backgroundColor = gray700;
+    } else {
+      document.body.style.backgroundColor = gray100;
     }
 
     // Close dropdown if input is cleared
