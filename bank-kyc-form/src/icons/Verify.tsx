@@ -1,5 +1,5 @@
 /*
- * (#)App.tsx   0.4.0   12/06/2025
+ * (#)Verify.tsx    0.4.0   12/06/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -30,21 +30,9 @@
 
 import type { JSX } from "react";
 
-import Menu from "./components/Menu";
-import Dashboard from "./components/Dashboard";
+const Verify: () => JSX.Element = (): JSX.Element =>
+    <svg className="w-7" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" strokeLinecap="round" strokeLinejoin="round"></path>
+    </svg>;
 
-/**
- * The application component.
- *
- * @returns {JSX.Element}
- */
-function App(): JSX.Element {
-    return (
-        <div className="App">
-            <Menu />
-            <Dashboard />
-        </div>
-    );
-}
-
-export default App;
+export default Verify;

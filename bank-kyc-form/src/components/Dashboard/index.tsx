@@ -1,5 +1,5 @@
 /*
- * (#)App.tsx   0.4.0   12/06/2025
+ * (#)index.tsx 0.4.0   12/06/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -30,21 +30,15 @@
 
 import type { JSX } from "react";
 
-import Menu from "./components/Menu";
-import Dashboard from "./components/Dashboard";
-
 /**
- * The application component.
+ * The dashboard default component.
  *
  * @returns {JSX.Element}
  */
-function App(): JSX.Element {
+export default function Dashboard(): JSX.Element {
     return (
-        <div className="App">
-            <Menu />
-            <Dashboard />
+        <div className="flex flex-col items-center justify-center w-full dashboard font-primary">
+            <p>Hey I'm the dashboard but I live in index.tsx!</p>
         </div>
     );
 }
-
-export default App;
