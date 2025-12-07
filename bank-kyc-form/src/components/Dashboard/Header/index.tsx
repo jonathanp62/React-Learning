@@ -1,5 +1,5 @@
 /*
- * (#)index.tsx 0.4.0   12/06/2025
+ * (#)index.tsx 0.4.0   12/07/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -30,17 +30,22 @@
 
 import type { JSX } from "react";
 
-import Header from "./Header";
+import { useTranslation } from 'react-i18next';
 
 /**
- * The dashboard component.
+ * The header component.
  *
  * @returns {JSX.Element}
  */
-export default function Dashboard(): JSX.Element {
+export default function Header(): JSX.Element {
+    const { t } = useTranslation();
+
     return (
-        <div className="flex flex-col items-center justify-center w-full dashboard font-primary">
-            <Header />
+        <div className="sticky top-0 flex items-center justify-between w-full p-6 border-b-2 header bg-grey">
+            <p className="text-2xl font-bold">{ t("header") }</p>
+            <img
+                className="w-12 rounded-full cursor-pointer"
+                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
         </div>
     );
 }

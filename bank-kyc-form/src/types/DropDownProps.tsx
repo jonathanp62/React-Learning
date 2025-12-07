@@ -1,5 +1,5 @@
 /*
- * (#)index.tsx 0.4.0   12/06/2025
+ * (#)DropDownProps.tsx 0.4.0   12/07/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,19 +28,21 @@
  * SOFTWARE.
  */
 
-import type { JSX } from "react";
+import type { UseFormRegister, FieldValues } from "react-hook-form";
 
-import Header from "./Header";
+interface DropDownOption {
+    value: string;
+    label: string;
+    disabled?: boolean;
+}
 
-/**
- * The dashboard component.
- *
- * @returns {JSX.Element}
- */
-export default function Dashboard(): JSX.Element {
-    return (
-        <div className="flex flex-col items-center justify-center w-full dashboard font-primary">
-            <Header />
-        </div>
-    );
+/** The interface for the component's props for clarity and type safety. */
+
+export interface DropDownProps {
+    readonly name: string
+    readonly label: string
+    readonly options: DropDownOption[];
+    readonly defaultValue: string;
+    readonly register: UseFormRegister<FieldValues>;
+    readonly errorMessage: string;
 }
