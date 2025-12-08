@@ -30,6 +30,8 @@
 
 import type { JSX } from "react";
 
+import { Toaster } from "react-hot-toast";
+
 import Menu from "./components/Menu";
 import Dashboard from "./components/Dashboard";
 
@@ -40,10 +42,13 @@ import Dashboard from "./components/Dashboard";
  */
 function App(): JSX.Element {
     return (
-        <div className="App">
-            <Menu />
-            <Dashboard />
-        </div>
+        <>
+            <div className="App">
+                <Menu />
+                <Dashboard />
+            </div>
+            <Toaster />
+        </>
     );
 }
 

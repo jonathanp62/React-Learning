@@ -34,6 +34,7 @@ import type { FormValues } from "../../../types/FormValues";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
+import { toast } from "react-hot-toast";
 
 import InputFields from "./InputFields";
 import formConfig from "../../../configuration/formConfig";
@@ -46,13 +47,13 @@ import formSchema from "../../../configuration/formSchema";
  */
 export default function Form(): JSX.Element {
     const { t } = useTranslation();
-
     const { register, handleSubmit, formState: { errors } } = useForm<any>({
         resolver: yupResolver(formSchema)
     });
 
     const handleFormSubmit: (data: FormValues) => void = (data: FormValues): void => {
         console.log(data);
+        toast.success(t("success"));
     };
 
     return (

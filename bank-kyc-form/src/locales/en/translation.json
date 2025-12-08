@@ -3,5 +3,6 @@
   "logo": "Trishan Bank Logo",
   "verify": "Verify Know Your Customer",
   "header": "Know Your Customer Verification",
-  "submit": "Submit Details"
+  "submit": "Submit Details",
+  "success": "Form data successfully submitted"
 }
