@@ -1,5 +1,5 @@
 /*
- * (#)index.tsx 0.4.0   12/08/2025
+ * (#)TextField.tsx 0.4.0   12/08/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -29,31 +29,20 @@
  */
 
 import type { JSX } from "react";
-import type { InputFieldsProps } from "../../../../types/InputFieldsProps";
+import type { TextFieldProps } from "../../../../types/TextFieldProps";
 
-import DropDown from "./DropDown";
-import TextField from "./TextField";
-
-export default function InputFields({ name, type, label, options, placeholder, defaultValue, register, errorMessage }: Readonly<InputFieldsProps>): JSX.Element {
-    if (type === "select") {
-        return (
-            <DropDown
-                name={ name }
-                label={ label }
-                defaultValue={ defaultValue }
-                register={ register }
-                errorMessage={ errorMessage }
-                options={ options }
-            />
-        );
-    } else {
-        return (
-            <TextField
-                name={ name }
-                register={ register }
-                label={ label }
+export default function TextField({ name, label, placeholder, register, errorMessage }: Readonly<TextFieldProps>): JSX.Element {
+    return (
+        <div className="input-container">
+            <label htmlFor={ name }>{ label }</label>
+            <input
+                className="input-field peer"
+                id={ name }
                 placeholder={ placeholder }
-                errorMessage={ errorMessage } />
-        );
-    }
+                type="text"
+                { ...register(name) }
+            />
+            <span className="error">{ errorMessage }</span>
+        </div>
+    );
 }

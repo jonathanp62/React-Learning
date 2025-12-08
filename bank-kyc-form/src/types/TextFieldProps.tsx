@@ -1,5 +1,5 @@
 /*
- * (#)index.tsx 0.4.0   12/08/2025
+ * (#)TextFieldProps.tsx    0.4.0   12/08/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,32 +28,14 @@
  * SOFTWARE.
  */
 
-import type { JSX } from "react";
-import type { InputFieldsProps } from "../../../../types/InputFieldsProps";
+import type { UseFormRegister } from "react-hook-form";
 
-import DropDown from "./DropDown";
-import TextField from "./TextField";
+/** The interface for the component's props for clarity and type safety. */
 
-export default function InputFields({ name, type, label, options, placeholder, defaultValue, register, errorMessage }: Readonly<InputFieldsProps>): JSX.Element {
-    if (type === "select") {
-        return (
-            <DropDown
-                name={ name }
-                label={ label }
-                defaultValue={ defaultValue }
-                register={ register }
-                errorMessage={ errorMessage }
-                options={ options }
-            />
-        );
-    } else {
-        return (
-            <TextField
-                name={ name }
-                register={ register }
-                label={ label }
-                placeholder={ placeholder }
-                errorMessage={ errorMessage } />
-        );
-    }
+export interface TextFieldProps {
+    readonly name: string
+    readonly label: string
+    readonly placeholder?: string;
+    readonly register: UseFormRegister<any>;
+    readonly errorMessage?: string;
 }
