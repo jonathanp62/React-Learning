@@ -28,21 +28,16 @@
  * SOFTWARE.
  */
 
-import type { UseFormRegister, FieldValues } from "react-hook-form";
-
-interface DropDownOption {
-    value: string;
-    label: string;
-    disabled?: boolean;
-}
+import type { UseFormRegister } from "react-hook-form";
+import type { DropDownOption } from "./DropDownOption";
 
 /** The interface for the component's props for clarity and type safety. */
 
 export interface DropDownProps {
     readonly name: string
     readonly label: string
-    readonly options: DropDownOption[];
-    readonly defaultValue: string;
-    readonly register: UseFormRegister<FieldValues>;
-    readonly errorMessage: string;
+    readonly options?: DropDownOption[];
+    readonly defaultValue?: string;
+    readonly register: UseFormRegister<any>;
+    readonly errorMessage?: string;
 }

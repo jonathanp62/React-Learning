@@ -29,11 +29,13 @@
  */
 
 import type { JSX } from "react";
+import type { FormValues } from "../../../types/FormValues";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
 
+import InputFields from "./InputFields";
 import formConfig from "../../../configuration/formConfig";
 import formSchema from "../../../configuration/formSchema";
 
@@ -45,11 +47,11 @@ import formSchema from "../../../configuration/formSchema";
 export default function Form(): JSX.Element {
     const { t } = useTranslation();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm<any>({
         resolver: yupResolver(formSchema)
     });
 
-    const handleFormSubmit = (data): void => {
+    const handleFormSubmit: (data: FormValues) => void = (data: FormValues): void => {
         console.log(data);
     };
 
@@ -67,7 +69,7 @@ export default function Form(): JSX.Element {
                                 const { id, name, type, label, options, placeholder, defaultValue } = field;
                                 return (
                                     <InputFields
-                                        key={ id}
+                                        key={ id }
                                         placeholder={ placeholder }
                                         name={ name }
                                         type={ type }
@@ -75,7 +77,7 @@ export default function Form(): JSX.Element {
                                         options={ options }
                                         defaultValue={ defaultValue }
                                         register={ register }
-                                        errorMessage= {errors[`${name}`]?.message }
+                                        errorMessage={ errors[`${name}`]?.message as string | undefined }
                                     />
                                 );
                             }

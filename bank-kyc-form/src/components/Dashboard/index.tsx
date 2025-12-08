@@ -31,6 +31,7 @@
 import type { JSX } from "react";
 
 import Header from "./Header";
+import Form from "./Form";
 
 /**
  * The dashboard component.
@@ -41,6 +42,7 @@ export default function Dashboard(): JSX.Element {
     return (
         <div className="flex flex-col items-center justify-center w-full dashboard font-primary">
             <Header />
+            <Form />
         </div>
     );
 }

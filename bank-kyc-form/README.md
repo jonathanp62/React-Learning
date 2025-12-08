@@ -76,7 +76,7 @@ export default defineConfig([
 
 This is a simple e-commerce website built using React, TypeScript, and Vite.
 
-It was originally sourced from https://github.com/ianshulx/React-projects-for-beginners/tree/main-616/E-commerce_Website.
+It was originally sourced from https://github.com/ianshulx/React-projects-for-beginners/tree/main-616/Bank-KYC-Form.
 
 The tech stack is as follows:
 
