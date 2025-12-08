@@ -73,7 +73,7 @@ const formSchema = yup.object().shape({
         .string()
         .required("Ward number is required field")
         .matches(/^[0-9]/, "Ward Number can't contain any letters or special characters"),
-    toleName: yup.string(),
+    familyName: yup.string(),
     documentType: yup
         .string()
         .required("Document Type must be selected"),

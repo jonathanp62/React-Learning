@@ -42,7 +42,7 @@ export type FormValues = {
     district: string;
     municipality: string;
     wardNumber: string;
-    toleName?: string;
+    familyName?: string;
     documentType: string;
     citizenshipNumber: string;
     issuedDistrict: string;

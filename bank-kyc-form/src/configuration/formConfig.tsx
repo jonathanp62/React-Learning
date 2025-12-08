@@ -68,6 +68,7 @@ const formConfig = {
                     name: "dob",
                     type: "date",
                     label: "DOB",
+                    placeholder: "Enter your date of birth",
                 },
                 {
                     id: 14,
@@ -172,25 +173,25 @@ const formConfig = {
                             value: "", label: "Select State", disabled: true
                         },
                         {
-                            value: "koshi", label: "Koshi"
+                            value: "California", label: "California"
                         },
                         {
-                            value: "madhesh", label: "Madhesh"
+                            value: "Delaware", label: "Delaware"
                         },
                         {
-                            value: "bagmati", label: "Bagmati"
+                            value: "Florida", label: "Florida"
                         },
                         {
-                            value: "gandaki", label: "Gandaki"
+                            value: "Illinois", label: "Illinois"
                         },
                         {
-                            value: "lumbini", label: "Lumbini"
+                            value: "Maryland", label: "Maryland"
                         },
                         {
-                            value: "karnali", label: "Karnali"
+                            value: "New York", label: "New York"
                         },
                         {
-                            value: "sudurpashchim", label: "Sudurpashchim"
+                            value: "Texas", label: "Texas"
                         },
                     ],
                 },
@@ -217,10 +218,10 @@ const formConfig = {
                 },
                 {
                     id: 25,
-                    name: "toleName",
+                    name: "familyName",
                     type: "text",
-                    label: "Tole Name (optional)",
-                    placeholder: "Enter your tole name"
+                    label: "Family Name (optional)",
+                    placeholder: "Enter your family name"
                 },
             ],
         },
@@ -269,6 +270,7 @@ const formConfig = {
                     name: "dateOfIssue",
                     type: "date",
                     label: "Date of Issue",
+                    placeholder: "Enter the date of issue",
                 },
                 {
                     id: 35,
