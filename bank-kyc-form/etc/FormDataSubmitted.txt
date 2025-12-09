@@ -1,33 +1,11 @@
 {
     "fullName": "Jonathan Parker",
     "gender": "male",
-    "dob": "02/05/1962",
+    "dateOfBirth": "02/05/1962",
     "fatherName": "Glenn Parker",
     "grandFatherName": "William Parker",
     "maritalStatus": "married",
-    "occupation-field": "tech",
-    "emailAddress": "jonathanp62@gmail.com",
-    "contactNumber": "4436042821",
-    "state": "koshi",
-    "district": "Owings Mills",
-    "municipality": "Owings Mills",
-    "wardNumber": "21117",
-    "familyName": "",
-    "documentType": "passport",
-    "citizenshipNumber": "1234567890",
-    "issuedDistrict": "Owings Mills",
-    "dateOfIssue": "12/08/2025",
-    "profilePicture": ""
-}
-
-{
-    "fullName": "Jonathan Parker",
-    "gender": "male",
-    "dob": "02/05/1962",
-    "fatherName": "Glenn Parker",
-    "grandFatherName": "William Parker",
-    "maritalStatus": "married",
-    "occupation-field": "tech",
+    "occupation": "tech",
     "emailAddress": "jonathanp62@gmail.com",
     "contactNumber": "4436042821",
     "state": "Maryland",
@@ -40,6 +18,10 @@
     "issuedDistrict": "Owings Mills",
     "dateOfIssue": "12/09/2025",
     "profilePicture": {
-        "0": {}
+        "0": File { name: "profile.jpg",
+                    lastModified: 1761323816000,
+                    lastModifiedDate: Fri Oct 24 2025 12:36:56 GMT-0400 (Eastern Daylight Time),
+                    webkitRelativePath: '',
+                    size: 364373 }
     }
 }

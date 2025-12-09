@@ -53,6 +53,28 @@ export default function Form(): JSX.Element {
 
     const handleFormSubmit: (data: FormValues) => void = (data: FormValues): void => {
         console.log(data);
+        console.log(data.fullName);
+        console.log(data.gender);
+        console.log(data.dateOfBirth);
+        console.log(data.fatherName);
+        console.log(data.grandFatherName);
+        console.log(data.maritalStatus);
+        console.log(data.occupation);
+        console.log(data.emailAddress);
+        console.log(data.contactNumber);
+        console.log(data.state);
+        console.log(data.district);
+        console.log(data.municipality);
+        console.log(data.wardNumber);
+        console.log(data.familyName);
+        console.log(data.documentType);
+        console.log(data.citizenshipNumber);
+        console.log(data.issuedDistrict);
+        console.log(data.dateOfIssue);
+        console.log(data.profilePicture?.[0]?.name ?? "No profile picture provided");
+        console.log(data.profilePicture?.[0]?.lastModified ?? "No profile picture provided");
+        console.log(data.profilePicture?.[0]?.size ?? "No profile picture provided");
+
         toast.success(t("success"));
     };
 

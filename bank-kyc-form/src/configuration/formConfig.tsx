@@ -65,9 +65,9 @@ const formConfig = {
                 },
                 {
                     id: 13,
-                    name: "dob",
+                    name: "dateOfBirth",
                     type: "date",
-                    label: "DOB",
+                    label: "Date of Birth",
                     placeholder: "Enter your date of birth",
                 },
                 {
@@ -104,9 +104,9 @@ const formConfig = {
                 },
                 {
                     id: 17,
-                    name: "occupation-field",
+                    name: "occupation",
                     type: "select",
-                    label: "Occupation Field",
+                    label: "Occupation/Field",
                     defaultValue: "",
                     options: [
                         {

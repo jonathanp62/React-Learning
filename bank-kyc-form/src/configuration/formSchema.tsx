@@ -38,7 +38,7 @@ const formSchema = yup.object().shape({
     gender: yup.
     string()
         .required("Gender must be selected"),
-    dob: yup
+    dateOfBirth: yup
         .string()
         .required("Date of Birth must be selected"),
     fatherName: yup
@@ -46,9 +46,9 @@ const formSchema = yup.object().shape({
         .required("Father's Name is Required"),
     grandFatherName: yup.string(),
     maritalStatus: yup.string(),
-    "occupation-field": yup
+    occupation: yup
         .string()
-        .required("You must select your occupation field"),
+        .required("You must select your occupation or field"),
     emailAddress: yup
         .string()
         .email("Email Adress must be valid")

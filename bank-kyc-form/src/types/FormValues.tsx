@@ -31,11 +31,11 @@
 export type FormValues = {
     fullName: string;
     gender: string;
-    dob: string;
+    dateOfBirth: string;
     fatherName: string;
     grandFatherName?: string;
     maritalStatus?: string;
-    "occupation-field": string;
+    occupation: string;
     emailAddress: string;
     contactNumber: string;
     state: string;
@@ -47,5 +47,5 @@ export type FormValues = {
     citizenshipNumber: string;
     issuedDistrict: string;
     dateOfIssue: string;
-    profilePicture?: File;
+    profilePicture?: FileList;
 };
