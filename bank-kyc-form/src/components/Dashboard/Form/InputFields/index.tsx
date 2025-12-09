@@ -32,8 +32,15 @@ import type { JSX } from "react";
 import type { InputFieldsProps } from "../../../../types/InputFieldsProps";
 
 import DropDown from "./DropDown";
+import FileField from "./FileField";
 import TextField from "./TextField";
 
+/**
+ * The input fields component.
+ *
+ * @param   {InputFieldsProps}    props   The props for the component
+ * @returns {JSX.Element}
+ */
 export default function InputFields({ name, type, label, options, placeholder, defaultValue, register, errorMessage }: Readonly<InputFieldsProps>): JSX.Element {
     if (type === "select") {
         return (
@@ -44,6 +51,15 @@ export default function InputFields({ name, type, label, options, placeholder, d
                 register={ register }
                 errorMessage={ errorMessage }
                 options={ options }
+            />
+        );
+    } else if (type === "file") {
+        return (
+            <FileField
+                name={ name }
+                label={ label }
+                register={ register }
+                errorMessage={ errorMessage }
             />
         );
     } else {

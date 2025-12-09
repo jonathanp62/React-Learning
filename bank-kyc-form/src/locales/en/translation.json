@@ -4,5 +4,7 @@
   "verify": "Verify Know Your Customer",
   "header": "Know Your Customer Verification",
   "submit": "Submit Details",
-  "success": "Form data successfully submitted"
+  "success": "Form data successfully submitted",
+  "upload": "Upload",
+  "delete": "Delete Selected File"
 }

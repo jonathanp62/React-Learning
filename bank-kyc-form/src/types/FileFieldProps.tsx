@@ -1,5 +1,5 @@
 /*
- * (#)DropDown.tsx  0.4.0   12/07/2025
+ * (#)FileFieldProps.tsx    0.4.0   12/09/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,30 +28,13 @@
  * SOFTWARE.
  */
 
-import type { JSX } from "react";
-import type { DropDownProps } from "../../../../types/DropDownProps";
+import type { UseFormRegister } from "react-hook-form";
 
-/**
- * The drop-down field component.
- *
- * @param   {DropDownProps}    props   The props for the component
- * @returns {JSX.Element}
- */
-export default function DropDown({ name, label, options, defaultValue, register, errorMessage }: Readonly<DropDownProps>): JSX.Element {
-    return (
-        <div className="select-container">
-            <label htmlFor={ name }>{ label }</label>
-            <select className="select-field peer" defaultValue={ defaultValue } id={ name } { ...register(name) }>
-                {options?.map(option => (
-                    <option
-                        key={ option.value }
-                        value={ option.value }
-                        disabled={ option.disabled }>
-                        { option.label }
-                    </option>
-                ))}
-            </select>
-            <span className="error">{ errorMessage }</span>
-        </div>
-    );
-};
+/** The interface for the component's props for clarity and type safety. */
+
+export interface FileFieldProps {
+    readonly name: string
+    readonly label: string
+    readonly register: UseFormRegister<any>;
+    readonly errorMessage?: string;
+}

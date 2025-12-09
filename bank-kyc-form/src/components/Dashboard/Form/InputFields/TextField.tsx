@@ -31,6 +31,12 @@
 import type { JSX } from "react";
 import type { TextFieldProps } from "../../../../types/TextFieldProps";
 
+/**
+ * The text field component.
+ *
+ * @param   {TextFieldProps}    props   The props for the component
+ * @returns {JSX.Element}
+ */
 export default function TextField({ name, label, placeholder, register, errorMessage }: Readonly<TextFieldProps>): JSX.Element {
     return (
         <div className="input-container">
