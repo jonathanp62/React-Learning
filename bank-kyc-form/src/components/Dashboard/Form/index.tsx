@@ -30,6 +30,7 @@
 
 import type { JSX } from "react";
 import type { FormValues } from "../../../types/FormValues";
+import type { ProfilePicture, SaveRequest } from "../../../types/SaveRequest";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -52,30 +53,71 @@ export default function Form(): JSX.Element {
     });
 
     const handleFormSubmit: (data: FormValues) => void = (data: FormValues): void => {
+        // @todo: Configure debug in the package JSON
+        // @todo: Test without optional elements
+
         console.log(data);
-        console.log(data.fullName);
-        console.log(data.gender);
-        console.log(data.dateOfBirth);
-        console.log(data.fatherName);
-        console.log(data.grandFatherName);
-        console.log(data.maritalStatus);
-        console.log(data.occupation);
-        console.log(data.emailAddress);
-        console.log(data.contactNumber);
-        console.log(data.state);
-        console.log(data.district);
-        console.log(data.municipality);
-        console.log(data.wardNumber);
-        console.log(data.familyName);
-        console.log(data.documentType);
-        console.log(data.citizenshipNumber);
-        console.log(data.issuedDistrict);
-        console.log(data.dateOfIssue);
-        console.log(data.profilePicture?.[0]?.name ?? "No profile picture provided");
-        console.log(data.profilePicture?.[0]?.lastModified ?? "No profile picture provided");
-        console.log(data.profilePicture?.[0]?.size ?? "No profile picture provided");
+
+        const profilePicture: ProfilePicture = {
+            name: data.profilePicture?.[0]?.name ?? "",
+            lastModified: data.profilePicture?.[0]?.lastModified ?? 0,
+            size: data.profilePicture?.[0]?.size ?? 0
+        };
+
+        const saveRequest: SaveRequest = {
+            fullName: data.fullName,
+            gender: data.gender,
+            dateOfBirth: data.dateOfBirth,
+            fatherName: data.fatherName,
+            grandFatherName: data.grandFatherName,
+            maritalStatus: data.maritalStatus,
+            occupation: data.occupation,
+            emailAddress: data.emailAddress,
+            contactNumber: data.contactNumber,
+            state: data.state,
+            district: data.district,
+            municipality: data.municipality,
+            wardNumber: data.wardNumber,
+            familyName: data.familyName,
+            documentType: data.documentType,
+            citizenshipNumber: data.citizenshipNumber,
+            issuedDistrict: data.issuedDistrict,
+            dateOfIssue: data.dateOfIssue,
+            profilePicture: profilePicture
+        };
+
+        console.log(saveRequest);
+
+        saveForm(saveRequest).finally();
 
         toast.success(t("success"));
+    };
+
+    /**
+     * Saves the form.
+     *
+     * @param   {SaveRequest}   request   The form request
+     * @return  {Promise<void>}
+     */
+    const saveForm: (request: SaveRequest) => Promise<void> = async (request: SaveRequest): Promise<void> => {
+        const postUrl: string = "http://localhost:8080/react/learning/api/bank-kyc-form";
+
+        try {
+            const response: Response = await fetch(postUrl, {
+                method: 'POST',
+                body: JSON.stringify(request),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+
+            const form: SaveRequest = await response.json();
+
+            console.log("Returned form:");
+            console.log(form);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
