@@ -151,12 +151,20 @@ export default function Form(): JSX.Element {
                 </div>
             ))}
 
-            <button
-                type="submit"
-                className="w-full p-4 font-bold text-white transition ease-in rounded-md bg-primary hover:bg-secondary"
-            >
-                { t("submit") }
-            </button>
+            <div className="flex flex-col items-center gap-2">
+                <button
+                    type="submit"
+                    className="w-1/2 p-4 font-bold text-white transition ease-in rounded-md bg-primary hover:bg-secondary"
+                >
+                    { t("submit") }
+                </button>
+                <button
+                    type="reset"
+                    className="w-1/2 p-4 font-bold text-white transition ease-in rounded-md bg-primary hover:bg-secondary"
+                >
+                    { t("reset") }
+                </button>
+            </div>
         </form>
     );
 }
