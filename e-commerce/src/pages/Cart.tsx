@@ -65,7 +65,7 @@ export default function Cart(): JSX.Element {
         const success: boolean = await saveCart();
 
         if (success) {
-            toast.success(t("cart-saved"));
+            toast.success(t("cart-saved-ok"));
         } else {
             toast.error(t("cart-save-failed"));
         }
