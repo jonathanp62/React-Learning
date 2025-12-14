@@ -1,5 +1,5 @@
 /*
- * (#)OrderDocument.tsx 0.4.0   12/14/2025
+ * (#)Order.tsx 0.4.0   12/14/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -30,8 +30,7 @@
 
 import type { Product } from "./Product";
 
-export type OrderDocument = {
-    documentId: string,
+export type Order = {
     orderId: string,
     firstName: string,
     lastName: string,

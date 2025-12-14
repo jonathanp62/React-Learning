@@ -30,7 +30,8 @@
  */
 
 import type { JSX } from "react";
-import type { OrderDocumentType } from "../types/OrderDocument";
+import type { Order } from "../types/Order";
+import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 import type { RootState } from "../redux/Store";
 
@@ -39,6 +40,7 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../utils/Formatters";
+import { v4 as uuidv4 } from 'uuid';
 
 import toast from 'react-hot-toast';
 import CartItem from "../components/CartItem";
@@ -79,15 +81,29 @@ export default function Cart(): JSX.Element {
     const saveCart: () => Promise<boolean> = async (): Promise<boolean> => {
         const postUrl: string = apiServiceUrl;
 
+        const order: Order = {
+            orderId: uuidv4(),
+            firstName: "John",
+            lastName: "Doe",
+            address: "123 Main Street",
+            city: "Anytown",
+            state: "MD",
+            zipCode: "54321",
+            country: "USA",
+            phone: "555-123-4567",
+            email: "john.doe@example.com",
+            products: cart
+        }
+
         if (debug) {
-            console.log("Cart:");
-            console.log(cart);
+            console.log("Order:");
+            console.log(order);
         }
 
         try {
             const response: Response = await fetch(postUrl, {
                 method: 'POST',
-                body: JSON.stringify(cart),
+                body: JSON.stringify(order),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
                 },
@@ -106,7 +122,7 @@ export default function Cart(): JSX.Element {
                 });
             }
 
-            const document: OrderDocumentType = await response.json();
+            const document: OrderDocument = await response.json();
 
             console.log(`Document saved: ${document.documentId}`);
 
