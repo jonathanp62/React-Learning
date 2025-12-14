@@ -1,8 +1,9 @@
 /*
+ * (#)Cart.tsx  0.4.0   12/14/2025
  * (#)Cart.tsx  0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -29,18 +30,20 @@
  */
 
 import type { JSX } from "react";
-import type { Product } from "../types/Product.tsx";
-import type { RootState } from "../redux/Store.tsx";
+import type { OrderDocumentType } from "../types/OrderDocument";
+import type { Product } from "../types/Product";
+import type { RootState } from "../redux/Store";
 
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { formatPrice } from "../utils/Formatters.tsx";
+import { formatPrice } from "../utils/Formatters";
 
 import toast from 'react-hot-toast';
 import CartItem from "../components/CartItem";
 import EmptyCartButton from "../components/EmptyCartButton";
+import ApiContext from "../ApiContext";
 
 /**
  * The cart page.
@@ -49,6 +52,8 @@ import EmptyCartButton from "../components/EmptyCartButton";
  */
 export default function Cart(): JSX.Element {
     const { t } = useTranslation();
+    const { apiServiceUrl, debug } = useContext(ApiContext);
+
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
     const [totalAmount, setTotalAmount] = useState<number>(0);
 
@@ -56,9 +61,65 @@ export default function Cart(): JSX.Element {
         setTotalAmount(cart.reduce( (acc: number, product: Product): number => acc + product.price,0) )
     }, [cart])
 
-    const handleClick: () => void = (): void => {
-        toast.success(t("checkout-unavailable"));
+    const handleClick: () => Promise<void> = async (): Promise<void> => {
+        const success: boolean = await saveCart();
+
+        if (success) {
+            toast.success(t("cart-saved"));
+        } else {
+            toast.error(t("cart-save-failed"));
+        }
     }
+
+    /**
+     * Saves the cart.
+     *
+     * @return  {Promise<boolean>}
+     */
+    const saveCart: () => Promise<boolean> = async (): Promise<boolean> => {
+        const postUrl: string = apiServiceUrl;
+
+        if (debug) {
+            console.log("Cart:");
+            console.log(cart);
+        }
+
+        try {
+            const response: Response = await fetch(postUrl, {
+                method: 'POST',
+                body: JSON.stringify(cart),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+
+            if (debug) {
+                console.log("Response:");
+                console.log({
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                    url: response.url,
+                    ok: response.ok,
+                    redirected: response.redirected,
+                    type: response.type
+                });
+            }
+
+            const document: OrderDocumentType = await response.json();
+
+            console.log(`Document saved: ${document.documentId}`);
+
+            if (debug) {
+                console.log(document);
+            }
+            
+            return response.ok;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    };
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">

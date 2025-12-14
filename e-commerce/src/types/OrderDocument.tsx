@@ -1,10 +1,9 @@
 /*
- * (#)ApiContextType.tsx    0.4.0   12/14/2025
- * (#)ApiContextType.tsx    0.3.0   11/23/2025
+ * (#)OrderDocumentType.tsx 0.4.0   12/14/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
- * @since   0.3.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -29,8 +28,9 @@
  * SOFTWARE.
  */
 
-export type ApiContextType = {
-    baseUrl: string,
-    apiServiceUrl: string,
-    debug: boolean
+import type { Product } from "./Product";
+
+export type OrderDocumentType = {
+    documentId: string,
+    products: Product[]
 }

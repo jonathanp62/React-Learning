@@ -1,8 +1,9 @@
 /*
+ * (#)ApiContext.tsx    0.4.0   12/14/2025
  * (#)ApiContext.tsx    0.3.0   11/23/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -34,6 +35,7 @@ import React from "react";
 
 const ApiContext: React.Context<ApiContextType> = React.createContext<ApiContextType>({
     baseUrl: "",
+    apiServiceUrl: "",
     debug: false
 });
 

@@ -1,8 +1,9 @@
 /*
+ * (#)App.tsx   0.4.0   12/14/2025
  * (#)App.tsx   0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -51,6 +52,7 @@ import packageJson from "../package.json";
 function App(): JSX.Element {
     const apiContext: ApiContextType = {
         baseUrl: packageJson.appConfig.apiBaseUrl,
+        apiServiceUrl: packageJson.appConfig.apiServiceUrl,
         debug: packageJson.appConfig.debug
     }
 
