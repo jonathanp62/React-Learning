@@ -30,22 +30,17 @@
  */
 
 import type { JSX } from "react";
-import type { Order } from "../types/Order";
-import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 import type { RootState } from "../redux/Store";
 
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../utils/Formatters";
-import { v4 as uuidv4 } from 'uuid';
 
-import toast from 'react-hot-toast';
 import CartItem from "../components/CartItem";
 import EmptyCartButton from "../components/EmptyCartButton";
-import ApiContext from "../ApiContext";
 
 /**
  * The cart page.
@@ -54,7 +49,6 @@ import ApiContext from "../ApiContext";
  */
 export default function Cart(): JSX.Element {
     const { t } = useTranslation();
-    const { apiServiceUrl, debug } = useContext(ApiContext);
 
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
     const [totalAmount, setTotalAmount] = useState<number>(0);
@@ -62,83 +56,6 @@ export default function Cart(): JSX.Element {
     useEffect( (): void => {
         setTotalAmount(cart.reduce( (acc: number, product: Product): number => acc + product.price,0) )
     }, [cart])
-
-    const handleClick: () => Promise<void> = async (): Promise<void> => {
-        const success: boolean = await saveCart();
-
-        if (success) {
-            toast.success(t("cart-saved-ok"));
-        } else {
-            toast.error(t("cart-save-failed"));
-        }
-    }
-
-    /**
-     * Saves the cart.
-     *
-     * @return  {Promise<boolean>}
-     */
-    const saveCart: () => Promise<boolean> = async (): Promise<boolean> => {
-        const postUrl: string = apiServiceUrl;
-        const now: Date = new Date();
-        const isoNow: string = now.toISOString();
-
-        const order: Order = {
-            orderId: uuidv4(),
-            orderDate: isoNow,
-            firstName: "John",
-            lastName: "Doe",
-            address: "123 Main Street",
-            city: "Anytown",
-            state: "MD",
-            zipCode: "54321",
-            country: "USA",
-            phone: "555-123-4567",
-            email: "john.doe@example.com",
-            products: cart
-        }
-
-        if (debug) {
-            console.log("Order:");
-            console.log(order);
-        }
-
-        try {
-            const response: Response = await fetch(postUrl, {
-                method: 'POST',
-                body: JSON.stringify(order),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            });
-
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
-
-            const document: OrderDocument = await response.json();
-
-            console.log(`Document saved: ${document.documentId}`);
-
-            if (debug) {
-                console.log(document);
-            }
-            
-            return response.ok;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
-    };
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
@@ -164,10 +81,11 @@ export default function Cart(): JSX.Element {
 
                             <div>
                                 <p className="dark:text-white">{ t("total-amount") }: <span className="font-bold">{ formatPrice(totalAmount) }</span></p>
-                                <button className="mt-2 bg-green-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all"
-                                    onClick={ handleClick }>
-                                    { t("checkout-now") }
-                                </button>
+                                <Link to="/checkout">
+                                    <button className="mt-2 bg-green-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all">
+                                        { t("checkout-now") }
+                                    </button>
+                                </Link>
                                 <EmptyCartButton />
                             </div>
                         </div>

@@ -109,6 +109,9 @@ const formConfig = {
                             value: "South Carolina", label: "South Carolina"
                         },
                         {
+                            value: "Tennessee", label: "Tennessee"
+                        },
+                        {
                             value: "Texas", label: "Texas"
                         },
                         {

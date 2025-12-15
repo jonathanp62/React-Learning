@@ -29,15 +29,22 @@
  */
 
 import type { JSX } from "react";
-import type { FormValues} from "../types/FormValues";
+import type { FormValues } from "../types/FormValues";
+import type { Order } from "../types/Order";
+import type { OrderDocument } from "../types/OrderDocument.tsx";
+import type { Product } from "../types/Product.tsx";
+import type { RootState } from "../redux/Store.tsx";
 
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
 import { useContext } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import formConfig from "../configuration/formConfig";
 import formSchema from "../configuration/formSchema";
+import toast from "react-hot-toast";
 import ApiContext from "../ApiContext";
 
 /**
@@ -47,15 +54,88 @@ import ApiContext from "../ApiContext";
  */
 export default function Checkout(): JSX.Element {
     const { t } = useTranslation();
-    const { debug } = useContext(ApiContext);
+    const { apiServiceUrl, debug } = useContext(ApiContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<any>({
         resolver: yupResolver(formSchema)
     });
 
+    const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
+
     const handleClick: () => Promise<void> = async (): Promise<void> => {
+        const success: boolean = await placeOrder();
+
+        if (success) {
+            toast.success(t("order-placed-ok"));
+        } else {
+            toast.error(t("order-place-failed"));
+        }
+    };
+
+    /**
+     * Places the order.
+     *
+     * @return  {Promise<boolean>}
+     */
+    const placeOrder: () => Promise<boolean> = async (): Promise<boolean> => {
+        const postUrl: string = apiServiceUrl;
+        const now: Date = new Date();
+        const isoNow: string = now.toISOString();
+
+        const order: Order = {
+            orderId: uuidv4(),
+            orderDate: isoNow,
+            firstName: "John",
+            lastName: "Doe",
+            address: "123 Main Street",
+            city: "Anytown",
+            state: "MD",
+            zipCode: "54321",
+            country: "USA",
+            phone: "555-123-4567",
+            email: "john.doe@example.com",
+            products: cart
+        }
+
         if (debug) {
-            console.log("handleClick");
+            console.log("Order:");
+            console.log(order);
+        }
+
+        try {
+            const response: Response = await fetch(postUrl, {
+                method: 'POST',
+                body: JSON.stringify(order),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+
+            if (debug) {
+                console.log("Response:");
+                console.log({
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                    url: response.url,
+                    ok: response.ok,
+                    redirected: response.redirected,
+                    type: response.type
+                });
+            }
+
+            const document: OrderDocument = await response.json();
+
+            console.log(`Order document saved: ${document.documentId}`);
+
+            if (debug) {
+                console.log(document);
+            }
+
+            return response.ok;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
     };
 
