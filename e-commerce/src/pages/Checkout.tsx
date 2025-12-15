@@ -35,12 +35,14 @@ import type { OrderDocument } from "../types/OrderDocument.tsx";
 import type { Product } from "../types/Product.tsx";
 import type { RootState } from "../redux/Store.tsx";
 
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { clear } from '../redux/slices/CartSlice';
 
 import formConfig from "../configuration/formConfig";
 import formSchema from "../configuration/formSchema";
@@ -60,12 +62,14 @@ export default function Checkout(): JSX.Element {
         resolver: yupResolver(formSchema)
     });
 
+    const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
 
     const handleClick: () => Promise<void> = async (): Promise<void> => {
         const success: boolean = await placeOrder();
 
         if (success) {
+            dispatch(clear());  // Empty the cart
             toast.success(t("order-placed-ok"));
         } else {
             toast.error(t("order-place-failed"));
