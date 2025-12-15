@@ -158,15 +158,25 @@ export default function Checkout(): JSX.Element {
             <div className="w-full max-w-[1000px] mx-auto flex justify-center">
                 <form onSubmit={ handleSubmit(handleFormSubmit) } noValidate>
                     {formConfig.sections.map(section => (
-                        <div className="mb-20" key={section.id}>
-                            <p className="font-semibold text-xl mb-2 dark:text-white">{section.heading}</p>
-                        </div>
+                        <>
+                            <div className="mb-20" key={section.id}>
+                                <p className="font-semibold text-xl mb-2 dark:text-white">{section.heading}</p>
+                            </div>
+                            {section.fields.map(field => {
+                                    const {id, name, type, label, options, placeholder, defaultValue} = field;
+
+                                    return (
+                                        <p>{label}</p>
+                                    );
+                                }
+                            )}
+                        </>
                     ))}
                 </form>
             </div>
 
             <div className="w-full max-w-[1000px] mx-auto flex justify-center">
-                <button className="mt-2 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                <button className="mt-20 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
                         onClick={ handleClick }>
                     { t("place-order") }
                 </button>
