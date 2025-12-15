@@ -40,8 +40,8 @@ import type { SelectFieldProps } from "../../types/SelectFieldProps";
 export default function SelectField({ name, label, options, defaultValue, register, errorMessage }: Readonly<SelectFieldProps>): JSX.Element {
     return (
         <div className="select-container">
-            <label htmlFor={ name }>{ label }</label>
-            <select className="select-field peer" defaultValue={ defaultValue } id={ name } { ...register(name) }>
+            <label className="dark:text-white" htmlFor={ name }>{ label }</label>
+            <select className="select-field peer dark:text-white" defaultValue={ defaultValue } id={ name } { ...register(name) }>
                 {options?.map(option => (
                     <option
                         key={ option.value }

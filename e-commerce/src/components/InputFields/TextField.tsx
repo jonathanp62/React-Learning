@@ -40,9 +40,9 @@ import type { TextFieldProps } from "../../types/TextFieldProps";
 export default function TextField({ name, label, placeholder, register, errorMessage }: Readonly<TextFieldProps>): JSX.Element {
     return (
         <div className="text-container">
-            <label htmlFor={ name }>{ label }</label>
+            <label className="dark:text-white" htmlFor={ name }>{ label }</label>
             <input
-                className="text-field peer"
+                className="text-field peer dark:text-white"
                 id={ name }
                 placeholder={ placeholder }
                 type="text"

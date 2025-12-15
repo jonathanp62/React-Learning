@@ -157,7 +157,7 @@ export default function Checkout(): JSX.Element {
             </div>
 
             <div className="w-full max-w-[1000px] mx-auto flex justify-center">
-                <form onSubmit={ handleSubmit(handleFormSubmit) } noValidate>
+                <form onSubmit={ handleSubmit(handleFormSubmit) } noValidate className="w-9/12">
                     {formConfig.sections.map(section => (
                         <>
                             <div className="mb-10" key={section.id}>
