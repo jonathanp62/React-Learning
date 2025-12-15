@@ -29,7 +29,127 @@
  */
 
 const formConfig = {
-
+    sections: [
+        {
+            id: 1,
+            heading: "Customer Information",
+            fields: [
+                {
+                    id: 11,
+                    name: "firstName",
+                    type: "text",
+                    label: "First Name",
+                    placeholder: "Enter your first name"
+                },
+                {
+                    id: 12,
+                    name: "lastName",
+                    type: "text",
+                    label: "Last Name",
+                    placeholder: "Enter your last name"
+                },
+                {
+                    id: 13,
+                    name: "address",
+                    type: "text",
+                    label: "Address",
+                    placeholder: "Enter your street address"
+                },
+                {
+                    id: 14,
+                    name: "city",
+                    type: "text",
+                    label: "City",
+                    placeholder: "Enter your city"
+                },
+                {
+                    id: 15,
+                    name: "state",
+                    type: "select",
+                    label: "State",
+                    defaultValue: "",
+                    options: [
+                        {
+                            value: "", label: "Select State", disabled: true
+                        },
+                        {
+                            value: "Arizona", label: "Arizona"
+                        },
+                        {
+                            value: "California", label: "California"
+                        },
+                        {
+                            value: "Delaware", label: "Delaware"
+                        },
+                        {
+                            value: "Florida", label: "Florida"
+                        },
+                        {
+                            value: "Georgia", label: "Georgia"
+                        },
+                        {
+                            value: "Illinois", label: "Illinois"
+                        },
+                        {
+                            value: "Maryland", label: "Maryland"
+                        },
+                        {
+                            value: "Massachusetts", label: "Massachusetts"
+                        },
+                        {
+                            value: "New York", label: "New York"
+                        },
+                        {
+                            value: "North Carolina", label: "North Carolina"
+                        },
+                        {
+                            value: "Ohio", label: "Ohio"
+                        },
+                        {
+                            value: "South Carolina", label: "South Carolina"
+                        },
+                        {
+                            value: "Texas", label: "Texas"
+                        },
+                        {
+                            value: "Virginia", label: "Virginia"
+                        },
+                        {
+                            value: "West Virginia", label: "West Virginia"
+                        }
+                    ]
+                },
+                {
+                    id: 16,
+                    name: "zipCode",
+                    type: "text",
+                    label: "Zip Code",
+                    placeholder: "Enter your zip code"
+                },
+                {
+                    id: 17,
+                    name: "country",
+                    type: "text",
+                    label: "Country",
+                    placeholder: "Enter your country"
+                },
+                {
+                    id: 18,
+                    name: "phone",
+                    type: "text",
+                    label: "Phone",
+                    placeholder: "Enter your phone number"
+                },
+                {
+                    id: 19,
+                    name: "email",
+                    type: "text",
+                    label: "Email",
+                    placeholder: "Enter your email address"
+                }
+            ]
+        }
+    ]
 };
 
 export default formConfig;

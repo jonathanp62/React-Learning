@@ -1,8 +1,9 @@
 /*
+ * (#)EmptyCartButton.tsx   0.4.0   12/15/2025
  * (#)EmptyCartButton.tsx   0.3.0   12/05/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -66,7 +67,7 @@ export default function EmptyCartButton(): JSX.Element {
 
     return (
         <>
-            <button className="mt-2 bg-red-700 w-full text-white py-2 rounded-md"
+            <button className="mt-2 bg-red-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all"
                     onClick={ handleOpenDialog }>
                 { t("empty-cart") }
             </button>

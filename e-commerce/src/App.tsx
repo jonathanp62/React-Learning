@@ -41,6 +41,7 @@ import ApiContext from "./ApiContext.tsx";
 import Layout from "./Layout.tsx";
 import Home from "./pages/Home.tsx";
 import Cart from "./pages/Cart.tsx";
+import Checkout from "./pages/Checkout.tsx";
 import Item from "./pages/Item.tsx";
 import packageJson from "../package.json";
 
@@ -65,6 +66,7 @@ function App(): JSX.Element {
                     <Route element={ <Layout />} >
                         <Route path="/" element={ <Home /> } />
                         <Route path="/cart" element={ <Cart /> } />
+                        <Route path="/checkout" element={ <Checkout /> } />
                         <Route path="/item/:id" element={ <Item /> } />
                     </Route>
                 </Routes>

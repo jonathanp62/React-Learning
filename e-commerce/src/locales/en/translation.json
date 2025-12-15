@@ -13,6 +13,7 @@
   "total-items": "Total Items",
   "your-cart": "Your Cart",
   "summary": "Summary",
+  "checkout": "Checkout",
   "checkout-now": "Checkout Now",
   "total-amount": "Total Amount",
   "cart-empty": "Your cart is empty",
@@ -28,5 +29,6 @@
   "light-mode": "Light Mode",
   "cancel": "Cancel",
   "confirm": "Confirm",
-  "empty-cart-message": "Are you sure you want to empty your cart"
+  "empty-cart-message": "Are you sure you want to empty your cart",
+  "place-order": "Place Order"
 }
