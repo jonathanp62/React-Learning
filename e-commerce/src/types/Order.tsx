@@ -32,6 +32,7 @@ import type { Product } from "./Product";
 
 export type Order = {
     orderId: string,
+    orderDate: string,
     firstName: string,
     lastName: string,
     address: string,

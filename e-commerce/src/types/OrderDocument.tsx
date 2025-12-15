@@ -33,6 +33,7 @@ import type { Product } from "./Product";
 export type OrderDocument = {
     documentId: string,
     orderId: string,
+    orderDate: string,
     firstName: string,
     lastName: string,
     address: string,

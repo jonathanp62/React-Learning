@@ -80,9 +80,12 @@ export default function Cart(): JSX.Element {
      */
     const saveCart: () => Promise<boolean> = async (): Promise<boolean> => {
         const postUrl: string = apiServiceUrl;
+        const now: Date = new Date();
+        const isoNow: string = now.toISOString();
 
         const order: Order = {
             orderId: uuidv4(),
+            orderDate: isoNow,
             firstName: "John",
             lastName: "Doe",
             address: "123 Main Street",
