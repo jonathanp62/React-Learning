@@ -48,6 +48,7 @@ import formConfig from "../configuration/formConfig";
 import formSchema from "../configuration/formSchema";
 import toast from "react-hot-toast";
 import ApiContext from "../ApiContext";
+import InputFields from "../components/InputFields";
 
 /**
  * The checkout page.
@@ -152,21 +153,31 @@ export default function Checkout(): JSX.Element {
     return (
         <>
             <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
-                <p className="font-bold text-2xl mb-10 dark:text-white">{ t("checkout") }</p>
+                <p className="font-bold text-2xl mb-2 dark:text-white">{ t("checkout") }</p>
             </div>
 
             <div className="w-full max-w-[1000px] mx-auto flex justify-center">
                 <form onSubmit={ handleSubmit(handleFormSubmit) } noValidate>
                     {formConfig.sections.map(section => (
                         <>
-                            <div className="mb-20" key={section.id}>
+                            <div className="mb-10" key={section.id}>
                                 <p className="font-semibold text-xl mb-2 dark:text-white">{section.heading}</p>
                             </div>
                             {section.fields.map(field => {
                                     const {id, name, type, label, options, placeholder, defaultValue} = field;
 
                                     return (
-                                        <p>{label}</p>
+                                        <InputFields
+                                            key={ id }
+                                            placeholder={ placeholder }
+                                            name={ name }
+                                            type={ type }
+                                            label={ label }
+                                            options={ options }
+                                            defaultValue={ defaultValue }
+                                            register={ register }
+                                            errorMessage={ errors[`${name}`]?.message as string | undefined }
+                                        />
                                     );
                                 }
                             )}
@@ -176,7 +187,7 @@ export default function Checkout(): JSX.Element {
             </div>
 
             <div className="w-full max-w-[1000px] mx-auto flex justify-center">
-                <button className="mt-20 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                <button className="mb-10 mt-10 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
                         onClick={ handleClick }>
                     { t("place-order") }
                 </button>

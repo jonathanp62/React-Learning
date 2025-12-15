@@ -46,6 +46,20 @@ body {
     width: 100vw;            /* Makes container take full viewport width */
 }
 
+.error{
+    @apply text-sm mt-1
+}
+
+.text-container,
+.select-container{
+    @apply flex flex-col gap-2
+}
+
+.text-field,
+.select-field {
+    @apply w-full py-2 px-4 bg-transparent outline-none outline-1 outline-gray-400 rounded-md focus:outline-2 focus:outline-blue-500
+}
+
 .spinner {
     width: 56px;
     height: 56px;
