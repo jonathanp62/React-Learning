@@ -31,9 +31,9 @@
 import type { JSX } from "react";
 import type { FormValues } from "../types/FormValues";
 import type { Order } from "../types/Order";
-import type { OrderDocument } from "../types/OrderDocument.tsx";
-import type { Product } from "../types/Product.tsx";
-import type { RootState } from "../redux/Store.tsx";
+import type { OrderDocument } from "../types/OrderDocument";
+import type { Product } from "../types/Product";
+import type { RootState } from "../redux/Store";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";

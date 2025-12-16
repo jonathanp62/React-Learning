@@ -1,8 +1,9 @@
 /*
+ * (#)NavBar.tsx    0.4.0   12/16/2025
  * (#)NavBar.tsx    0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -30,9 +31,9 @@
 
 import type { JSX } from "react";
 import type { Product } from "../types/Product";
-import type { CartState } from "../types/CartState.tsx";
-import type { RootState } from "../redux/Store.tsx";
-import type { ThemeState } from "../types/ThemeState.tsx";
+import type { CartState } from "../types/CartState";
+import type { RootState } from "../redux/Store";
+import type { ThemeState } from "../types/ThemeState";
 
 import { Search } from "lucide-react";
 import { FaShoppingCart } from "react-icons/fa";
@@ -40,7 +41,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCategory, setSelectedPrice, updateFilteredProducts } from "../redux/slices/ProductSlice";
-import { setTheme } from "../redux/slices/ThemeSlice.tsx";
+import { setTheme } from "../redux/slices/ThemeSlice";
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 import React, { useEffect, useState } from "react";
@@ -216,9 +217,11 @@ export default function NavBar(): JSX.Element {
                     </NavLink>
                 </div>
 
-                <p className="text-slate-900 dark:text-white">
-                    { t("orders") }
-                </p>
+                <NavLink to="/orders">
+                    <p className="text-slate-900 dark:text-white">
+                        { t("orders") }
+                    </p>
+                </NavLink>
 
                 <div>
                     <button

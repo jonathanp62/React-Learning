@@ -30,19 +30,20 @@
  */
 
 import type { JSX } from "react";
-import type { ApiContextType } from "./types/ApiContextType.tsx";
+import type { ApiContextType } from "./types/ApiContextType";
 
 import { useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { store } from "./redux/Store.tsx"
 
-import ApiContext from "./ApiContext.tsx";
-import Layout from "./Layout.tsx";
-import Home from "./pages/Home.tsx";
-import Cart from "./pages/Cart.tsx";
-import Checkout from "./pages/Checkout.tsx";
-import Item from "./pages/Item.tsx";
+import ApiContext from "./ApiContext";
+import Layout from "./Layout";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Item from "./pages/Item";
+import Orders from "./pages/Orders";
 import packageJson from "../package.json";
 
 /**
@@ -68,6 +69,7 @@ function App(): JSX.Element {
                         <Route path="/cart" element={ <Cart /> } />
                         <Route path="/checkout" element={ <Checkout /> } />
                         <Route path="/item/:id" element={ <Item /> } />
+                        <Route path="/orders" element={ <Orders /> } />
                     </Route>
                 </Routes>
             </Provider>
