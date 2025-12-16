@@ -35,9 +35,8 @@ import type { OrderDocument } from "../types/OrderDocument.tsx";
 import type { Product } from "../types/Product.tsx";
 import type { RootState } from "../redux/Store.tsx";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
 import { useContext } from "react";
@@ -48,7 +47,7 @@ import formConfig from "../configuration/formConfig";
 import formSchema from "../configuration/formSchema";
 import toast from "react-hot-toast";
 import ApiContext from "../ApiContext";
-import InputFields from "../components/InputFields";
+import InputField from "../components/InputField";
 
 /**
  * The checkout page.
@@ -59,30 +58,20 @@ export default function Checkout(): JSX.Element {
     const { t } = useTranslation();
     const { apiServiceUrl, debug } = useContext(ApiContext);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<any>({
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
         resolver: yupResolver(formSchema)
     });
 
     const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
 
-    const handleClick: () => Promise<void> = async (): Promise<void> => {
-        const success: boolean = await placeOrder();
-
-        if (success) {
-            dispatch(clear());  // Empty the cart
-            toast.success(t("order-placed-ok"));
-        } else {
-            toast.error(t("order-place-failed"));
-        }
-    };
-
     /**
      * Places the order.
      *
+     * @param   {FormValues}    data    The form data
      * @return  {Promise<boolean>}
      */
-    const placeOrder: () => Promise<boolean> = async (): Promise<boolean> => {
+    const placeOrder: (data: FormValues) => Promise<boolean> = async (data: FormValues): Promise<boolean> => {
         const postUrl: string = apiServiceUrl;
         const now: Date = new Date();
         const isoNow: string = now.toISOString();
@@ -90,15 +79,15 @@ export default function Checkout(): JSX.Element {
         const order: Order = {
             orderId: uuidv4(),
             orderDate: isoNow,
-            firstName: "John",
-            lastName: "Doe",
-            address: "123 Main Street",
-            city: "Anytown",
-            state: "MD",
-            zipCode: "54321",
-            country: "USA",
-            phone: "555-123-4567",
-            email: "john.doe@example.com",
+            firstName: data.firstName,
+            lastName: data.lastName,
+            address: data.address,
+            city: data.city,
+            state: data.state,
+            zipCode: data.zipCode,
+            country: data.country,
+            phone: data.phone,
+            email: data.email,
             products: cart
         }
 
@@ -144,9 +133,20 @@ export default function Checkout(): JSX.Element {
         }
     };
 
-    const handleFormSubmit: (data: FormValues) => void = (data: FormValues): void => {
-        if (debug) {
-            console.log(data);
+    /**
+     * Handles the form submission.
+     *
+     * @param   {FormValues}    data    The form data
+     * @return  {Promise<void>}
+     */
+    const handleFormSubmit: (data: FormValues) => Promise<void> = async (data: FormValues): Promise<void> => {
+        const success: boolean = await placeOrder(data);
+
+        if (success) {
+            dispatch(clear());  // Empty the cart
+            toast.success(t("order-placed-ok"));
+        } else {
+            toast.error(t("order-place-failed"));
         }
     }
 
@@ -165,9 +165,10 @@ export default function Checkout(): JSX.Element {
                             </div>
                             {section.fields.map(field => {
                                     const {id, name, type, label, options, placeholder, defaultValue} = field;
+                                    const fieldName = name as keyof FormValues;
 
                                     return (
-                                        <InputFields
+                                        <InputField
                                             key={ id }
                                             placeholder={ placeholder }
                                             name={ name }
@@ -176,21 +177,23 @@ export default function Checkout(): JSX.Element {
                                             options={ options }
                                             defaultValue={ defaultValue }
                                             register={ register }
-                                            errorMessage={ errors[`${name}`]?.message as string | undefined }
+                                            errorMessage={ errors[fieldName]?.message  }
                                         />
                                     );
                                 }
                             )}
                         </>
                     ))}
-                </form>
-            </div>
 
-            <div className="w-full max-w-[1000px] mx-auto flex justify-center">
-                <button className="mb-10 mt-10 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
-                        onClick={ handleClick }>
-                    { t("place-order") }
-                </button>
+                    <div className="w-full flex justify-center">
+                        <button
+                            type="submit"
+                            className="mb-10 mt-10 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                        >
+                            { t("place-order") }
+                        </button>
+                    </div>
+                </form>
             </div>
         </>
     );

@@ -30,5 +30,6 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "empty-cart-message": "Are you sure you want to empty your cart",
-  "place-order": "Place Order"
+  "place-order": "Place Order",
+  "orders": "Orders"
 }

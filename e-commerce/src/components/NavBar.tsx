@@ -216,6 +216,10 @@ export default function NavBar(): JSX.Element {
                     </NavLink>
                 </div>
 
+                <p className="text-slate-900 dark:text-white">
+                    { t("orders") }
+                </p>
+
                 <div>
                     <button
                         onClick={ toggleTheme }

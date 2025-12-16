@@ -106,6 +106,9 @@ const formConfig = {
                             value: "Ohio", label: "Ohio"
                         },
                         {
+                            value: "Pennsylvania", label: "Pennsylvania"
+                        },
+                        {
                             value: "South Carolina", label: "South Carolina"
                         },
                         {

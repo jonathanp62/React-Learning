@@ -45,7 +45,7 @@ const formSchema = yup.object().shape({
         .required("Please enter your city"),
     state: yup
         .string()
-        .required("Please enter your state"),
+        .required("Please select your state"),
     zipCode: yup
         .string()
         .required("Please enter your zip code")

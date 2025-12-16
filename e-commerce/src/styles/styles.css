@@ -47,7 +47,7 @@ body {
 }
 
 .error{
-    @apply text-sm mt-1
+    @apply text-sm mt-1 text-red-700 dark:text-red-500
 }
 
 .text-container,
