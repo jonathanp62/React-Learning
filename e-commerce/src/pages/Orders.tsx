@@ -90,11 +90,24 @@ export default function Orders(): JSX.Element {
             {loading ? (
                 <Spinner />
             ) : orders.length > 0 ? (
-                orders.map((order: OrderDocument): JSX.Element => {
-                    return (
-                        <p className="dark:text-white">{order.orderId}</p>
-                    )
-                })
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="border-b border-gray-200 dark:border-gray-700">
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">Order ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {orders.map((order: OrderDocument): JSX.Element => {
+                                return (
+                                    <tr key={order.orderId} className="border-b border-white dark:border-gray-800">
+                                        <td className="py-2 pr-4 dark:text-white">{order.orderId}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <p>{ t("no-orders-found") }</p>
             )}
