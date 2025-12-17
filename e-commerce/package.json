@@ -32,7 +32,7 @@
   },
   "appConfig": {
     "apiBaseUrl": "https://fakestoreapi.com/products",
-    "apiServiceUrl": "http://localhost:8080/react/learning/api/e-commerce/order",
+    "apiServiceUrl": "http://localhost:8080/react/learning/api/e-commerce",
     "debug": false
   },
   "devDependencies": {

@@ -72,7 +72,7 @@ export default function Checkout(): JSX.Element {
      * @return  {Promise<boolean>}
      */
     const placeOrder: (data: FormValues) => Promise<boolean> = async (data: FormValues): Promise<boolean> => {
-        const postUrl: string = apiServiceUrl;
+        const postUrl: string = `${apiServiceUrl}/order`;
         const now: Date = new Date();
         const isoNow: string = now.toISOString();
 

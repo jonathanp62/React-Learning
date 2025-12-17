@@ -29,8 +29,15 @@
  */
 
 import type { JSX } from "react";
+import type { OrderDocument } from "../types/OrderDocument";
+
+import { useContext, useEffect, useState } from "react";
 
 import { useTranslation } from 'react-i18next';
+
+import toast from "react-hot-toast";
+import ApiContext from "../ApiContext";
+import Spinner from "../components/Spinner";
 
 /**
  * The orders page.
@@ -39,10 +46,58 @@ import { useTranslation } from 'react-i18next';
  */
 export default function Orders(): JSX.Element {
     const { t } = useTranslation();
+    const { apiServiceUrl, debug } = useContext(ApiContext);
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [orders, setOrders] = useState<OrderDocument[]>([]);
+
+    /**
+     * Fetches order data from the service API.
+     *
+     * @returns {Promise<void>}
+     */
+    async function fetchOrderData(): Promise<void> {
+        setLoading(true);
+
+        try {
+            const res: Response = await fetch(`${apiServiceUrl}/orders`);
+            const orders: OrderDocument[] = await res.json();
+
+            if (debug) {
+                console.log("Orders:");
+                console.log(orders);
+            }
+
+            setOrders(orders);
+        } catch (err) {
+            toast.error(`${t("error-loading-orders")}: ${err}`);
+            setOrders([]);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    /* Fetch product data on mount */
+
+    useEffect((): void => {
+        void fetchOrderData();
+    }, []);
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
             <p className="font-bold text-2xl mb-2 dark:text-white">{ t("orders") }</p>
+
+            {loading ? (
+                <Spinner />
+            ) : orders.length > 0 ? (
+                orders.map((order: OrderDocument): JSX.Element => {
+                    return (
+                        <p className="dark:text-white">{order.orderId}</p>
+                    )
+                })
+            ) : (
+                <p>{ t("no-orders-found") }</p>
+            )}
         </div>
     );
 }

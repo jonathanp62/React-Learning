@@ -1,8 +1,9 @@
 /*
+ * (#)Home.tsx  0.4.0   12/17/2025
  * (#)Home.tsx  0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -29,8 +30,8 @@
  */
 
 import type { JSX } from "react";
-import type { Product } from "../types/Product.tsx";
-import type { RootState } from "../redux/Store.tsx";
+import type { Product } from "../types/Product";
+import type { RootState } from "../redux/Store";
 
 import { useTranslation } from 'react-i18next';
 import React, { useContext, useEffect, useState } from "react";
@@ -39,9 +40,9 @@ import { setProducts, setSelectedCategory, setSelectedPrice, setSelectedRating, 
 import { MdStar } from "react-icons/md";
 
 import toast from 'react-hot-toast';
-import ApiContext from "../ApiContext.tsx";
-import Spinner from "../components/Spinner.tsx";
-import ProductItem from "../components/ProductItem.tsx";
+import ApiContext from "../ApiContext";
+import Spinner from "../components/Spinner";
+import ProductItem from "../components/ProductItem";
 
 /**
  * The home page.
@@ -79,7 +80,7 @@ export default function Home(): JSX.Element {
             dispatch(setProducts(products));
             dispatch(updateFilteredProducts(products));
         } catch (err) {
-            toast.error(`${t("error-loading")}: ${err}`);
+            toast.error(`${t("error-loading-products")}: ${err}`);
             setPosts([]);
         } finally {
             setLoading(false);
@@ -89,7 +90,7 @@ export default function Home(): JSX.Element {
     /* Fetch product data on mount */
 
     useEffect((): void => {
-        fetchProductData();
+        void fetchProductData();
     }, []);
 
     /* Apply filters whenever the category or price changes */
@@ -297,7 +298,7 @@ export default function Home(): JSX.Element {
                 ) : filtered.length > 0 ? (
                     filtered.map((post: Product): JSX.Element => <ProductItem key={post.id} post={post} />)
                 ) : (
-                    <p>{ t("no-data-found") }</p>
+                    <p>{ t("no-products-found") }</p>
                 )}
             </div>
         </div>
