@@ -30,13 +30,15 @@
 
 import type { JSX } from "react";
 import type { OrderDocument } from "../types/OrderDocument";
+import type { Product } from "../types/Product";
 
 import { useContext, useEffect, useState } from "react";
-
 import { useTranslation } from 'react-i18next';
+import { formatIso8601Date, formatPrice } from "../utils/Formatters";
 
 import toast from "react-hot-toast";
 import ApiContext from "../ApiContext";
+import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
 /**
@@ -83,6 +85,12 @@ export default function Orders(): JSX.Element {
         void fetchOrderData();
     }, []);
 
+    const computeTotal: (products: Product[]) => number = (products: Product[]): number => {
+        return products.reduce((total: number, product: Product): number => {
+            return total + product.price;
+        }, 0);
+    };
+
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
             <p className="font-bold text-2xl mb-2 dark:text-white">{ t("orders") }</p>
@@ -94,14 +102,24 @@ export default function Orders(): JSX.Element {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="border-b border-gray-200 dark:border-gray-700">
-                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">Order ID</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("order-placed") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("ordered-by") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("products") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("total") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("order-id") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("details") }</th>
                             </tr>
                         </thead>
                         <tbody>
                             {orders.map((order: OrderDocument): JSX.Element => {
                                 return (
                                     <tr key={order.orderId} className="border-b border-white dark:border-gray-800">
-                                        <td className="py-2 pr-4 dark:text-white">{order.orderId}</td>
+                                        <td className="py-2 pr-4 dark:text-white">{formatIso8601Date(order.orderDate)}</td>
+                                        <td className="py-2 pr-4 dark:text-white">{order.firstName} {order.lastName}</td>
+                                        <td className="py-2 pr-4 dark:text-white">{order.products.length}</td>
+                                        <td className="py-2 pr-4 dark:text-white">{formatPrice(computeTotal(order.products))}</td>
+                                        <td className="py-2 pr-4 dark:text-white">{order.orderId.toUpperCase()}</td>
+                                        <td className="text-center py-2 pr-4 dark:text-white"><Link to={ `/order-detail/${order.orderId}` }>...</Link></td>
                                     </tr>
                                 );
                             })}

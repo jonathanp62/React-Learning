@@ -33,5 +33,11 @@
   "confirm": "Confirm",
   "empty-cart-message": "Are you sure you want to empty your cart",
   "place-order": "Place Order",
-  "orders": "Orders"
+  "orders": "Orders",
+  "order-id": "Order ID",
+  "order-placed": "Order Placed",
+  "ordered-by": "Ordered By",
+  "products": "Products",
+  "total": "Total",
+  "details": "Details"
 }

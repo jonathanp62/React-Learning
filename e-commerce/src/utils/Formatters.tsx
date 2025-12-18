@@ -1,8 +1,9 @@
 /*
+ * (#)Formatters.tsx    0.4.0   12/18/2025
  * (#)Formatters.tsx    0.3.0   11/27/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -53,10 +54,34 @@ export const formatRating: (rating: number) => string = (rating: number): string
     return rating.toFixed(1);
 };
 
+/**
+ * Capitalize a string.
+ *
+ * @param   {string}    str
+ * @return  {string}
+ */
 export const capitalizeString: (str: string) =>  string = (str: string) : string => {
     if (str.length === 0) {
         return '';          // Handle empty or non-string inputs
     }
 
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/**
+ * Format the ISO-8601 date string.
+ *
+ * @param   {string}    date    The ISO-8601 date string
+ * @returns {string}            The formatted date string
+ */
+export const formatIso8601Date: (date: string) => string = (date: string): string => {
+    const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+
+    return new Date(date).toLocaleString('en-US', options);
 }
