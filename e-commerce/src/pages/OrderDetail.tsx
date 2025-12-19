@@ -30,8 +30,9 @@
 
 import type { JSX } from "react";
 import type { OrderDocument } from "../types/OrderDocument";
+import type { Product } from "../types/Product";
 
-import { formatIso8601Date } from "../utils/Formatters";
+import {formatIso8601Date, formatPrice, formatRating} from "../utils/Formatters";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
@@ -98,7 +99,30 @@ export default function OrderDetail(): JSX.Element {
             {loading ? (
                 <Spinner />
             ) : order !== null ? (
-                <p>Order details to come</p>
+                <div className="flex justify-between">
+                    <div className="mt-16">
+                        {
+                            order.products.map((product: Product, index: number): JSX.Element => (
+                                <div className="w-full border-b-2 p-6 mt-3 flex border-black">
+                                    <div className="w-full flex justify-between gap-x-10">
+                                        <div className="w-[170px] object-fill">
+                                            <img src={ product.image } alt={ t("product-image") } className=""/>
+                                        </div>
+
+                                        <div className="w-[450px] flex flex-col gap-y-4">
+                                            <h1 className="font-semibold text-lg dark:text-white">{ product.title }</h1>
+                                            <h1 className="text-sm dark:text-white">{ product.description }</h1>
+                                            <h1 className="text-sm dark:text-white">{ formatRating(product.rating.rate) } { t("stars") } ({ product.rating.count } { t("reviews") })</h1>
+                                            <div className="flex justify-between">
+                                                <p className="text-green-700 font-semibold">{ formatPrice(product.price) }</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
             ) : (
                 <p>{ t("order-not-found") }</p>
             )}
