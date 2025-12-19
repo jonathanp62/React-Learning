@@ -16,6 +16,7 @@
   "item-removed": "Item Removed",
   "total-items": "Total Items",
   "your-cart": "Your Cart",
+  "your-order": "Your Order",
   "summary": "Summary",
   "checkout": "Checkout",
   "checkout-now": "Checkout Now",
@@ -42,5 +43,7 @@
   "ordered-by": "Ordered By",
   "products": "Products",
   "total": "Total",
-  "details": "Details"
+  "details": "Details",
+  "shipping-info": "Shipping Information",
+  "contact-info": "Contact Information"
 }
