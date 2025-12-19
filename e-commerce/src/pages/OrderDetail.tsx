@@ -63,14 +63,20 @@ export default function OrderDetail(): JSX.Element {
 
         try {
             const res: Response = await fetch(`${apiServiceUrl}/order/${orderId}`);
-            const order: OrderDocument = await res.json();
 
-            if (debug) {
-                console.log("Order");
-                console.log(order);
+            if (res.ok) {
+                const order: OrderDocument = await res.json();
+
+                if (debug) {
+                    console.log("Order");
+                    console.log(order);
+                }
+
+                setOrder(order);
+            } else {
+                toast.error(`${t("error-loading-order", {orderId: orderId})}`);
+                setOrder(null);
             }
-
-            setOrder(order);
         } catch (err) {
             toast.error(`${t("error-loading-order", {orderId: orderId})}: ${err}`);
             setOrder(null);
