@@ -35,10 +35,10 @@ import type { Product } from "../types/Product";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { formatIso8601Date, formatPrice } from "../utils/Formatters";
+import { Link } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import ApiContext from "../ApiContext";
-import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
 /**
@@ -79,7 +79,7 @@ export default function Orders(): JSX.Element {
         }
     }
 
-    /* Fetch product data on mount */
+    /* Fetch order data on mount */
 
     useEffect((): void => {
         void fetchOrderData();

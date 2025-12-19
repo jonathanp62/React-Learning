@@ -29,9 +29,16 @@
  */
 
 import type { JSX } from "react";
+import type { OrderDocument } from "../types/OrderDocument";
 
+import { formatIso8601Date } from "../utils/Formatters";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+
+import ApiContext from "../ApiContext";
+import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 /**
  * The order detail page.
@@ -41,12 +48,54 @@ import { useTranslation } from "react-i18next";
 export default function OrderDetail(): JSX.Element {
     const { t } = useTranslation();
     const { orderId } = useParams<'orderId'>();
+    const { apiServiceUrl, debug } = useContext(ApiContext);
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [order, setOrder] = useState<OrderDocument | null>(null);
+
+    /**
+     * Fetches order data from the service API.
+     *
+     * @returns {Promise<void>}
+     */
+    async function fetchOrderData(): Promise<void> {
+        setLoading(true);
+
+        try {
+            const res: Response = await fetch(`${apiServiceUrl}/order/${orderId}`);
+            const order: OrderDocument = await res.json();
+
+            if (debug) {
+                console.log("Order");
+                console.log(order);
+            }
+
+            setOrder(order);
+        } catch (err) {
+            toast.error(`${t("error-loading-order", {orderId: orderId})}: ${err}`);
+            setOrder(null);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    /* Fetch order data on mount */
+
+    useEffect((): void => {
+        void fetchOrderData();
+    }, []);
 
     return (
-        <div>
-            <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
-                <p className="font-bold text-2xl mb-2 dark:text-white">{ t("order") } { orderId?.toUpperCase() }</p>
-            </div>
+        <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
+            <p className="font-bold text-2xl mb-2 dark:text-white">{ t("order") } { orderId?.toUpperCase() }</p>
+
+            {loading ? (
+                <Spinner />
+            ) : order !== null ? (
+                <p>Order details to come</p>
+            ) : (
+                <p>{ t("order-not-found") }</p>
+            )}
         </div>
     );
 }

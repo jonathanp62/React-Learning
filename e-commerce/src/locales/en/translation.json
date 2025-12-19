@@ -6,6 +6,7 @@
   "all-rights-reserved": "All Rights Reserved",
   "error-loading-products": "Error loading products",
   "error-loading-orders": "Error loading orders",
+  "error-loading-order": "Error loading order {{orderId}}",
   "no-products-found": "No products found",
   "no-orders-found": "No orders found",
   "add-to-cart": "Add to Cart",
