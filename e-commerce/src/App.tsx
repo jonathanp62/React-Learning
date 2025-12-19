@@ -44,6 +44,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Item from "./pages/Item";
 import Orders from "./pages/Orders";
+import OrderDetail from "./pages/OrderDetail";
 import packageJson from "../package.json";
 
 /**
@@ -70,6 +71,7 @@ function App(): JSX.Element {
                         <Route path="/checkout" element={ <Checkout /> } />
                         <Route path="/item/:id" element={ <Item /> } />
                         <Route path="/orders" element={ <Orders /> } />
+                        <Route path="/order-detail/:orderId" element={ <OrderDetail /> } />
                     </Route>
                 </Routes>
             </Provider>
