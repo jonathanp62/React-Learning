@@ -32,5 +32,5 @@ export type SalesTaxDocument = {
     documentId: string,
     state: string,
     abbreviation: string,
-    tax: number
+    rate: number
 }

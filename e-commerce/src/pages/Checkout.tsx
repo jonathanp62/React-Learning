@@ -78,6 +78,13 @@ export default function Checkout(): JSX.Element {
         const now: Date = new Date();
         const isoNow: string = now.toISOString();
 
+        const salesTaxDocument: SalesTaxDocument | null = await fetchSalesTax(apiServiceUrl, data.state, debug);
+
+        if (debug && salesTaxDocument) {
+            console.log("Sales Tax Document:");
+            console.log(salesTaxDocument);
+        }
+
         const order: Order = {
             orderId: uuidv4(),
             orderDate: isoNow,
@@ -90,19 +97,13 @@ export default function Checkout(): JSX.Element {
             country: data.country,
             phone: data.phone,
             email: data.email,
+            taxRate: salesTaxDocument?.rate || 0,
             products: cart
         }
 
         if (debug) {
             console.log("Order:");
             console.log(order);
-        }
-
-        const salesTaxDocument: SalesTaxDocument | null = await fetchSalesTax(apiServiceUrl, data.state, debug);
-
-        if (debug && salesTaxDocument) {
-            console.log("Sales Tax Document:");
-            console.log(salesTaxDocument);
         }
 
         try {

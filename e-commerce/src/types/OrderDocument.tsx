@@ -43,5 +43,6 @@ export type OrderDocument = {
     country: string,
     phone: string,
     email: string,
+    taxRate: number,
     products: Product[]
 }

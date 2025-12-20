@@ -42,5 +42,6 @@ export type Order = {
     country: string,
     phone: string,
     email: string,
+    taxRate: number,
     products: Product[]
 }
