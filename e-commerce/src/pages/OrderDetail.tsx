@@ -32,6 +32,7 @@ import type { JSX } from "react";
 import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 
+import { computeTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
@@ -91,12 +92,6 @@ export default function OrderDetail(): JSX.Element {
     useEffect((): void => {
         void fetchOrderData();
     }, []);
-
-    const computeTotal: (products: Product[]) => number = (products: Product[]): number => {
-        return products.reduce((total: number, product: Product): number => {
-            return total + product.price;
-        }, 0);
-    };
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
