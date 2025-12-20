@@ -85,3 +85,21 @@ export const formatIso8601Date: (date: string) => string = (date: string): strin
 
     return new Date(date).toLocaleString('en-US', options);
 }
+
+/**
+ * Formats a phone number as a string (nnn-nnn-nnnn).
+ *
+ * @param   {string}    phone   The phone number to format
+ * @returns {string}            The formatted phone number string
+ */
+export const formatPhone: (phone: string) => string = (phone: string): string => {
+    const pattern: RegExp = /^\d{3}-\d{3}-\d{4}$/;
+
+    if (pattern.test(phone)) {
+        return phone;
+    } else {
+        const justDigits: string = phone.replaceAll(/\D/g, '');
+
+        return justDigits.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    }
+}

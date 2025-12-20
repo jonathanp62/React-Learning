@@ -32,7 +32,7 @@ import type { JSX } from "react";
 import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 
-import { formatIso8601Date, formatPrice, formatRating } from "../utils/Formatters";
+import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
@@ -133,14 +133,17 @@ export default function OrderDetail(): JSX.Element {
                         <p className="mt-3 font-bold dark:text-white">
                             <span>{ t("total-items") }: {order.products.length}</span>
                         </p>
+                        <p className="mt-0 font-bold dark:text-white">
+                            <span>{ t("total-amount") }: {formatPrice(computeTotal(order.products))}</span>
+                        </p>
                         <p className="mt-5 font-bold dark:text-white">
                             <span>{ t("ordered-by") }</span>
                         </p>
                         <p className="mt-1 font-bold dark:text-white">
-                            <span className="font-normal">{order.firstName} {order.lastName} on {formatIso8601Date(order.orderDate)}</span>
+                            <span className="font-normal">{order.firstName} {order.lastName}</span>
                         </p>
-                        <p className="mt-5 font-bold dark:text-white">
-                            <span>{ t("total") }: {formatPrice(computeTotal(order.products))}</span>
+                        <p className="mt-0 font-bold dark:text-white">
+                            <span className="font-normal">{formatIso8601Date(order.orderDate)}</span>
                         </p>
                         <p className="mt-5 font-bold dark:text-white">
                             <span>Shipping Information</span>
@@ -161,7 +164,7 @@ export default function OrderDetail(): JSX.Element {
                             <span>Contact Information</span>
                         </p>
                         <p className="mt-1 font-bold dark:text-white">
-                            <span className="font-normal">{order.phone}</span>
+                            <span className="font-normal">{formatPhone(order.phone)}</span>
                         </p>
                         <p className="mt-0 font-bold dark:text-white">
                             <span className="font-normal">{order.email}</span>
