@@ -34,6 +34,7 @@ import type { Order } from "../types/Order";
 import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 import type { RootState } from "../redux/Store";
+import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -43,6 +44,7 @@ import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { clear } from '../redux/slices/CartSlice';
 
+import fetchSalesTax from '../utils/SalesTax';
 import formConfig from "../configuration/formConfig";
 import formSchema from "../configuration/formSchema";
 import toast from "react-hot-toast";
@@ -94,6 +96,13 @@ export default function Checkout(): JSX.Element {
         if (debug) {
             console.log("Order:");
             console.log(order);
+        }
+
+        const salesTaxDocument: SalesTaxDocument | null = await fetchSalesTax(apiServiceUrl, data.state, debug);
+
+        if (debug && salesTaxDocument) {
+            console.log("Sales Tax Document:");
+            console.log(salesTaxDocument);
         }
 
         try {
