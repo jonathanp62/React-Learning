@@ -1,0 +1,87 @@
+[
+  {
+    "state": "Arizona",
+    "abbreviation": "AZ",
+    "tax": 0.056
+  },
+  {
+    "state": "California",
+    "abbreviation": "CA",
+    "tax": 0.0725
+  },
+  {
+    "state": "Delaware",
+    "abbreviation": "DE",
+    "tax": 0.00
+  },
+  {
+    "state": "Florida",
+    "abbreviation": "FL",
+    "tax": 0.06
+  },
+  {
+    "state": "Georgia",
+    "abbreviation": "GA",
+    "tax": 0.04
+  },
+  {
+    "state": "Illinois",
+    "abbreviation": "IL",
+    "tax": 0.0625
+  },
+  {
+    "state": "Maryland",
+    "abbreviation": "MD",
+    "tax": 0.06
+  },
+  {
+    "state": "Massachusetts",
+    "abbreviation": "MA",
+    "tax": 0.0625
+  },
+  {
+    "state": "New York",
+    "abbreviation": "NY",
+    "tax": 0.04
+  },
+  {
+    "state": "North Carolina",
+    "abbreviation": "NC",
+    "tax": 0.0475
+  },
+  {
+    "state": "Ohio",
+    "abbreviation": "OH",
+    "tax": 0.0575
+  },
+  {
+    "state": "Pennsylvania",
+    "abbreviation": "PA",
+    "tax": 0.06
+  },
+  {
+    "state": "South Carolina",
+    "abbreviation": "SC",
+    "tax": 0.06
+  },
+  {
+    "state": "Tennessee",
+    "abbreviation": "TN",
+    "tax": 0.07
+  },
+  {
+    "state": "Texas",
+    "abbreviation": "TX",
+    "tax": 0.0625
+  },
+  {
+    "state": "Virginia",
+    "abbreviation": "VA",
+    "tax": 0.053
+  },
+  {
+    "state": "West Virginia",
+    "abbreviation": "WV",
+    "tax": 0.06
+  }
+]
