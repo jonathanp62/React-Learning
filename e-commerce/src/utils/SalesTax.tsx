@@ -41,7 +41,6 @@ async function fetchSalesTax(url: string, state: string, debug: boolean): Promis
     try {
         const res: Response = await fetch(`${url}/sales-tax/${state}`);
 
-
         if (res.ok) {
             salesTaxDocument = await res.json();
 
@@ -49,9 +48,13 @@ async function fetchSalesTax(url: string, state: string, debug: boolean): Promis
                 console.log("Sales Tax");
                 console.log(salesTaxDocument);
             }
+        } else if (res.status === 404) {
+            console.warn(`Sales tax not found for state: ${state}`);
+        } else {
+            console.error(`Failed to fetch sales tax for state: ${state}`);
         }
     } catch (err) {
-        console.error(err);
+        throw err instanceof Error ? err : new Error(String(err));
     }
 
     return salesTaxDocument;

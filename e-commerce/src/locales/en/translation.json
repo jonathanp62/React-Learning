@@ -20,6 +20,7 @@
   "summary": "Summary",
   "checkout": "Checkout",
   "checkout-now": "Checkout Now",
+  "sub-total": "Sub Total",
   "total-amount": "Total Amount",
   "cart-empty": "Your cart is empty",
   "shop-now": "Shop Now",
@@ -45,5 +46,6 @@
   "total": "Total",
   "details": "Details",
   "shipping-info": "Shipping Information",
-  "contact-info": "Contact Information"
+  "contact-info": "Contact Information",
+  "tax": "Tax"
 }

@@ -33,7 +33,7 @@ import type { OrderDocument } from "../types/OrderDocument";
 
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { computeTotal } from "../utils/Reducers";
+import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPrice } from "../utils/Formatters";
 import { Link } from "react-router-dom";
 
@@ -111,7 +111,7 @@ export default function Orders(): JSX.Element {
                                         <td className="py-2 pr-4 dark:text-white">{formatIso8601Date(order.orderDate)}</td>
                                         <td className="py-2 pr-4 dark:text-white">{order.firstName} {order.lastName}</td>
                                         <td className="py-2 pr-4 dark:text-white">{order.products.length}</td>
-                                        <td className="py-2 pr-4 dark:text-white">{formatPrice(computeTotal(order.products))}</td>
+                                        <td className="py-2 pr-4 dark:text-white">{formatPrice(computeProductsTotal(order.products))}</td>
                                         <td className="py-2 pr-4 dark:text-white">{order.orderId.toUpperCase()}</td>
                                         <td className="text-center py-2 pr-4 dark:text-white"><Link to={ `/order-detail/${order.orderId}` }>...</Link></td>
                                     </tr>

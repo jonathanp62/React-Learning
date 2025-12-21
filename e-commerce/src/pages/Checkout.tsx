@@ -78,7 +78,14 @@ export default function Checkout(): JSX.Element {
         const now: Date = new Date();
         const isoNow: string = now.toISOString();
 
-        const salesTaxDocument: SalesTaxDocument | null = await fetchSalesTax(apiServiceUrl, data.state, debug);
+        let salesTaxDocument: SalesTaxDocument | null = null;
+
+        try {
+            salesTaxDocument = await fetchSalesTax(apiServiceUrl, data.state, debug);
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
 
         if (debug && salesTaxDocument) {
             console.log("Sales Tax Document:");

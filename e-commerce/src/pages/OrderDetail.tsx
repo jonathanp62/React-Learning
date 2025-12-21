@@ -32,7 +32,7 @@ import type { JSX } from "react";
 import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 
-import { computeTotal } from "../utils/Reducers";
+import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
@@ -93,6 +93,28 @@ export default function OrderDetail(): JSX.Element {
         void fetchOrderData();
     }, []);
 
+    /**
+     * Computes the tax for the order.
+     *
+     * @param   {OrderDocument} order   The order to compute the tax for
+     * @returns {number}                The tax for the order
+     */
+    function getTax(order: OrderDocument): number {
+        return order.taxRate * computeProductsTotal(order.products);
+    }
+
+    /**
+     * Computes the grand total for the order.
+     *
+     * @param   {OrderDocument} order   The order to compute the total for
+     * @returns {number}                The total for the order
+     */
+    function computeGrandTotal(order: OrderDocument): number {
+        const subTotal: number = computeProductsTotal(order.products);
+
+        return subTotal + getTax(order);
+    }
+
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
             <p className="font-bold text-2xl mb-2 dark:text-white">{ t("order") } { orderId?.toUpperCase() }</p>
@@ -129,7 +151,13 @@ export default function OrderDetail(): JSX.Element {
                             <span>{ t("total-items") }: {order.products.length}</span>
                         </p>
                         <p className="mt-0 font-bold dark:text-white">
-                            <span>{ t("total-amount") }: {formatPrice(computeTotal(order.products))}</span>
+                            <span>{ t("sub-total") }: {formatPrice(computeProductsTotal(order.products))}</span>
+                        </p>
+                        <p className="mt-0 font-bold dark:text-white">
+                            <span>{ t("tax") }: {formatPrice(getTax(order))}</span>
+                        </p>
+                        <p className="mt-0 font-bold dark:text-white">
+                            <span>{ t("total-amount") }: {formatPrice(computeGrandTotal(order))}</span>
                         </p>
                         <p className="mt-5 font-bold dark:text-white">
                             <span>{ t("ordered-by") }</span>

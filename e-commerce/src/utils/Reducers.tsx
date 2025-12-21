@@ -28,7 +28,7 @@
  * SOFTWARE.
  */
 
-import type {Product} from "../types/Product.tsx";
+import type {Product} from "../types/Product";
 
 /**
  * Computes the total price of an array of products.
@@ -36,7 +36,7 @@ import type {Product} from "../types/Product.tsx";
  * @param   {Product[]} products  The array of products
  * @returns {number}              The total price of the products
  */
-export const computeTotal: (products: Product[]) => number = (products: Product[]): number => {
+export const computeProductsTotal: (products: Product[]) => number = (products: Product[]): number => {
     return products.reduce((total: number, product: Product): number => {
         return total + product.price;
     }, 0);
