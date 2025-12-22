@@ -1,5 +1,5 @@
 /*
- * (#)ConfirmationDialogProps.tsx   0.3.0   12/04/2025
+ * (#)TargetGroup.ts    0.3.0   11/22/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,10 +28,4 @@
  * SOFTWARE.
  */
 
-/** The interface for the component's props for clarity and type safety. */
-export interface ConfirmationDialogProps {
-    readonly message: string
-    readonly onConfirm: () => void;
-    readonly onCancel: () => void;
-    readonly isOpen: boolean;
-}
+export type TargetGroup = 'men' | 'women' | 'unisex';

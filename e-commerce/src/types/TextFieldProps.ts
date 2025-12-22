@@ -1,5 +1,5 @@
 /*
- * (#)Order.tsx 0.4.0   12/14/2025
+ * (#)TextFieldProps.ts 0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,20 +28,14 @@
  * SOFTWARE.
  */
 
-import type { Product } from "./Product";
+import type { UseFormRegister } from "react-hook-form";
 
-export type Order = {
-    orderId: string,
-    orderDate: string,
-    firstName: string,
-    lastName: string,
-    address: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    country: string,
-    phone: string,
-    email: string,
-    taxRate: number,
-    products: Product[]
+/** The interface for the component's props for clarity and type safety. */
+
+export interface TextFieldProps {
+    readonly name: string
+    readonly label: string
+    readonly placeholder?: string;
+    readonly register: UseFormRegister<any>;
+    readonly errorMessage?: string;
 }

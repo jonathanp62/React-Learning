@@ -29,7 +29,7 @@
  * SOFTWARE.
  */
 
-import type { ApiContextType } from "./types/ApiContextType.tsx";
+import type { ApiContextType } from "./types/ApiContextType";
 
 import React from "react";
 

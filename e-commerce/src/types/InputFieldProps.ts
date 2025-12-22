@@ -1,9 +1,9 @@
 /*
- * (#)CartState.tsx 0.3.0   11/25/2025
+ * (#)InputFieldsProps.ts   0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
- * @since   0.3.0
+ * @version 0.4.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -28,6 +28,18 @@
  * SOFTWARE.
  */
 
-import type {Product} from "./Product.tsx";
+import type { UseFormRegister } from "react-hook-form";
+import type { SelectOption } from "./SelectOption";
 
-export type CartState = Product[];
+/** The interface for the component's props for clarity and type safety. */
+
+export interface InputFieldsProps {
+    readonly name: string
+    readonly type: string
+    readonly label: string
+    readonly options?: SelectOption[];
+    readonly placeholder?: string;
+    readonly defaultValue?: string;
+    readonly register: UseFormRegister<any>;
+    readonly errorMessage?: string;
+}

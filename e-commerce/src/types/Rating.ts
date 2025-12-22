@@ -1,5 +1,5 @@
 /*
- * (#)ProductType.tsx   0.3.0   11/22/2025
+ * (#)Rating.ts 0.3.0   11/22/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,4 +28,8 @@
  * SOFTWARE.
  */
 
-export type ProductType = 'clothes' | 'jewelery' | 'electronics';
+export interface Rating {
+    rate: number;
+    count: number;
+}
+

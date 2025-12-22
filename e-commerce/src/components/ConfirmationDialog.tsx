@@ -29,7 +29,7 @@
  */
 
 import type { JSX } from "react";
-import type { ConfirmationDialogProps } from "../types/ConfirmationDialogProps.tsx";
+import type { ConfirmationDialogProps } from "../types/ConfirmationDialogProps";
 
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from "react-i18next";

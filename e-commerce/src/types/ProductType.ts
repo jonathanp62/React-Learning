@@ -1,9 +1,9 @@
 /*
- * (#)OrderDocument.tsx 0.4.0   12/14/2025
+ * (#)ProductType.ts    0.3.0   11/22/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
- * @since   0.4.0
+ * @version 0.3.0
+ * @since   0.3.0
  *
  * MIT License
  *
@@ -28,21 +28,4 @@
  * SOFTWARE.
  */
 
-import type { Product } from "./Product";
-
-export type OrderDocument = {
-    documentId: string,
-    orderId: string,
-    orderDate: string,
-    firstName: string,
-    lastName: string,
-    address: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    country: string,
-    phone: string,
-    email: string,
-    taxRate: number,
-    products: Product[]
-}
+export type ProductType = 'clothes' | 'jewelery' | 'electronics';

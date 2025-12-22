@@ -1,5 +1,5 @@
 /*
- * (#)ProductState.tsx  0.3.0   11/23/2025
+ * (#)Product.ts    0.3.0   11/22/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,12 +28,18 @@
  * SOFTWARE.
  */
 
-import type {Product} from "./Product.tsx";
+import type { Rating } from "./Rating";
+import type { ProductType } from "./ProductType";
+import type { TargetGroup } from "./TargetGroup";
 
-export interface ProductState {
-    data: Product[];
-    filtered: Product[];
-    selectedCategory: string;
-    selectedPrice: string;
-    selectedRating: string;
+export interface Product {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    category: string; // Could be narrowed down to specific strings if needed, e.g., 'men\'s clothing' | 'jewelery' | 'electronics'
+    type: ProductType;
+    target: TargetGroup;
+    image: string;
+    rating: Rating;
 }

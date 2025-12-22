@@ -1,9 +1,9 @@
 /*
- * (#)Rating.tsx    0.3.0   11/22/2025
+ * (#)SelectFieldProps.ts   0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
- * @since   0.3.0
+ * @version 0.4.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -28,8 +28,16 @@
  * SOFTWARE.
  */
 
-export interface Rating {
-    rate: number;
-    count: number;
-}
+import type { UseFormRegister } from "react-hook-form";
+import type { SelectOption } from "./SelectOption";
 
+/** The interface for the component's props for clarity and type safety. */
+
+export interface SelectFieldProps {
+    readonly name: string
+    readonly label: string
+    readonly options?: SelectOption[];
+    readonly defaultValue?: string;
+    readonly register: UseFormRegister<any>;
+    readonly errorMessage?: string;
+}

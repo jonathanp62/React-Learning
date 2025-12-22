@@ -1,5 +1,5 @@
 /*
- * (#)TextFieldProps.tsx    0.4.0   12/15/2025
+ * (#)SelectOption.ts   0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,14 +28,8 @@
  * SOFTWARE.
  */
 
-import type { UseFormRegister } from "react-hook-form";
-
-/** The interface for the component's props for clarity and type safety. */
-
-export interface TextFieldProps {
-    readonly name: string
-    readonly label: string
-    readonly placeholder?: string;
-    readonly register: UseFormRegister<any>;
-    readonly errorMessage?: string;
+export interface SelectOption {
+    value: string;
+    label: string;
+    disabled?: boolean;
 }

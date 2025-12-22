@@ -1,8 +1,9 @@
 /*
- * (#)Product.tsx   0.3.0   11/22/2025
+ * (#)ApiContextType.ts 0.4.0   12/14/2025
+ * (#)ApiContextType.ts 0.3.0   11/23/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -28,18 +29,8 @@
  * SOFTWARE.
  */
 
-import type { Rating } from "./Rating";
-import type { ProductType } from "./ProductType";
-import type { TargetGroup } from "./TargetGroup";
-
-export interface Product {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string; // Could be narrowed down to specific strings if needed, e.g., 'men\'s clothing' | 'jewelery' | 'electronics'
-    type: ProductType;
-    target: TargetGroup;
-    image: string;
-    rating: Rating;
+export type ApiContextType = {
+    baseUrl: string,
+    apiServiceUrl: string,
+    debug: boolean
 }

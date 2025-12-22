@@ -1,5 +1,5 @@
 /*
- * (#)SalesTaxDocument.tsx  0.4.0   12/20/2025
+ * (#)Order.ts  0.4.0   12/14/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,9 +28,20 @@
  * SOFTWARE.
  */
 
-export type SalesTaxDocument = {
-    documentId: string,
+import type { Product } from "./Product";
+
+export type Order = {
+    orderId: string,
+    orderDate: string,
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
     state: string,
-    abbreviation: string,
-    rate: number
+    zipCode: string,
+    country: string,
+    phone: string,
+    email: string,
+    taxRate: number,
+    products: Product[]
 }

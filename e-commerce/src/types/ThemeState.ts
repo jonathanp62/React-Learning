@@ -1,9 +1,9 @@
 /*
- * (#)FormValues.tsx    0.4.0   12/15/2025
+ * (#)ThemeState.ts 0.3.0   12/01/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
- * @since   0.4.0
+ * @version 0.3.0
+ * @since   0.3.0
  *
  * MIT License
  *
@@ -28,14 +28,4 @@
  * SOFTWARE.
  */
 
-export type FormValues = {
-    firstName: string,
-    lastName: string,
-    address: string,
-    city: string,
-    state: string,
-    zipCode: string,
-    country: string,
-    phone: string,
-    email: string
-}
+export type ThemeState = "light" | "dark";

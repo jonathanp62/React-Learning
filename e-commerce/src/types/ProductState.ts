@@ -1,5 +1,5 @@
 /*
- * (#)ThemeState.tsx    0.3.0   12/01/2025
+ * (#)ProductState.ts   0.3.0   11/23/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,4 +28,12 @@
  * SOFTWARE.
  */
 
-export type ThemeState = "light" | "dark";
+import type {Product} from "./Product";
+
+export interface ProductState {
+    data: Product[];
+    filtered: Product[];
+    selectedCategory: string;
+    selectedPrice: string;
+    selectedRating: string;
+}

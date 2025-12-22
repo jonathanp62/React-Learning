@@ -1,9 +1,9 @@
 /*
- * (#)SelectFieldProps.tsx  0.4.0   12/15/2025
+ * (#)ConfirmationDialogProps.ts    0.3.0   12/04/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
- * @since   0.4.0
+ * @version 0.3.0
+ * @since   0.3.0
  *
  * MIT License
  *
@@ -28,16 +28,10 @@
  * SOFTWARE.
  */
 
-import type { UseFormRegister } from "react-hook-form";
-import type { SelectOption } from "./SelectOption";
-
 /** The interface for the component's props for clarity and type safety. */
-
-export interface SelectFieldProps {
-    readonly name: string
-    readonly label: string
-    readonly options?: SelectOption[];
-    readonly defaultValue?: string;
-    readonly register: UseFormRegister<any>;
-    readonly errorMessage?: string;
+export interface ConfirmationDialogProps {
+    readonly message: string
+    readonly onConfirm: () => void;
+    readonly onCancel: () => void;
+    readonly isOpen: boolean;
 }

@@ -1,5 +1,5 @@
 /*
- * (#)SelectOption.tsx  0.4.0   12/15/2025
+ * (#)FormValues.ts 0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,8 +28,14 @@
  * SOFTWARE.
  */
 
-export interface SelectOption {
-    value: string;
-    label: string;
-    disabled?: boolean;
+export type FormValues = {
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    country: string,
+    phone: string,
+    email: string
 }
