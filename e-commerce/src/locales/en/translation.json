@@ -9,6 +9,7 @@
   "error-loading-order": "Error loading order {{orderId}}",
   "no-products-found": "No products found",
   "no-orders-found": "No orders found",
+  "no-order-id-provided": "No order ID provided",
   "order-not-found": "Order not found",
   "add-to-cart": "Add to Cart",
   "remove-from-cart": "Remove from Cart",

@@ -34,13 +34,11 @@ import type { Product } from "../types/Product";
 
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
-import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
-import ApiContext from "../ApiContext";
 import Spinner from "../components/Spinner";
-import toast from "react-hot-toast";
+import useFetchOrderDetail from "../hooks/useFetchOrderDetail";
 
 /**
  * The order detail page.
@@ -50,48 +48,7 @@ import toast from "react-hot-toast";
 export default function OrderDetail(): JSX.Element {
     const { t } = useTranslation();
     const { orderId } = useParams<'orderId'>();
-    const { apiServiceUrl, debug } = useContext(ApiContext);
-
-    const [loading, setLoading] = useState<boolean>(false);
-    const [order, setOrder] = useState<OrderDocument | null>(null);
-
-    /**
-     * Fetches order data from the service API.
-     *
-     * @returns {Promise<void>}
-     */
-    async function fetchOrderData(): Promise<void> {
-        setLoading(true);
-
-        try {
-            const res: Response = await fetch(`${apiServiceUrl}/order/${orderId}`);
-
-            if (res.ok) {
-                const order: OrderDocument = await res.json();
-
-                if (debug) {
-                    console.log("Order");
-                    console.log(order);
-                }
-
-                setOrder(order);
-            } else {
-                toast.error(`${t("error-loading-order", {orderId: orderId})}`);
-                setOrder(null);
-            }
-        } catch (err) {
-            toast.error(`${t("error-loading-order", {orderId: orderId})}: ${err}`);
-            setOrder(null);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    /* Fetch order data on mount */
-
-    useEffect((): void => {
-        void fetchOrderData();
-    }, []);
+    const { order, loading, error } = useFetchOrderDetail(orderId);
 
     /**
      * Computes the tax for the order.
@@ -202,7 +159,7 @@ export default function OrderDetail(): JSX.Element {
                     </div>
                 </div>
                 ) : (
-                <p>{ t("order-not-found") }</p>
+                <p className="dark:text-white">{ error }</p>
             )}
         </div>
     );
