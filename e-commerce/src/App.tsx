@@ -35,7 +35,7 @@ import type { ApiContextType } from "./types/ApiContextType";
 import { useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
-import { store } from "./redux/Store.tsx"
+import { store } from "./redux/Store"
 
 import ApiContext from "./ApiContext";
 import Layout from "./Layout";

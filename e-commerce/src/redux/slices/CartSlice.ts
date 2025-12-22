@@ -1,5 +1,5 @@
 /*
- * (#)ThemeSlice.tsx    0.3.0   12/01/2025
+ * (#)CartSlice.ts  0.3.0   11/22/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0
@@ -28,22 +28,29 @@
  * SOFTWARE.
  */
 
-import type { ThemeState } from '../../types/ThemeState';
-
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = "light" as ThemeState; // This is a type assertion
+import type { Product } from '../../types/Product';
+import type { CartState } from "../../types/CartState.tsx";
 
-const ThemeSlice = createSlice({
-    name: "theme",
+const initialState: CartState = [];
+
+const CartSlice = createSlice({
+    name:"cart",
     initialState,
     reducers: {
-        setTheme: (_state: ThemeState, action: PayloadAction<ThemeState>): ThemeState => {
-            return action.payload;
+        add: (state: CartState, action: PayloadAction<Product>): void => {
+            state.push(action.payload)
         },
-    },
-});
+        remove: (state: CartState, action: PayloadAction<number>): Product[] => {
+            return state.filter((item: Product): boolean => item.id !== action.payload)
+        },
+        clear: (_state: CartState): Product[] => {
+            return [];
+        }
+    }
+})
 
-export const { setTheme } = ThemeSlice.actions;
+export const { add, remove, clear } = CartSlice.actions;
 
-export default ThemeSlice.reducer;
+export default CartSlice.reducer;

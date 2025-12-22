@@ -1,5 +1,5 @@
 /*
- * (#)Reducers.tsx  0.4.0   12/20/2025
+ * (#)Reducers.ts   0.4.0   12/20/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0

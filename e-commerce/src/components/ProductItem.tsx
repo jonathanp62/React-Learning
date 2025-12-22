@@ -29,9 +29,9 @@
  */
 
 import type { JSX } from "react";
-import type { RootState } from "../redux/Store.tsx";
+import type { RootState } from "../redux/Store";
 import type { Product } from "../types/Product";
-import type { CartState } from "../types/CartState.tsx";
+import type { CartState } from "../types/CartState";
 
 import { Link } from "react-router-dom";
 import { MdStar } from "react-icons/md";

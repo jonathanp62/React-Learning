@@ -1,9 +1,10 @@
 /*
- * (#)formSchema.tsx    0.4.0   12/15/2025
+ * (#)ApiContext.ts 0.4.0   12/14/2025
+ * (#)ApiContext.ts 0.3.0   11/23/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
- * @since   0.4.0
+ * @since   0.3.0
  *
  * MIT License
  *
@@ -28,38 +29,14 @@
  * SOFTWARE.
  */
 
-import * as yup from "yup";
+import type { ApiContextType } from "./types/ApiContextType.tsx";
 
-const formSchema = yup.object().shape({
-    firstName: yup
-        .string()
-        .required("Please enter your first name"),
-    lastName: yup
-        .string()
-        .required("Please enter your last name"),
-    address: yup
-        .string()
-        .required("Please enter your street address"),
-    city: yup
-        .string()
-        .required("Please enter your city"),
-    state: yup
-        .string()
-        .required("Please select your state"),
-    zipCode: yup
-        .string()
-        .required("Please enter your zip code")
-        .matches(/^\d{5}(-\d{4})?/, "Zip code must be numeric"),
-    country: yup
-        .string()
-        .required("Please enter your country"),
-    phone: yup
-        .string()
-        .required("Please enter your phone number")
-        .matches(/(1\s?)?(\(\d{3}\)|\d{3})[\s-]?(\d{3})[\s-]?(\d{4})/, "Phone number must be numeric"),
-    email: yup
-        .string()
-        .required("Please enter your email address")
+import React from "react";
+
+const ApiContext: React.Context<ApiContextType> = React.createContext<ApiContextType>({
+    baseUrl: "",
+    apiServiceUrl: "",
+    debug: false
 });
 
-export default formSchema;
+export default ApiContext;

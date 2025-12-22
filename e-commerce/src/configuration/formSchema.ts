@@ -1,5 +1,5 @@
 /*
- * (#)Sales.tsx 0.4.0   12/20/2025
+ * (#)formSchema.ts 0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -28,36 +28,38 @@
  * SOFTWARE.
  */
 
-import type { SalesTaxDocument } from "../types/SalesTaxDocument";
+import * as yup from "yup";
 
-/**
- * Fetches order data from the service API.
- *
- * @returns {Promise<void>}
- */
-async function fetchSalesTax(url: string, state: string, debug: boolean): Promise<SalesTaxDocument | null> {
-    let salesTaxDocument: SalesTaxDocument | null = null;
+const formSchema = yup.object().shape({
+    firstName: yup
+        .string()
+        .required("Please enter your first name"),
+    lastName: yup
+        .string()
+        .required("Please enter your last name"),
+    address: yup
+        .string()
+        .required("Please enter your street address"),
+    city: yup
+        .string()
+        .required("Please enter your city"),
+    state: yup
+        .string()
+        .required("Please select your state"),
+    zipCode: yup
+        .string()
+        .required("Please enter your zip code")
+        .matches(/^\d{5}(-\d{4})?/, "Zip code must be numeric"),
+    country: yup
+        .string()
+        .required("Please enter your country"),
+    phone: yup
+        .string()
+        .required("Please enter your phone number")
+        .matches(/(1\s?)?(\(\d{3}\)|\d{3})[\s-]?(\d{3})[\s-]?(\d{4})/, "Phone number must be numeric"),
+    email: yup
+        .string()
+        .required("Please enter your email address")
+});
 
-    try {
-        const res: Response = await fetch(`${url}/sales-tax/${state}`);
-
-        if (res.ok) {
-            salesTaxDocument = await res.json();
-
-            if (debug) {
-                console.log("Sales Tax");
-                console.log(salesTaxDocument);
-            }
-        } else if (res.status === 404) {
-            console.warn(`Sales tax not found for state: ${state}`);
-        } else {
-            console.error(`Failed to fetch sales tax for state: ${state}`);
-        }
-    } catch (err) {
-        throw err instanceof Error ? err : new Error(String(err));
-    }
-
-    return salesTaxDocument;
-}
-
-export default fetchSalesTax;
+export default formSchema;

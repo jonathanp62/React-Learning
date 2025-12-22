@@ -29,20 +29,20 @@
  */
 
 import type { JSX } from "react";
-import type { Product } from "../types/Product.tsx";
-import type { RootState } from "../redux/Store.tsx";
-import type { CartState } from "../types/CartState.tsx";
+import type { Product } from "../types/Product";
+import type { RootState } from "../redux/Store";
+import type { CartState } from "../types/CartState";
 
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { capitalizeString, formatPrice, formatRating } from "../utils/Formatters.tsx";
+import { capitalizeString, formatPrice, formatRating } from "../utils/Formatters";
 import { useDispatch, useSelector } from "react-redux";
+import { add, remove } from "../redux/slices/CartSlice";
 
 import toast from "react-hot-toast";
-import ApiContext from "../ApiContext.tsx";
-import Spinner from "../components/Spinner.tsx";
-import {add, remove} from "../redux/slices/CartSlice.tsx";
+import ApiContext from "../ApiContext";
+import Spinner from "../components/Spinner";
 
 /**
  * The product item page.

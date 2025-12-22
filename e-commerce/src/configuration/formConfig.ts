@@ -1,5 +1,5 @@
 /*
- * (#)formConfig.tsx    0.4.0   12/15/2025
+ * (#)formConfig.ts 0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0

@@ -1,5 +1,5 @@
 /*
- * (#)ProductSlice.tsx  0.3.0   11/22/2025
+ * (#)ProductSlice.ts   0.3.0   11/22/2025
  *
  * @author  Jonathan Parker
  * @version 0.3.0

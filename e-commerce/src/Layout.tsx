@@ -29,8 +29,8 @@
  */
 
 import type { JSX } from "react";
-import type { RootState } from "./redux/Store.tsx";
-import type { ThemeState } from "./types/ThemeState.tsx";
+import type { RootState } from "./redux/Store";
+import type { ThemeState } from "./types/ThemeState";
 
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";

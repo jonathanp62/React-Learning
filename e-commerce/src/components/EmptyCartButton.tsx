@@ -34,7 +34,7 @@ import type { JSX } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { clear } from '../redux/slices/CartSlice.tsx';
+import { clear } from '../redux/slices/CartSlice';
 
 import ConfirmationDialog from "./ConfirmationDialog";
 import toast from 'react-hot-toast';

@@ -1,9 +1,9 @@
 /*
- * (#)CartSlice.tsx 0.3.0   11/22/2025
+ * (#)Sales.ts  0.4.0   12/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
- * @since   0.3.0
+ * @version 0.4.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -28,29 +28,36 @@
  * SOFTWARE.
  */
 
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
-import type { Product } from '../../types/Product';
-import type { CartState } from "../../types/CartState.tsx";
+/**
+ * Fetches order data from the service API.
+ *
+ * @returns {Promise<void>}
+ */
+async function fetchSalesTax(url: string, state: string, debug: boolean): Promise<SalesTaxDocument | null> {
+    let salesTaxDocument: SalesTaxDocument | null = null;
 
-const initialState: CartState = [];
+    try {
+        const res: Response = await fetch(`${url}/sales-tax/${state}`);
 
-const CartSlice = createSlice({
-    name:"cart",
-    initialState,
-    reducers: {
-        add: (state: CartState, action: PayloadAction<Product>): void => {
-            state.push(action.payload)
-        },
-        remove: (state: CartState, action: PayloadAction<number>): Product[] => {
-            return state.filter((item: Product): boolean => item.id !== action.payload)
-        },
-        clear: (_state: CartState): Product[] => {
-            return [];
+        if (res.ok) {
+            salesTaxDocument = await res.json();
+
+            if (debug) {
+                console.log("Sales Tax");
+                console.log(salesTaxDocument);
+            }
+        } else if (res.status === 404) {
+            console.warn(`Sales tax not found for state: ${state}`);
+        } else {
+            console.error(`Failed to fetch sales tax for state: ${state}`);
         }
+    } catch (err) {
+        throw err instanceof Error ? err : new Error(String(err));
     }
-})
 
-export const { add, remove, clear } = CartSlice.actions;
+    return salesTaxDocument;
+}
 
-export default CartSlice.reducer;
+export default fetchSalesTax;

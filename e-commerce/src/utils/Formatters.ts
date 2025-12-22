@@ -1,6 +1,6 @@
 /*
- * (#)Formatters.tsx    0.4.0   12/18/2025
- * (#)Formatters.tsx    0.3.0   11/27/2025
+ * (#)Formatters.ts 0.4.0   12/18/2025
+ * (#)Formatters.ts 0.3.0   11/27/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0

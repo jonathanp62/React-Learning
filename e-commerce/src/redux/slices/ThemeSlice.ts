@@ -1,9 +1,8 @@
 /*
- * (#)ApiContext.tsx    0.4.0   12/14/2025
- * (#)ApiContext.tsx    0.3.0   11/23/2025
+ * (#)ThemeSlice.ts 0.3.0   12/01/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.3.0
  * @since   0.3.0
  *
  * MIT License
@@ -29,14 +28,22 @@
  * SOFTWARE.
  */
 
-import type { ApiContextType } from "./types/ApiContextType.tsx";
+import type { ThemeState } from '../../types/ThemeState';
 
-import React from "react";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-const ApiContext: React.Context<ApiContextType> = React.createContext<ApiContextType>({
-    baseUrl: "",
-    apiServiceUrl: "",
-    debug: false
+const initialState = "light" as ThemeState; // This is a type assertion
+
+const ThemeSlice = createSlice({
+    name: "theme",
+    initialState,
+    reducers: {
+        setTheme: (_state: ThemeState, action: PayloadAction<ThemeState>): ThemeState => {
+            return action.payload;
+        },
+    },
 });
 
-export default ApiContext;
+export const { setTheme } = ThemeSlice.actions;
+
+export default ThemeSlice.reducer;
