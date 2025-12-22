@@ -31,15 +31,13 @@
 import type { JSX } from "react";
 import type { OrderDocument } from "../types/OrderDocument";
 
-import { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPrice } from "../utils/Formatters";
 import { Link } from "react-router-dom";
 
-import toast from "react-hot-toast";
-import ApiContext from "../ApiContext";
 import Spinner from "../components/Spinner";
+import useFetchOrders from "../hooks/useFetchOrders";
 
 /**
  * The orders page.
@@ -48,42 +46,7 @@ import Spinner from "../components/Spinner";
  */
 export default function Orders(): JSX.Element {
     const { t } = useTranslation();
-    const { apiServiceUrl, debug } = useContext(ApiContext);
-
-    const [loading, setLoading] = useState<boolean>(false);
-    const [orders, setOrders] = useState<OrderDocument[]>([]);
-
-    /**
-     * Fetches order data from the service API.
-     *
-     * @returns {Promise<void>}
-     */
-    async function fetchOrderData(): Promise<void> {
-        setLoading(true);
-
-        try {
-            const res: Response = await fetch(`${apiServiceUrl}/orders`);
-            const orders: OrderDocument[] = await res.json();
-
-            if (debug) {
-                console.log("Orders:");
-                console.log(orders);
-            }
-
-            setOrders(orders);
-        } catch (err) {
-            toast.error(`${t("error-loading-orders")}: ${err}`);
-            setOrders([]);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    /* Fetch order data on mount */
-
-    useEffect((): void => {
-        void fetchOrderData();
-    }, []);
+    const { orders, loading, error } = useFetchOrders();
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
@@ -121,7 +84,7 @@ export default function Orders(): JSX.Element {
                     </table>
                 </div>
             ) : (
-                <p>{ t("no-orders-found") }</p>
+                <p className="dark:text-white">{ error }</p>
             )}
         </div>
     );
