@@ -35,7 +35,7 @@ import type { Product } from "../types/Product";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
 import ApiContext from "../ApiContext";
@@ -192,9 +192,16 @@ export default function OrderDetail(): JSX.Element {
                         <p className="mt-0 font-bold dark:text-white">
                             <span className="font-normal">{order.email}</span>
                         </p>
+                        <div>
+                            <Link to="/orders">
+                                <button className="mt-5 bg-green-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all">
+                                    { t("all-orders") }
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            ) : (
+                ) : (
                 <p>{ t("order-not-found") }</p>
             )}
         </div>
