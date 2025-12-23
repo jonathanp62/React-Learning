@@ -34,15 +34,15 @@ import type { Product } from "../types/Product";
 import type { RootState } from "../redux/Store";
 
 import { useTranslation } from 'react-i18next';
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts, setSelectedCategory, setSelectedPrice, setSelectedRating, updateFilteredProducts } from "../redux/slices/ProductSlice";
 import { MdStar } from "react-icons/md";
 
-import toast from 'react-hot-toast';
 import ApiContext from "../ApiContext";
 import Spinner from "../components/Spinner";
 import ProductItem from "../components/ProductItem";
+import useFetchProducts from "../hooks/useFetchProducts.ts";
 
 /**
  * The home page.
@@ -51,10 +51,8 @@ import ProductItem from "../components/ProductItem";
  */
 export default function Home(): JSX.Element {
     const { t } = useTranslation();
-    const { baseUrl, debug } = useContext(ApiContext);
-
-    const [loading, setLoading] = useState<boolean>(false);
-    const [posts, setPosts] = useState<Product[]>([]);
+    const { debug } = useContext(ApiContext);
+    const { products, loading, error } = useFetchProducts();
 
     const dispatch = useDispatch();
     const data: Product[] = useSelector((state: RootState): Product[] => state.products.data);
@@ -63,44 +61,22 @@ export default function Home(): JSX.Element {
     const selectedPrice: string = useSelector((state: RootState): string => state.products.selectedPrice);
     const selectedRating: string = useSelector((state: RootState): string => state.products.selectedRating);
 
-    /**
-     * Fetches product data from the API.
-     *
-     * @returns {Promise<void>}
-     */
-    async function fetchProductData(): Promise<void> {
-        setLoading(true);
-
-        try {
-            const res: Response = await fetch(baseUrl);
-            const products: Product[] = await res.json();
-
-            setPosts(products);
-
-            dispatch(setProducts(products));
-            dispatch(updateFilteredProducts(products));
-        } catch (err) {
-            toast.error(`${t("error-loading-products")}: ${err}`);
-            setPosts([]);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    /* Fetch product data on mount */
+    /* Set products and filtered products */
 
     useEffect((): void => {
-        void fetchProductData();
-    }, []);
+        dispatch(setProducts(products));
+        dispatch(updateFilteredProducts(products));
+    }, [products, dispatch]);
 
     /* Apply filters whenever the category or price changes */
 
-    useEffect((): void  => {
-        let filteredData: Product[] = posts;
+    useEffect((): void => {
+        let filteredData: Product[] = products;
 
         // Filter by category
 
         console.log(selectedCategory);
+
         if (selectedCategory && selectedCategory !== "All") {
             filteredData = filteredData.filter(
                 (item: Product): boolean => item.category.toLowerCase() === selectedCategory.toLowerCase()
@@ -135,9 +111,9 @@ export default function Home(): JSX.Element {
         }
 
         dispatch(updateFilteredProducts(filteredData));
-    }, [selectedCategory, selectedPrice, selectedRating, posts, dispatch]);
+    }, [selectedCategory, selectedPrice, selectedRating, products, dispatch]);
 
-    const uniqueCategories: string[] = ["All", ...new Set(posts.map((product: Product): string => product.category))];
+    const uniqueCategories: string[] = ["All", ...new Set(products.map((product: Product): string => product.category))];
 
     if (debug) {
         console.log(data);
@@ -297,6 +273,8 @@ export default function Home(): JSX.Element {
                     <Spinner />
                 ) : filtered.length > 0 ? (
                     filtered.map((post: Product): JSX.Element => <ProductItem key={post.id} post={post} />)
+                ) : error ? (
+                    <p>{ error }</p>
                 ) : (
                     <p>{ t("no-products-found") }</p>
                 )}
