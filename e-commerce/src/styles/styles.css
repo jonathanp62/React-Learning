@@ -1,8 +1,9 @@
 /*
+ * (#)styles.css    0.4.0   12/23/2025
  * (#)styles.css    0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.4.0
  * @since   0.3.0
  *
  * MIT License
@@ -35,7 +36,11 @@
 body {
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
-  background-color: #F3F4F6; /* TailwindCSS gray-100: #F3F4F6, gray-700: #374151 */
+  background-color: #F3F4F6;    /* TailwindCSS gray-100: #F3F4F6 */
+}
+
+.dark body {
+  background-color: #374151;    /* TailwindCSS gray-700: #374151 */
 }
 
 .center-spinner {

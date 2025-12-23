@@ -36,13 +36,13 @@ import type { RootState } from "../redux/Store";
 import { useTranslation } from 'react-i18next';
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts, setSelectedCategory, setSelectedPrice, setSelectedRating, updateFilteredProducts } from "../redux/slices/ProductSlice";
+import { setSelectedCategory, setSelectedPrice, setSelectedRating, updateFilteredProducts } from "../redux/slices/ProductSlice";
 import { MdStar } from "react-icons/md";
 
 import ApiContext from "../ApiContext";
 import Spinner from "../components/Spinner";
 import ProductItem from "../components/ProductItem";
-import useFetchProducts from "../hooks/useFetchProducts.ts";
+import useLoadProducts from "../hooks/useLoadProducts.ts";
 
 /**
  * The home page.
@@ -52,21 +52,14 @@ import useFetchProducts from "../hooks/useFetchProducts.ts";
 export default function Home(): JSX.Element {
     const { t } = useTranslation();
     const { debug } = useContext(ApiContext);
-    const { products, loading, error } = useFetchProducts();
+    const { loading, error } = useLoadProducts();
 
     const dispatch = useDispatch();
-    const data: Product[] = useSelector((state: RootState): Product[] => state.products.data);
+    const products: Product[] = useSelector((state: RootState): Product[] => state.products.data);
     const filtered: Product[] = useSelector((state: RootState): Product[] => state.products.filtered);
     const selectedCategory: string = useSelector((state: RootState): string => state.products.selectedCategory);
     const selectedPrice: string = useSelector((state: RootState): string => state.products.selectedPrice);
     const selectedRating: string = useSelector((state: RootState): string => state.products.selectedRating);
-
-    /* Set products and filtered products */
-
-    useEffect((): void => {
-        dispatch(setProducts(products));
-        dispatch(updateFilteredProducts(products));
-    }, [products, dispatch]);
 
     /* Apply filters whenever the category or price changes */
 
@@ -116,7 +109,7 @@ export default function Home(): JSX.Element {
     const uniqueCategories: string[] = ["All", ...new Set(products.map((product: Product): string => product.category))];
 
     if (debug) {
-        console.log(data);
+        console.log(products);
         console.log(filtered);
     }
 

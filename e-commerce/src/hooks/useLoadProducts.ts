@@ -1,5 +1,5 @@
 /*
- * (#)useFetchProducts.ts   0.4.0   12/23/2025
+ * (#)useLoadProducts.ts   0.4.0   12/23/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
@@ -31,6 +31,8 @@
 import type { Product } from "../types/Product";
 
 import { useContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setProducts, updateFilteredProducts } from "../redux/slices/ProductSlice";
 import { useTranslation } from "react-i18next";
 
 import ApiContext from "../ApiContext";
@@ -42,13 +44,14 @@ import ApiContext from "../ApiContext";
  * @returns {boolean}       The loading state
  * @returns {string | null} The error message
  */
-const useFetchProducts: () => {products: Product[], loading: boolean, error: string | null} = (): {products: Product[], loading: boolean, error: string | null} => {
+const useLoadProducts: () => {loading: boolean, error: string | null} = (): {loading: boolean, error: string | null} => {
     const { baseUrl, debug } = useContext(ApiContext);
     const { t } = useTranslation();
 
     const [loading, setLoading] = useState<boolean>(false);
-    const [products, setProducts] = useState<Product[]>([]);
     const [error, setError] = useState<string | null>(null);
+
+    const dispatch = useDispatch();
 
     useEffect((): void => {
         const fetchProducts: () => Promise<void> = async (): Promise<void> => {
@@ -66,14 +69,19 @@ const useFetchProducts: () => {products: Product[], loading: boolean, error: str
                         console.log(productsData);
                     }
 
-                    setProducts(productsData);
+                    dispatch(setProducts(productsData));
+                    dispatch(updateFilteredProducts(productsData));
                 } else {
                     setError(t("error-loading-products"));
-                    setProducts([]);
+
+                    dispatch(setProducts([]));
+                    dispatch(updateFilteredProducts([]));
                 }
             } catch (err) {
                 setError(`${t("error-loading-products")}: ${err}`);
-                setProducts([]);
+
+                dispatch(setProducts([]));
+                dispatch(updateFilteredProducts([]));
             } finally {
                 setLoading(false);
             }
@@ -82,7 +90,7 @@ const useFetchProducts: () => {products: Product[], loading: boolean, error: str
         void fetchProducts();
     }, []);
 
-    return {products, loading, error};
+    return {loading, error};
 }
 
-export default useFetchProducts;
+export default useLoadProducts;
