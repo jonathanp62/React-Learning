@@ -29,8 +29,10 @@
  */
 
 import type { JSX } from "react";
-import type { FormValues } from "../types/FormValues.ts";
+import type { Order } from "../types/Order";
+import type { RootState } from "../redux/Store";
 
+import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -40,10 +42,11 @@ import { useTranslation } from 'react-i18next';
  */
 export default function Review(): JSX.Element  {
     const { t } = useTranslation();
+    const order: Order = useSelector((state: RootState): Order => state.order);
 
     return (
-        <div>
-            <h1>{ t("review") }</h1>
+        <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
+            <p className="font-bold text-2xl mb-2 dark:text-white">{ t("review-order") }</p>
         </div>
     );
 }
