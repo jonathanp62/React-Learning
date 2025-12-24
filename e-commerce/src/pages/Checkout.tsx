@@ -43,6 +43,7 @@ import { useTranslation } from 'react-i18next';
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { clear } from '../redux/slices/CartSlice';
+import { setOrder } from "../redux/slices/OrderSlice.ts";
 
 import fetchSalesTax from '../utils/SalesTax';
 import formConfig from "../configuration/formConfig";
@@ -112,6 +113,8 @@ export default function Checkout(): JSX.Element {
             console.log("Order:");
             console.log(order);
         }
+
+        dispatch(setOrder(order));
 
         try {
             const response: Response = await fetch(postUrl, {

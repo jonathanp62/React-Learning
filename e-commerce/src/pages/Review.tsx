@@ -1,10 +1,9 @@
 /*
- * (#)Store.ts  0.4.0   12/24/2025
- * (#)Store.ts  0.3.0   11/22/2025
+ * (#)Review.tsx    0.4.0   12/24/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
- * @since   0.3.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -29,40 +28,22 @@
  * SOFTWARE.
  */
 
-import { configureStore } from '@reduxjs/toolkit';
+import type { JSX } from "react";
+import type { FormValues } from "../types/FormValues.ts";
 
-import cartReducer from './slices/CartSlice';
-import orderReducer from './slices/OrderSlice.ts';
-import productReducer from './slices/ProductSlice';
-import themeReducer from './slices/ThemeSlice';
+import { useTranslation } from 'react-i18next';
 
-const reduxStoreStateKey: string = "reduxEcommerceStore";
+/**
+ * The order review page.
+ *
+ * @returns {JSX.Element}
+ */
+export default function Review(): JSX.Element  {
+    const { t } = useTranslation();
 
-let persistedState: {} = {};
-
-try {
-    const serializedState: string | null = localStorage.getItem(reduxStoreStateKey);
-
-    if (serializedState !== null) {
-        persistedState = JSON.parse(serializedState);
-    }
-} catch (e) {
-    console.error("Error loading persisted state: ", e);
-    persistedState = {};
+    return (
+        <div>
+            <h1>{ t("review") }</h1>
+        </div>
+    );
 }
-
-export const store = configureStore({
-    reducer: {
-        cart: cartReducer,
-        order: orderReducer,
-        products: productReducer,
-        theme: themeReducer,
-    },
-    preloadedState: persistedState,
-});
-
-store.subscribe((): void => {
-    localStorage.setItem(reduxStoreStateKey, JSON.stringify(store.getState()));
-});
-
-export type RootState = ReturnType<typeof store.getState>;

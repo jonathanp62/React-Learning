@@ -1,10 +1,9 @@
 /*
- * (#)Store.ts  0.4.0   12/24/2025
- * (#)Store.ts  0.3.0   11/22/2025
+ * (#)OrderSlice.ts 0.4.0   12/24/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
- * @since   0.3.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -29,40 +28,36 @@
  * SOFTWARE.
  */
 
-import { configureStore } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import cartReducer from './slices/CartSlice';
-import orderReducer from './slices/OrderSlice.ts';
-import productReducer from './slices/ProductSlice';
-import themeReducer from './slices/ThemeSlice';
+import type { Order } from "../../types/Order";
 
-const reduxStoreStateKey: string = "reduxEcommerceStore";
+const initialState: Order = {
+    orderId: "",
+    orderDate: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    phone: "",
+    email: "",
+    taxRate: 0,
+    products: []
+};
 
-let persistedState: {} = {};
-
-try {
-    const serializedState: string | null = localStorage.getItem(reduxStoreStateKey);
-
-    if (serializedState !== null) {
-        persistedState = JSON.parse(serializedState);
+const OrderSlice = createSlice({
+    name:"order",
+    initialState,
+    reducers: {
+        setOrder: (_state: Order, action: PayloadAction<Order>): Order => {
+            return action.payload;
+        }
     }
-} catch (e) {
-    console.error("Error loading persisted state: ", e);
-    persistedState = {};
-}
+})
 
-export const store = configureStore({
-    reducer: {
-        cart: cartReducer,
-        order: orderReducer,
-        products: productReducer,
-        theme: themeReducer,
-    },
-    preloadedState: persistedState,
-});
+export const { setOrder } = OrderSlice.actions;
 
-store.subscribe((): void => {
-    localStorage.setItem(reduxStoreStateKey, JSON.stringify(store.getState()));
-});
-
-export type RootState = ReturnType<typeof store.getState>;
+export default OrderSlice.reducer;
