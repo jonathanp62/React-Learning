@@ -36,6 +36,7 @@ import type { RootState } from "../redux/Store";
 
 import { clear } from "../redux/slices/CartSlice";
 import { clearOrder } from "../redux/slices/OrderSlice";
+import { getTax, computeGrandTotal } from "../utils/Calculators";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useContext } from "react";
@@ -56,28 +57,6 @@ export default function Review(): JSX.Element  {
 
     const order: Order = useSelector((state: RootState): Order => state.order);
     const dispatch = useDispatch();
-
-    /**
-     * Computes the tax for the order.
-     *
-     * @param   {Order}     order   The order to compute the tax for
-     * @returns {number}            The tax for the order
-     */
-    function getTax(order: Order): number {
-        return order.taxRate * computeProductsTotal(order.products);
-    }
-
-    /**
-     * Computes the grand total for the order.
-     *
-     * @param   {Order}     order   The order to compute the total for
-     * @returns {number}            The total for the order
-     */
-    function computeGrandTotal(order: Order): number {
-        const subTotal: number = computeProductsTotal(order.products);
-
-        return subTotal + getTax(order);
-    }
 
     /**
      * Handles the place order action.

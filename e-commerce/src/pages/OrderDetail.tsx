@@ -29,9 +29,9 @@
  */
 
 import type { JSX } from "react";
-import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 
+import { getTax, computeGrandTotal } from "../utils/Calculators";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useParams, Link } from 'react-router-dom';
@@ -49,28 +49,6 @@ export default function OrderDetail(): JSX.Element {
     const { t } = useTranslation();
     const { orderId } = useParams<'orderId'>();
     const { order, loading, error } = useFetchOrderDetail(orderId);
-
-    /**
-     * Computes the tax for the order.
-     *
-     * @param   {OrderDocument} order   The order to compute the tax for
-     * @returns {number}                The tax for the order
-     */
-    function getTax(order: OrderDocument): number {
-        return order.taxRate * computeProductsTotal(order.products);
-    }
-
-    /**
-     * Computes the grand total for the order.
-     *
-     * @param   {OrderDocument} order   The order to compute the total for
-     * @returns {number}                The total for the order
-     */
-    function computeGrandTotal(order: OrderDocument): number {
-        const subTotal: number = computeProductsTotal(order.products);
-
-        return subTotal + getTax(order);
-    }
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
