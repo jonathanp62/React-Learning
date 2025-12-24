@@ -54,10 +54,13 @@ const OrderSlice = createSlice({
     reducers: {
         setOrder: (_state: Order, action: PayloadAction<Order>): Order => {
             return action.payload;
+        },
+        clearOrder: (_state: Order): Order => {
+            return initialState;
         }
     }
 })
 
-export const { setOrder } = OrderSlice.actions;
+export const { clearOrder, setOrder } = OrderSlice.actions;
 
 export default OrderSlice.reducer;

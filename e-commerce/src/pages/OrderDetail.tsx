@@ -83,7 +83,7 @@ export default function OrderDetail(): JSX.Element {
                     <div className="mt-16">
                         {
                             order.products.map((product: Product): JSX.Element => (
-                                <div className="w-full border-b-2 p-6 mt-3 flex border-black">
+                                <div key={product.id} className="w-full border-b-2 p-6 mt-3 flex border-black">
                                     <div className="w-full flex justify-between gap-x-10">
                                         <div className="w-[170px] object-fill">
                                             <img src={ product.image } alt={ t("product-image") } className=""/>

@@ -30,8 +30,8 @@
 
 import type { JSX } from "react";
 import type { FormValues } from "../types/FormValues";
+import type { NavigateFunction } from "react-router-dom";
 import type { Order } from "../types/Order";
-import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
 import type { RootState } from "../redux/Store";
 import type { SalesTaxDocument } from "../types/SalesTaxDocument";
@@ -41,8 +41,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { clear } from '../redux/slices/CartSlice';
 import { setOrder } from "../redux/slices/OrderSlice.ts";
 
 import fetchSalesTax from '../utils/SalesTax';
@@ -65,17 +65,17 @@ export default function Checkout(): JSX.Element {
         resolver: yupResolver(formSchema)
     });
 
+    const navigate: NavigateFunction = useNavigate();
     const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
 
     /**
-     * Places the order.
+     * Handles the form submission and navigates to the review page.
      *
      * @param   {FormValues}    data    The form data
-     * @return  {Promise<boolean>}
+     * @return  {Promise<void>}
      */
-    const placeOrder: (data: FormValues) => Promise<boolean> = async (data: FormValues): Promise<boolean> => {
-        const postUrl: string = `${apiServiceUrl}/order`;
+    const handleFormSubmit: (data: FormValues) => Promise<void> = async (data: FormValues): Promise<void> => {
         const now: Date = new Date();
         const isoNow: string = now.toISOString();
 
@@ -84,8 +84,12 @@ export default function Checkout(): JSX.Element {
         try {
             salesTaxDocument = await fetchSalesTax(apiServiceUrl, data.state, debug);
         } catch (err) {
+            const message: string = err instanceof Error ? err.message : String(err);
+
             console.error(err);
-            return false;
+            toast.error(message);
+
+            return;
         }
 
         if (debug && salesTaxDocument) {
@@ -115,60 +119,8 @@ export default function Checkout(): JSX.Element {
         }
 
         dispatch(setOrder(order));
-
-        try {
-            const response: Response = await fetch(postUrl, {
-                method: 'POST',
-                body: JSON.stringify(order),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            });
-
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
-
-            const document: OrderDocument = await response.json();
-
-            console.log(`Order document saved: ${document.documentId}`);
-
-            if (debug) {
-                console.log(document);
-            }
-
-            return response.ok;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
+        navigate("/review");
     };
-
-    /**
-     * Handles the form submission.
-     *
-     * @param   {FormValues}    data    The form data
-     * @return  {Promise<void>}
-     */
-    const handleFormSubmit: (data: FormValues) => Promise<void> = async (data: FormValues): Promise<void> => {
-        const success: boolean = await placeOrder(data);
-
-        if (success) {
-            dispatch(clear());  // Empty the cart
-            toast.success(t("order-placed-ok"));
-        } else {
-            toast.error(t("order-place-failed"));
-        }
-    }
 
     return (
         <>
@@ -210,7 +162,7 @@ export default function Checkout(): JSX.Element {
                             type="submit"
                             className="mb-10 mt-10 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
                         >
-                            { t("place-order") }
+                            { t("review-order") }
                         </button>
                     </div>
                 </form>
