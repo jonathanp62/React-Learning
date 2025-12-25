@@ -29,6 +29,7 @@
  */
 
 import type { JSX} from "react";
+import type { NavigateFunction } from "react-router-dom";
 import type { Order } from "../types/Order";
 import type { OrderDocument } from "../types/OrderDocument";
 import type { Product } from "../types/Product";
@@ -41,6 +42,7 @@ import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import toast from "react-hot-toast";
@@ -55,6 +57,7 @@ export default function Review(): JSX.Element  {
     const { t } = useTranslation();
     const { apiServiceUrl, debug } = useContext(ApiContext);
 
+    const navigate: NavigateFunction = useNavigate();
     const order: Order = useSelector((state: RootState): Order => state.order);
     const dispatch = useDispatch();
 
@@ -64,13 +67,15 @@ export default function Review(): JSX.Element  {
      * @returns {void}
      */
     const handlePlaceOrder: () => Promise<void> = async (): Promise<void> => {
-        const success: boolean = await placeOrder();
+        const { success, orderId } = await placeOrder();
 
         if (success) {
             dispatch(clear());      // Empty the cart
             dispatch(clearOrder()); // Clear the order
 
             toast.success(t("order-placed-ok"));
+
+            navigate(`/order-detail/${orderId}`);
         } else {
             toast.error(t("order-place-failed"));
         }
@@ -81,7 +86,7 @@ export default function Review(): JSX.Element  {
      *
      * @return  {Promise<boolean>}
      */
-    const placeOrder: () => Promise<boolean> = async (): Promise<boolean> => {
+    const placeOrder: () => Promise<{ success: boolean; orderId: string }> = async (): Promise<{ success: boolean; orderId: string }> => {
         const postUrl: string = `${apiServiceUrl}/order`;
 
         try {
@@ -114,10 +119,13 @@ export default function Review(): JSX.Element  {
                 console.log(document);
             }
 
-            return response.ok;
+            return {
+                success: response.ok,
+                orderId: response.ok ? document.orderId : "",
+            };
         } catch (error) {
             console.log(error);
-            return false;
+            return { success: false, orderId: "" };
         }
     };
 
