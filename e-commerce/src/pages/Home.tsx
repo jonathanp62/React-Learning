@@ -68,7 +68,9 @@ export default function Home(): JSX.Element {
 
         // Filter by category
 
-        console.log(selectedCategory);
+        if (debug) {
+            console.log(selectedCategory);
+        }
 
         if (selectedCategory && selectedCategory !== "All") {
             filteredData = filteredData.filter(

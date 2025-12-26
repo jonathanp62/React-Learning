@@ -33,7 +33,7 @@
   "appConfig": {
     "apiBaseUrl": "https://fakestoreapi.com/products",
     "apiServiceUrl": "http://localhost:8080/react/learning/api/e-commerce",
-    "debug": true
+    "debug": false
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

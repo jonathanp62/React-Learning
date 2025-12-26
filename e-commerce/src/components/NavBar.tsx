@@ -90,7 +90,7 @@ export default function NavBar(): JSX.Element {
         setShowDropdown(true);
     }
 
-    const handleSelectProduct: (item: Product) => void = (item: Product): void => {
+    const handleSelectedProduct: (item: Product) => void = (item: Product): void => {
         dispatch(updateFilteredProducts([item])); // Update Home products
 
         // Update sidebar filters globally
@@ -104,7 +104,7 @@ export default function NavBar(): JSX.Element {
         else dispatch(setSelectedPrice("100+"));
 
         setShowDropdown(false); // Close dropdown
-        setInputData("");           // Clear search input if you want
+        setInputData("");       // Clear search input if you want
     }
 
     const toggleTheme: () => void = (): void => {
@@ -156,12 +156,11 @@ export default function NavBar(): JSX.Element {
                                 placeholder="Search..."
                                 className="bg-transparent text-gray-200 placeholder-gray-400 focus:outline-none flex-grow"
                                 onFocus={(): void => {
-                                    if (showDropdown) {
-                                        setShowDropdown(false);
-                                    } else {
-                                        setDropdownProducts(products); // Always show all dropdown items
-                                        setShowDropdown(true);
-                                    }
+                                    setDropdownProducts(products); // Always show all dropdown items
+                                    setShowDropdown(true);
+                                }}
+                                onBlur={(): void => {
+                                    setShowDropdown(false);
                                 }}
                             />
                             <Search className="text-gray-300 w-4 h-4 ml-2 cursor-pointer" />
@@ -174,7 +173,10 @@ export default function NavBar(): JSX.Element {
                                 {dropdownProducts.map((item: Product): JSX.Element => (
                                     <div
                                         key={ item.id }
-                                        onClick={ (): void => handleSelectProduct(item) }
+                                        onMouseDown={ (event: React.MouseEvent<HTMLDivElement>): void => {
+                                            event.preventDefault();
+                                            handleSelectedProduct(item);
+                                        }}
                                         className="p-2 hover:bg-[#374151] cursor-pointer flex items-center space-x-3"
                                     >
                                         <img
