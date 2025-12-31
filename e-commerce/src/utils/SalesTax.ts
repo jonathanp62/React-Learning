@@ -29,17 +29,33 @@
  */
 
 import type { SalesTaxDocument } from "../types/SalesTaxDocument";
+import type { TFunction } from "i18next";
+import type { User } from "../types/User";
+
+import {createBasicAuthToken} from "./Auth.ts";
 
 /**
  * Fetches order data from the service API.
  *
+ * @param   {string}                                url     The URL of the service API
+ * @param   {string}                                state   The state to fetch sales tax for
+ * @param   {User}                                  user    The user authorized to fetch sales tax
+ * @param   {boolean}                               debug   Whether to enable debug logging
+ * @param   {TFunction<'translation', undefined>}   t       The translation function
  * @returns {Promise<void>}
  */
-async function fetchSalesTax(url: string, state: string, debug: boolean): Promise<SalesTaxDocument | null> {
+async function fetchSalesTax(url: string, state: string, user: User, debug: boolean, t: TFunction<'translation', undefined>): Promise<SalesTaxDocument | null> {
     let salesTaxDocument: SalesTaxDocument | null = null;
+    let errorMessage: string = "";  //Empty strings are falsey
 
     try {
-        const res: Response = await fetch(`${url}/sales-tax/${state}`);
+        const res: Response = await fetch(`${url}/sales-tax/${state}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Basic ${createBasicAuthToken(user)}`,
+                "Accept": "application/json"
+            }
+        });
 
         if (res.ok) {
             salesTaxDocument = await res.json();
@@ -49,12 +65,19 @@ async function fetchSalesTax(url: string, state: string, debug: boolean): Promis
                 console.log(salesTaxDocument);
             }
         } else if (res.status === 404) {
-            console.warn(`Sales tax not found for state: ${state}`);
+            console.warn(`${t("sales-tax-not-found", {state: state})}`);
+        } else if (res.status === 401) {
+            errorMessage = t("sales-tax-unauthorized", {state: state});
         } else {
-            console.error(`Failed to fetch sales tax for state: ${state}`);
+            errorMessage = t("sales-tax-failed-to-fetch", {state: state});
         }
     } catch (err) {
         throw err instanceof Error ? err : new Error(String(err));
+    }
+
+    if (errorMessage) {
+        console.error(errorMessage);
+        throw new Error(errorMessage);
     }
 
     return salesTaxDocument;

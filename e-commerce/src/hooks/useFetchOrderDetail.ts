@@ -60,6 +60,7 @@ const useFetchOrderDetail: (orderId: string | undefined) => {order: OrderDocumen
 
                 if (orderId !== undefined) {
                     const res: Response = await fetch(`${apiServiceUrl}/order/${orderId}`, {
+                        method: "GET",
                         headers: {
                             Authorization: `Basic ${createBasicAuthToken(users.READONLY)}`,
                             Accept: "application/json"

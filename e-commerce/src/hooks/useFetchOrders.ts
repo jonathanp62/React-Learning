@@ -58,6 +58,7 @@ const useFetchOrders: () => {orders: OrderDocument[], loading: boolean, error: s
                 setError(null);
 
                 const res: Response = await fetch(`${apiServiceUrl}/orders`, {
+                    method: "GET",
                     headers: {
                         Authorization: `Basic ${createBasicAuthToken(users.READONLY)}`,
                         Accept: "application/json"

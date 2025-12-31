@@ -59,7 +59,7 @@ import InputField from "../components/InputField";
  */
 export default function Checkout(): JSX.Element {
     const { t } = useTranslation();
-    const { apiServiceUrl, debug } = useContext(ApiContext);
+    const { apiServiceUrl, debug, users } = useContext(ApiContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
         resolver: yupResolver(formSchema)
@@ -82,7 +82,7 @@ export default function Checkout(): JSX.Element {
         let salesTaxDocument: SalesTaxDocument | null = null;
 
         try {
-            salesTaxDocument = await fetchSalesTax(apiServiceUrl, data.state, debug);
+            salesTaxDocument = await fetchSalesTax(apiServiceUrl, data.state, users.READONLY, debug, t);
         } catch (err) {
             const message: string = err instanceof Error ? err.message : String(err);
 
