@@ -1,10 +1,9 @@
 /*
- * (#)ApiContextType.ts 0.4.0   12/14/2025
- * (#)ApiContextType.ts 0.3.0   11/23/2025
+ * (#)User.ts   0.4.0   12/31/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
- * @since   0.3.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -29,11 +28,10 @@
  * SOFTWARE.
  */
 
-import type { Role, User } from "./User";
+export type Role = "READWRITE" | "READONLY";
 
-export type ApiContextType = {
-    baseUrl: string,
-    apiServiceUrl: string,
-    debug: boolean,
-    users: Record<Role, User>
+export interface User {
+    name: string;
+    password: string;
+    role: Role;
 }

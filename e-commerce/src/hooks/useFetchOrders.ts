@@ -30,6 +30,7 @@
 
 import type { OrderDocument } from "../types/OrderDocument";
 
+import { createBasicAuthToken } from "../utils/Auth";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -43,7 +44,7 @@ import ApiContext from "../ApiContext";
  * @returns {string | null}     The error message
  */
 const useFetchOrders: () => {orders: OrderDocument[], loading: boolean, error: string | null} = (): {orders: OrderDocument[], loading: boolean, error: string | null} => {
-    const { apiServiceUrl, debug } = useContext(ApiContext);
+    const { apiServiceUrl, debug, users } = useContext(ApiContext);
     const { t } = useTranslation();
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -56,7 +57,12 @@ const useFetchOrders: () => {orders: OrderDocument[], loading: boolean, error: s
                 setLoading(true);
                 setError(null);
 
-                const res: Response = await fetch(`${apiServiceUrl}/orders`);
+                const res: Response = await fetch(`${apiServiceUrl}/orders`, {
+                    headers: {
+                        Authorization: `Basic ${createBasicAuthToken(users.READONLY)}`,
+                        Accept: "application/json"
+                    }
+                });
 
                 if (res.ok) {
                     const orderDocuments: OrderDocument[] = await res.json();
@@ -67,6 +73,9 @@ const useFetchOrders: () => {orders: OrderDocument[], loading: boolean, error: s
                     }
 
                     setOrders(orderDocuments);
+                } else if (res.status === 401) {
+                    setError(t("orders-not-authorized"));
+                    setOrders([]);
                 } else {
                     setError(t("error-loading-orders"));
                     setOrders([]);

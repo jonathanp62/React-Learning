@@ -30,6 +30,7 @@
 
 import type { OrderDocument } from "../types/OrderDocument";
 
+import { createBasicAuthToken } from "../utils/Auth";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -44,7 +45,7 @@ import ApiContext from "../ApiContext";
  * @returns {string | null}                     The error message
  */
 const useFetchOrderDetail: (orderId: string | undefined) => {order: OrderDocument | null, loading: boolean, error: string | null} = (orderId: string | undefined): {order: OrderDocument | null, loading: boolean, error: string | null} => {
-    const { apiServiceUrl, debug } = useContext(ApiContext);
+    const { apiServiceUrl, debug, users } = useContext(ApiContext);
     const { t } = useTranslation();
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -58,7 +59,12 @@ const useFetchOrderDetail: (orderId: string | undefined) => {order: OrderDocumen
                 setError(null);
 
                 if (orderId !== undefined) {
-                    const res: Response = await fetch(`${apiServiceUrl}/order/${orderId}`);
+                    const res: Response = await fetch(`${apiServiceUrl}/order/${orderId}`, {
+                        headers: {
+                            Authorization: `Basic ${createBasicAuthToken(users.READONLY)}`,
+                            Accept: "application/json"
+                        }
+                    });
 
                     if (res.ok) {
                         const orderDocument: OrderDocument = await res.json();
@@ -69,8 +75,14 @@ const useFetchOrderDetail: (orderId: string | undefined) => {order: OrderDocumen
                         }
 
                         setOrder(orderDocument);
-                    } else {
+                    } else if (res.status === 404) {
                         setError(t("order-not-found"));
+                        setOrder(null);
+                    } else if (res.status === 401) {
+                        setError(t("order-not-authorized"));
+                        setOrder(null);
+                    } else {
+                        setError(t("error-loading-order", {orderId: orderId}));
                         setOrder(null);
                     }
                 } else {

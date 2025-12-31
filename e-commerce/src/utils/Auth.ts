@@ -1,10 +1,9 @@
 /*
- * (#)ApiContextType.ts 0.4.0   12/14/2025
- * (#)ApiContextType.ts 0.3.0   11/23/2025
+ * (#)Auth.ts   0.4.0   12/31/2025
  *
  * @author  Jonathan Parker
  * @version 0.4.0
- * @since   0.3.0
+ * @since   0.4.0
  *
  * MIT License
  *
@@ -29,11 +28,10 @@
  * SOFTWARE.
  */
 
-import type { Role, User } from "./User";
+import type { User } from "../types/User";
 
-export type ApiContextType = {
-    baseUrl: string,
-    apiServiceUrl: string,
-    debug: boolean,
-    users: Record<Role, User>
+export function createBasicAuthToken(user: User): string {
+    // Function btoa() encodes a string to Base64
+
+    return btoa(`${user.name}:${user.password}`);
 }

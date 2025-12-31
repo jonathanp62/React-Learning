@@ -31,6 +31,7 @@
 
 import type { JSX } from "react";
 import type { ApiContextType } from "./types/ApiContextType";
+import type { Role, User } from "./types/User";
 
 import { useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -57,10 +58,40 @@ function App(): JSX.Element {
     const apiContext: ApiContextType = {
         baseUrl: packageJson.appConfig.apiBaseUrl,
         apiServiceUrl: packageJson.appConfig.apiServiceUrl,
-        debug: packageJson.appConfig.debug
+        debug: packageJson.appConfig.debug,
+        users: loadUsers()
     }
 
     const contextValue: ApiContextType = useMemo((): ApiContextType => apiContext, []);
+
+    /**
+     * Loads the users from the environment variables.
+     *
+     * @returns {Record<Role, User>}    The users
+     */
+    function loadUsers(): Record<Role, User> {
+        const adminUser: User = {
+            name: import.meta.env.VITE_ADMIN_USERNAME,
+            password: import.meta.env.VITE_ADMIN_PASSWORD,
+            role: import.meta.env.VITE_ADMIN_ROLE as Role
+        }
+
+        const userUser: User = {
+            name: import.meta.env.VITE_USER_USERNAME,
+            password: import.meta.env.VITE_USER_PASSWORD,
+            role: import.meta.env.VITE_USER_ROLE as Role
+        }
+
+        if (packageJson.appConfig.debug) {
+            console.log(adminUser);
+            console.log(userUser);
+        }
+
+        return {
+            READWRITE: adminUser,
+            READONLY: userUser,
+        };
+    }
 
     return (
         <ApiContext.Provider value={contextValue}>

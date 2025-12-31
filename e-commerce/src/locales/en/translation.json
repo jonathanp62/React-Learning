@@ -11,6 +11,8 @@
   "no-orders-found": "No orders found",
   "no-order-id-provided": "No order ID provided",
   "order-not-found": "Order not found",
+  "order-not-authorized": "Not authorized to view order",
+  "orders-not-authorized": "Not authorized to view orders",
   "add-to-cart": "Add to Cart",
   "remove-from-cart": "Remove from Cart",
   "product-image": "Product Image",

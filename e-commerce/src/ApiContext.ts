@@ -36,7 +36,11 @@ import React from "react";
 const ApiContext: React.Context<ApiContextType> = React.createContext<ApiContextType>({
     baseUrl: "",
     apiServiceUrl: "",
-    debug: false
+    debug: false,
+    users: {
+        READWRITE: { name: "", password: "", role: "READWRITE" },
+        READONLY: { name: "", password: "", role: "READONLY" },
+    },
 });
 
 export default ApiContext;
