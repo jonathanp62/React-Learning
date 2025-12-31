@@ -59,7 +59,9 @@ const useLoadProducts: () => {loading: boolean, error: string | null} = (): {loa
                 setLoading(true);
                 setError(null);
 
-                const res: Response = await fetch(`${baseUrl}`);
+                const res: Response = await fetch(`${baseUrl}`, {
+                    method: "GET"
+                });
 
                 if (res.ok) {
                     const productsData: Product[] = await res.json();

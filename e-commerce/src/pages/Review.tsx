@@ -37,6 +37,7 @@ import type { RootState } from "../redux/Store";
 
 import { clear } from "../redux/slices/CartSlice";
 import { clearOrder } from "../redux/slices/OrderSlice";
+import { createBasicAuthToken } from "../utils/Auth";
 import { getTax, computeGrandTotal } from "../utils/Calculators";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
@@ -55,7 +56,7 @@ import ApiContext from "../ApiContext.ts";
  */
 export default function Review(): JSX.Element  {
     const { t } = useTranslation();
-    const { apiServiceUrl, debug } = useContext(ApiContext);
+    const { apiServiceUrl, debug, users } = useContext(ApiContext);
 
     const navigate: NavigateFunction = useNavigate();
     const order: Order = useSelector((state: RootState): Order => state.order);
@@ -94,6 +95,8 @@ export default function Review(): JSX.Element  {
                 method: 'POST',
                 body: JSON.stringify(order),
                 headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 },
             });
