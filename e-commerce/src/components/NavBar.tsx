@@ -1,14 +1,15 @@
 /*
+ * (#)NavBar.tsx    0.5.0   01/08/2026
  * (#)NavBar.tsx    0.4.0   12/16/2025
  * (#)NavBar.tsx    0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.3.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -222,6 +223,12 @@ export default function NavBar(): JSX.Element {
                 <NavLink to="/orders">
                     <p className="text-slate-900 dark:text-white">
                         { t("orders") }
+                    </p>
+                </NavLink>
+
+                <NavLink to="/sales-tax">
+                    <p className="text-slate-900 dark:text-white">
+                        { t("sales-tax") }
                     </p>
                 </NavLink>
 

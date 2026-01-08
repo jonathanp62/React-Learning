@@ -1,14 +1,15 @@
 /*
+ * (#)App.tsx   0.5.0   01/08/2026
  * (#)App.tsx   0.4.0   12/14/2025
  * (#)App.tsx   0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.3.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +48,7 @@ import Item from "./pages/Item";
 import Orders from "./pages/Orders";
 import OrderDetail from "./pages/OrderDetail";
 import Review from "./pages/Review";
+import SalesTax from "./pages/SalesTax";
 import packageJson from "../package.json";
 
 /**
@@ -105,6 +107,7 @@ function App(): JSX.Element {
                         <Route path="/orders" element={ <Orders /> } />
                         <Route path="/order-detail/:orderId" element={ <OrderDetail /> } />
                         <Route path="/review" element={ <Review /> } />
+                        <Route path="/sales-tax" element={ <SalesTax /> } />
                     </Route>
                 </Routes>
             </Provider>
