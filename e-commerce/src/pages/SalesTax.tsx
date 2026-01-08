@@ -45,7 +45,6 @@ export default function SalesTax(): JSX.Element {
     const { t } = useTranslation();
     const { salesTaxes, loading, error } = useFetchSalesTaxes();
 
-    console.log(`sales taxes length: ${salesTaxes.length}`);
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
             <p className="font-bold text-2xl mb-2 dark:text-white">{ t("sales-tax") }</p>
