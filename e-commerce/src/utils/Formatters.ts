@@ -1,14 +1,15 @@
 /*
+ * (#)Formatters.ts 0.5.0   01/09/2026
  * (#)Formatters.ts 0.4.0   12/18/2025
  * (#)Formatters.ts 0.3.0   11/27/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.3.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -102,4 +103,18 @@ export const formatPhone: (phone: string) => string = (phone: string): string =>
 
         return justDigits.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
     }
+}
+
+/**
+ * Formats a percentage as a string (nn.nn%).
+ *
+ * @param   {number}    percentage  The percentage to format
+ * @returns {string}                The formatted percentage string
+ */
+export const formatPercentage: (percentage: number) => string = (percentage: number): string => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'percent',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(percentage);
 }
