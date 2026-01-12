@@ -67,7 +67,7 @@ const CartItem: ({ item }: { item : Product}) => JSX.Element = ({ item }: { item
                     <div className="flex justify-between">
                         <p className="text-green-700 font-semibold">{ formatPrice(item.price) }</p>
                         <div
-                            className="bg-pink-200 p-3 rounded-full hover:cursor-pointer"
+                            className="bg-red-700 p-3 rounded-full hover:cursor-pointer"
                             onClick={ removeFromCart }
                             title={ t("remove-from-cart")}
                         >
