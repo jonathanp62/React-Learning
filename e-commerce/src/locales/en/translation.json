@@ -60,5 +60,6 @@
   "sales-tax-unauthorized": "Unauthorized to fetch sales tax for state: {{state}}",
   "sales-tax-failed-to-fetch": "Failed to fetch sales tax for state: {{state}}",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "add": "Add"
 }

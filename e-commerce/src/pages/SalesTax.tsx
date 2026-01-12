@@ -32,8 +32,8 @@ import type { JSX } from "react";
 import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
 import { formatPercentage } from "../utils/Formatters";
-import { MdDelete } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
 import Spinner from "../components/Spinner";
@@ -48,13 +48,55 @@ export default function SalesTax(): JSX.Element {
     const { t } = useTranslation();
     const { salesTaxes, loading, error } = useFetchSalesTaxes();
 
+    const [displaySalesTaxes, setDisplaySalesTaxes] = useState<SalesTaxDocument[]>([]);
+    const [newStateName, setNewStateName] = useState<string>("");
+    const [newStateAbbreviation, setNewStateAbbreviation] = useState<string>("");
+    const [newRate, setNewRate] = useState<string>("");
+
+    /* Set the state from the fetched sales taxes */
+
+    useEffect((): void => {
+        setDisplaySalesTaxes(salesTaxes);
+    }, [salesTaxes]);
+
+    /**
+     * Handles the submission of the form to add a new sales tax.
+     *
+     * @param   {React.FormEvent<HTMLFormElement>}  e   The form event
+     */
+    function onAddSalesTaxSubmit(e: React.FormEvent<HTMLFormElement>): void {
+        e.preventDefault();
+
+        const state = newStateName.trim();
+        const abbreviation = newStateAbbreviation.trim().toUpperCase();
+        const rateNumber = Number(newRate);
+
+        if (!state || !abbreviation || Number.isNaN(rateNumber)) return;
+
+        const next: SalesTaxDocument = {
+            documentId: "Fake Document ID",
+            state,
+            abbreviation,
+            rate: rateNumber
+        };
+
+        setDisplaySalesTaxes((prev: SalesTaxDocument[]): SalesTaxDocument[] => [
+            ...prev,
+            next,
+        ]);
+
+        setNewStateName("");
+        setNewStateAbbreviation("");
+        setNewRate("");
+    }
+
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
             <p className="font-bold text-2xl mb-2 dark:text-white">{ t("sales-tax") }</p>
 
             {loading ? (
                 <Spinner />
-            ) : salesTaxes.length > 0 ? (
+            ) : displaySalesTaxes.length > 0 ? (
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                         <thead>
@@ -67,7 +109,7 @@ export default function SalesTax(): JSX.Element {
                             </tr>
                         </thead>
                         <tbody>
-                            {salesTaxes.map((salesTax: SalesTaxDocument): JSX.Element => {
+                            {displaySalesTaxes.map((salesTax: SalesTaxDocument): JSX.Element => {
                                 return (
                                     <tr key={salesTax.documentId} className="border-b border-white dark:border-gray-800">
                                         <td className="py-2 pr-4 dark:text-white">{salesTax.state}</td>
@@ -94,6 +136,50 @@ export default function SalesTax(): JSX.Element {
                             })}
                         </tbody>
                     </table>
+
+                    <form
+                        className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-3 items-end"
+                        onSubmit={ onAddSalesTaxSubmit }
+                    >
+                        <div className="flex flex-col">
+                            <input
+                                className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 dark:bg-gray-900 dark:text-white"
+                                value={ newStateName }
+                                onChange={ (e): void => setNewStateName(e.target.value) }
+                                placeholder="e.g. Florida"
+                                required
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <input
+                                className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 dark:bg-gray-900 dark:text-white"
+                                value={ newStateAbbreviation }
+                                onChange={ (e): void => setNewStateAbbreviation(e.target.value) }
+                                placeholder="e.g. FL"
+                                maxLength={2}
+                                required
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <input
+                                className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 dark:bg-gray-900 dark:text-white"
+                                value={ newRate }
+                                onChange={ (e): void => setNewRate(e.target.value) }
+                                placeholder="e.g. 0.06"
+                                inputMode="decimal"
+                                required
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="bg-pink-200 rounded px-4 py-2 font-semibold hover:cursor-pointer"
+                        >
+                            { t("add") }
+                        </button>
+                    </form>
                 </div>
             ) : (
                 <p className="dark:text-white">{ error }</p>
