@@ -1,13 +1,14 @@
 /*
+ * (#)Orders.tsx    0.5.0   01/13/2025
  * (#)Orders.tsx    0.4.0   12/16/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +36,7 @@ import { useTranslation } from 'react-i18next';
 import { computeGrandTotal } from "../utils/Calculators";
 import { formatIso8601Date, formatPrice } from "../utils/Formatters";
 import { Link } from "react-router-dom";
+import { MdInfo } from "react-icons/md";
 
 import Spinner from "../components/Spinner";
 import useFetchOrders from "../hooks/useFetchOrders";
@@ -76,7 +78,11 @@ export default function Orders(): JSX.Element {
                                         <td className="py-2 pr-4 dark:text-white">{order.products.length}</td>
                                         <td className="py-2 pr-4 dark:text-white">{formatPrice(computeGrandTotal(order))}</td>
                                         <td className="py-2 pr-4 dark:text-white">{order.orderId.toUpperCase()}</td>
-                                        <td className="text-center py-2 pr-4 dark:text-white"><Link to={ `/order-detail/${order.orderId}` }>...</Link></td>
+                                        <td className="bg-gray-200 dark:bg-gray-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all" title={ t("order-details") }>
+                                            <Link to={ `/order-detail/${order.orderId}` }>
+                                                <MdInfo />
+                                            </Link>
+                                        </td>
                                     </tr>
                                 );
                             })}

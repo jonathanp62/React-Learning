@@ -61,5 +61,6 @@
   "sales-tax-failed-to-fetch": "Failed to fetch sales tax for state: {{state}}",
   "edit": "Edit",
   "delete": "Delete",
-  "add": "Add"
+  "add": "Add",
+  "order-details": "Order Details"
 }
