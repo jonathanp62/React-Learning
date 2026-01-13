@@ -82,7 +82,7 @@ export default function Cart(): JSX.Element {
                             <div>
                                 <p className="dark:text-white">{ t("total-amount") }: <span className="font-bold">{ formatPrice(totalAmount) }</span></p>
                                 <Link to="/checkout">
-                                    <button className="mt-2 bg-green-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all">
+                                    <button className="mt-2 bg-green-400 dark:bg-green-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all">
                                         { t("checkout-now") }
                                     </button>
                                 </Link>
@@ -93,7 +93,7 @@ export default function Cart(): JSX.Element {
                         (<div className="h-screen flex justify-center items-center flex-col">
                             <h1 className="dark:text-white">{ t("cart-empty") }</h1>
                             <Link to="/">
-                                <button className="bg-green-700 py-3 px-8 mt-3 rounded-lg text-white hover:scale-110 transition-all">
+                                <button className="bg-green-400 dark:bg-green-700 py-3 px-8 mt-3 rounded-lg text-white hover:scale-110 transition-all">
                                     { t("shop-now") }
                                 </button>
                             </Link>

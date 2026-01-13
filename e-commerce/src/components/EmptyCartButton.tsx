@@ -67,7 +67,7 @@ export default function EmptyCartButton(): JSX.Element {
 
     return (
         <>
-            <button className="mt-2 bg-red-700 w-full text-white py-2 rounded-md hover:scale-110 transition-all"
+            <button className="mt-2 bg-red-400 dark:bg-red-600 w-full text-white py-2 rounded-md hover:scale-110 transition-all"
                     onClick={ handleOpenDialog }>
                 { t("empty-cart") }
             </button>

@@ -117,7 +117,7 @@ export default function SalesTax(): JSX.Element {
                                         <td className="py-2 pr-4 dark:text-white">{formatPercentage(salesTax.rate)}</td>
                                         <td>
                                             <div
-                                                className="bg-blue-500 rounded-full hover:cursor-pointer inline-flex items-center justify-center w-10 h-10"
+                                                className="bg-blue-400 dark:bg-blue-600 rounded-full hover:cursor-pointer inline-flex items-center justify-center w-10 h-10"
                                                 title={ t("edit") }
                                             >
                                                 <MdEdit />
@@ -125,7 +125,7 @@ export default function SalesTax(): JSX.Element {
                                         </td>
                                         <td>
                                             <div
-                                                className="bg-red-700 rounded-full hover:cursor-pointer inline-flex items-center justify-center w-10 h-10"
+                                                className="bg-red-400 dark:bg-red-600 rounded-full hover:cursor-pointer inline-flex items-center justify-center w-10 h-10"
                                                 title={ t("delete") }
                                             >
                                                 <MdDelete />
@@ -175,7 +175,7 @@ export default function SalesTax(): JSX.Element {
 
                         <button
                             type="submit"
-                            className="bg-green-700 rounded dark:text-white px-4 py-2 font-semibold hover:cursor-pointer"
+                            className="bg-green-400 dark:bg-green-700 rounded dark:text-white px-4 py-2 font-semibold hover:cursor-pointer"
                         >
                             { t("add") }
                         </button>
