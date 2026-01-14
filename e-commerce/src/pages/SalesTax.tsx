@@ -64,6 +64,13 @@ export default function SalesTax(): JSX.Element {
     }, [salesTaxes]);
 
     /**
+     * Delete a sales tax item
+     */
+    const deleteSalesTax: (abbreviation: string) => void = (abbreviation: string): void => {
+        toast.success(t("sales-tax-deleted", { state: abbreviation }));
+    }
+
+    /**
      * Handles the submission of the form to add a new sales tax.
      *
      * @param   {React.FormEvent<HTMLFormElement>}  e   The form event
@@ -182,6 +189,7 @@ export default function SalesTax(): JSX.Element {
                                             <div
                                                 className="bg-red-400 dark:bg-red-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all"
                                                 title={ t("delete") }
+                                                onClick={ (): void => deleteSalesTax(salesTax.abbreviation) }
                                             >
                                                 <MdDelete />
                                             </div>

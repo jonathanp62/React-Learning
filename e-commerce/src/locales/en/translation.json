@@ -61,6 +61,7 @@
   "sales-tax-failed-to-fetch": "Failed to fetch sales tax for state: {{state}}",
   "sales-tax-added": "Sales tax added for state: {{state}}",
   "sales-tax-not-added": "Failed to add sales tax for state: {{state}}",
+  "sales-tax-deleted": "Sales tax deleted for state: {{state}}",
   "edit": "Edit",
   "delete": "Delete",
   "add": "Add",
