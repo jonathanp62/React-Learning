@@ -31,7 +31,7 @@
 import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
 import { createBasicAuthToken } from "../utils/Auth";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import ApiContext from "../ApiContext";
@@ -43,7 +43,7 @@ import ApiContext from "../ApiContext";
  * @returns {boolean}               The loading state
  * @returns {string | null}         The error message
  */
-const useFetchSalesTaxes: () => {salesTaxes: SalesTaxDocument[], loading: boolean, error: string | null} = (): {salesTaxes: SalesTaxDocument[], loading: boolean, error: string | null} => {
+const useFetchSalesTaxes: () => {salesTaxes: SalesTaxDocument[], loading: boolean, error: string | null, refetchSalesTaxes: () => Promise<void>} = (): {salesTaxes: SalesTaxDocument[], loading: boolean, error: string | null, refetchSalesTaxes: () => Promise<void>} => {
     const { apiServiceUrl, debug, users } = useContext(ApiContext);
     const { t } = useTranslation();
 
@@ -51,48 +51,48 @@ const useFetchSalesTaxes: () => {salesTaxes: SalesTaxDocument[], loading: boolea
     const [salesTaxes, setSalesTaxes] = useState<SalesTaxDocument[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect((): void => {
-        const fetchSalesTaxes: () => Promise<void> = async (): Promise<void> => {
-            try {
-                setLoading(true);
-                setError(null);
+    const refetchSalesTaxes: () => Promise<void> = useCallback(async (): Promise<void> => {
+        try {
+            setLoading(true);
+            setError(null);
 
-                const res: Response = await fetch(`${apiServiceUrl}/sales-tax/`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Basic ${createBasicAuthToken(users.READONLY)}`,
-                        Accept: "application/json"
-                    }
-                });
-
-                if (res.ok) {
-                    const salesTaxDocuments: SalesTaxDocument[] = await res.json();
-
-                    if (debug) {
-                        console.log("Sales Taxes");
-                        console.log(salesTaxDocuments);
-                    }
-
-                    setSalesTaxes(salesTaxDocuments);
-                } else if (res.status === 401) {
-                    setError(t("sales-tax-not-authorized"));
-                    setSalesTaxes([]);
-                } else {
-                    setError(t("error-loading-sales-tax"));
-                    setSalesTaxes([]);
+            const res: Response = await fetch(`${apiServiceUrl}/sales-tax/`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Basic ${createBasicAuthToken(users.READONLY)}`,
+                    Accept: "application/json"
                 }
-            } catch (err) {
-                setError(`${t("error-loading-sales-tax")}: ${err}`);
+            });
+
+            if (res.ok) {
+                const salesTaxDocuments: SalesTaxDocument[] = await res.json();
+
+                if (debug) {
+                    console.log("Sales Taxes");
+                    console.log(salesTaxDocuments);
+                }
+
+                setSalesTaxes(salesTaxDocuments);
+            } else if (res.status === 401) {
+                setError(t("sales-tax-not-authorized"));
                 setSalesTaxes([]);
-            } finally {
-                setLoading(false);
+            } else {
+                setError(t("error-loading-sales-tax"));
+                setSalesTaxes([]);
             }
+        } catch (err) {
+            setError(`${t("error-loading-sales-tax")}: ${err}`);
+            setSalesTaxes([]);
+        } finally {
+            setLoading(false);
         }
+    }, [apiServiceUrl, debug, t, users.READONLY]);
 
-        void fetchSalesTaxes();
-    }, []);
+    useEffect((): void => {
+        void refetchSalesTaxes();
+    }, [refetchSalesTaxes]);
 
-    return {salesTaxes, loading, error};
+    return {salesTaxes, loading, error, refetchSalesTaxes};
 }
 
 export default useFetchSalesTaxes;

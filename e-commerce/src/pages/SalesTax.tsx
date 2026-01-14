@@ -31,13 +31,16 @@
 import type { JSX } from "react";
 import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
+import { createBasicAuthToken } from "../utils/Auth";
 import { formatPercentage } from "../utils/Formatters";
 import { MdDelete, MdEdit } from "react-icons/md";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
+import ApiContext from "../ApiContext.ts";
 import Spinner from "../components/Spinner";
-import useFetchSalesTaxes from "../hooks/useFetchSalesTaxes.ts";
+import useFetchSalesTaxes from "../hooks/useFetchSalesTaxes";
+import toast from "react-hot-toast";
 
 /**
  * The sales tax page.
@@ -46,7 +49,8 @@ import useFetchSalesTaxes from "../hooks/useFetchSalesTaxes.ts";
  */
 export default function SalesTax(): JSX.Element {
     const { t } = useTranslation();
-    const { salesTaxes, loading, error } = useFetchSalesTaxes();
+    const { apiServiceUrl, debug, users } = useContext(ApiContext);
+    const { salesTaxes, loading, error, refetchSalesTaxes } = useFetchSalesTaxes();
 
     const [displaySalesTaxes, setDisplaySalesTaxes] = useState<SalesTaxDocument[]>([]);
     const [newStateName, setNewStateName] = useState<string>("");
@@ -64,7 +68,7 @@ export default function SalesTax(): JSX.Element {
      *
      * @param   {React.FormEvent<HTMLFormElement>}  e   The form event
      */
-    function onAddSalesTaxSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    async function onAddSalesTaxSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
 
         const state = newStateName.trim();
@@ -74,21 +78,72 @@ export default function SalesTax(): JSX.Element {
         if (!state || !abbreviation || Number.isNaN(rateNumber)) return;
 
         const next: SalesTaxDocument = {
-            documentId: "Fake Document ID",
+            documentId: "",     // This will be set by the server
             state,
             abbreviation,
             rate: rateNumber
         };
 
-        setDisplaySalesTaxes((prev: SalesTaxDocument[]): SalesTaxDocument[] => [
-            ...prev,
-            next,
-        ]);
+        const { success } = await saveSalesTax(next);
 
-        setNewStateName("");
-        setNewStateAbbreviation("");
-        setNewRate("");
+        if (success) {
+            toast.success(t("sales-tax-added", { state: abbreviation }));
+
+            await refetchSalesTaxes();
+
+            setNewStateName("");
+            setNewStateAbbreviation("");
+            setNewRate("");
+        } else {
+            toast.error(t("sales-tax-not-added", { state: abbreviation}));
+        }
     }
+
+    /**
+     * Saves the sales tax.
+     *
+     * @param   {SalesTaxDocument}  salesTaxDocument  The sales tax document
+     * @return  {Promise<boolean>}
+     */
+    const saveSalesTax: (salesTaxDocument: SalesTaxDocument) => Promise<{ success: boolean }> = async (salesTaxDocument: SalesTaxDocument): Promise<{ success: boolean }> => {
+        const postUrl: string = `${apiServiceUrl}/sales-tax/`;
+
+        const salesTax = {
+            state: salesTaxDocument.state,
+            abbreviation: salesTaxDocument.abbreviation,
+            rate: salesTaxDocument.rate
+        }
+
+        try {
+            const response: Response = await fetch(postUrl, {
+                method: 'POST',
+                body: JSON.stringify(salesTax),
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+
+            if (debug) {
+                console.log("Response:");
+                console.log({
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                    url: response.url,
+                    ok: response.ok,
+                    redirected: response.redirected,
+                    type: response.type
+                });
+            }
+
+            return { success: response.ok };
+        } catch (error) {
+            console.log(error);
+            return { success: false };
+        }
+    };
 
     return (
         <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
