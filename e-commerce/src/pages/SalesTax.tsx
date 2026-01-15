@@ -66,8 +66,53 @@ export default function SalesTax(): JSX.Element {
     /**
      * Delete a sales tax item
      */
-    const deleteSalesTax: (abbreviation: string) => void = (abbreviation: string): void => {
-        toast.success(t("sales-tax-deleted", { state: abbreviation }));
+    const deleteSalesTax: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
+        const { success } = await deleteSalesTaxWithApi(abbreviation);
+
+        if (success) {
+            toast.success(t("sales-tax-deleted", { state: abbreviation }));
+            await refetchSalesTaxes();
+        } else {
+            toast.error(t("sales-tax-not-deleted", { state: abbreviation }));
+        }
+    };
+
+    /**
+     * Delete a sales tax item
+     *
+     * @param   {string}            abbreviation    The abbreviation of the sales tax
+     * @return  {Promise<boolean>}
+     */
+    async function deleteSalesTaxWithApi(abbreviation: string): Promise<{ success: boolean }> {
+        const deleteUrl: string = `${apiServiceUrl}/sales-tax/abbr/${abbreviation}`;
+
+        try {
+            const response: Response = await fetch(deleteUrl, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
+                },
+            });
+
+            if (debug) {
+                console.log("Response:");
+                console.log({
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                    url: response.url,
+                    ok: response.ok,
+                    redirected: response.redirected,
+                    type: response.type
+                });
+            }
+
+            return { success: response.ok };
+        } catch (error) {
+            console.log(error);
+            return { success: false };
+        }
     }
 
     /**
@@ -189,7 +234,9 @@ export default function SalesTax(): JSX.Element {
                                             <div
                                                 className="bg-red-400 dark:bg-red-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all"
                                                 title={ t("delete") }
-                                                onClick={ (): void => deleteSalesTax(salesTax.abbreviation) }
+                                                onClick={ (): void => {
+                                                    void deleteSalesTax(salesTax.abbreviation);
+                                                } }
                                             >
                                                 <MdDelete />
                                             </div>
