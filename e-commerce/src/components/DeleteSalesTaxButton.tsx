@@ -120,16 +120,18 @@ export default function DeleteSalesTaxButton(
 
     return (
         <>
-            <div
+            <button
+                type="button"
                 className="bg-red-400 dark:bg-red-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all"
                 title={ t("delete") }
+                aria-label={ t("delete") }
                 onClick={ handleOpenDialog }
             >
-                <MdDelete />
-            </div>
+                <MdDelete aria-hidden="true" focusable="false" />
+            </button>
             {isDialogOpen && (
                 <ConfirmationDialog
-                    message={ `Are you sure you want to delete the sales tax for ${stateAbbreviation}?` }
+                    message={ `${t("delete-sales-tax-message", { state: stateAbbreviation })}?` }
                     isOpen={ isDialogOpen }         // Pass the state variable
                     onConfirm={ handleConfirm }     // Pass the confirmation handler
                     onCancel={ handleCancel }       // Pass the cancellation handler

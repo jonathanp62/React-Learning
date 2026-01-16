@@ -66,5 +66,6 @@
   "edit": "Edit",
   "delete": "Delete",
   "add": "Add",
-  "order-details": "Order Details"
+  "order-details": "Order Details",
+  "delete-sales-tax-message": "Are you sure you want to delete the sales tax for {{state}}"
 }

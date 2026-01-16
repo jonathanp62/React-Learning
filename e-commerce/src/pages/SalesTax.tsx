@@ -33,11 +33,12 @@ import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
 import { createBasicAuthToken } from "../utils/Auth";
 import { formatPercentage } from "../utils/Formatters";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
-import ApiContext from "../ApiContext.ts";
+import ApiContext from "../ApiContext";
+import DeleteSalesTaxButton from "../components/DeleteSalesTaxButton";
 import Spinner from "../components/Spinner";
 import useFetchSalesTaxes from "../hooks/useFetchSalesTaxes";
 import toast from "react-hot-toast";
@@ -64,56 +65,11 @@ export default function SalesTax(): JSX.Element {
     }, [salesTaxes]);
 
     /**
-     * Delete a sales tax item
+     * A sales tax item was deleted
      */
-    const deleteSalesTax: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
-        const { success } = await deleteSalesTaxWithApi(abbreviation);
-
-        if (success) {
-            toast.success(t("sales-tax-deleted", { state: abbreviation }));
-            await refetchSalesTaxes();
-        } else {
-            toast.error(t("sales-tax-not-deleted", { state: abbreviation }));
-        }
+    const salesTaxDeleted: () => Promise<void> = async (): Promise<void> => {
+        await refetchSalesTaxes();
     };
-
-    /**
-     * Delete a sales tax item
-     *
-     * @param   {string}            abbreviation    The abbreviation of the sales tax
-     * @return  {Promise<boolean>}
-     */
-    async function deleteSalesTaxWithApi(abbreviation: string): Promise<{ success: boolean }> {
-        const deleteUrl: string = `${apiServiceUrl}/sales-tax/abbr/${abbreviation}`;
-
-        try {
-            const response: Response = await fetch(deleteUrl, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
-                },
-            });
-
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
-
-            return { success: response.ok };
-        } catch (error) {
-            console.log(error);
-            return { success: false };
-        }
-    }
 
     /**
      * Handles the submission of the form to add a new sales tax.
@@ -231,15 +187,7 @@ export default function SalesTax(): JSX.Element {
                                             </div>
                                         </td>
                                         <td>
-                                            <div
-                                                className="bg-red-400 dark:bg-red-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all"
-                                                title={ t("delete") }
-                                                onClick={ (): void => {
-                                                    void deleteSalesTax(salesTax.abbreviation);
-                                                } }
-                                            >
-                                                <MdDelete />
-                                            </div>
+                                            <DeleteSalesTaxButton onDeleted={ salesTaxDeleted } stateAbbreviation={ salesTax.abbreviation } />
                                         </td>
                                     </tr>
                                 );
