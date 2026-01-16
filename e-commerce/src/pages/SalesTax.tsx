@@ -57,12 +57,21 @@ export default function SalesTax(): JSX.Element {
     const [newStateName, setNewStateName] = useState<string>("");
     const [newStateAbbreviation, setNewStateAbbreviation] = useState<string>("");
     const [newRate, setNewRate] = useState<string>("");
+    const [editingKey, setEditingKey] = useState<string | null>(null);
 
     /* Set the state from the fetched sales taxes */
 
     useEffect((): void => {
         setDisplaySalesTaxes(salesTaxes);
     }, [salesTaxes]);
+
+    /**
+     * A sales tax item is being edited
+     */
+    const editSalesTax: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
+        setEditingKey(abbreviation);
+        toast.success(`Sales tax edited for state ${abbreviation}`);
+    };
 
     /**
      * A sales tax item was deleted
@@ -179,7 +188,7 @@ export default function SalesTax(): JSX.Element {
                                         <td className="py-2 pr-4 dark:text-white">{salesTax.abbreviation}</td>
                                         <td className="py-2 pr-4 dark:text-white">{formatPercentage(salesTax.rate)}</td>
                                         <td>
-                                            <EditSalesTaxButton />
+                                            <EditSalesTaxButton onEdit={ () => editSalesTax(salesTax.abbreviation) } />
                                         </td>
                                         <td>
                                             <DeleteSalesTaxButton onDeleted={ salesTaxDeleted } stateAbbreviation={ salesTax.abbreviation } />

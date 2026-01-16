@@ -36,9 +36,10 @@ import { useTranslation } from "react-i18next";
 /**
  * The edit sales tax button component.
  *
+ * @param   {Readonly<{ onEdit: () => Promise<void> }>}  props  The props
  * @returns {JSX.Element}
  */
-export default function EditSalesTaxButton(): JSX.Element {
+export default function EditSalesTaxButton({ onEdit }: Readonly<{ onEdit: () => Promise<void> }>): JSX.Element {
     const { t } = useTranslation();
 
     return (
@@ -47,6 +48,7 @@ export default function EditSalesTaxButton(): JSX.Element {
             className="bg-blue-400 dark:bg-blue-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all"
             title={ t("edit") }
             aria-label={ t("edit") }
+            onClick={ onEdit }
         >
             <MdEdit aria-hidden="true" focusable="false" />
         </button>
