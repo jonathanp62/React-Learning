@@ -164,9 +164,9 @@ export default function SalesTax(): JSX.Element {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="border-b border-gray-200 dark:border-gray-700">
-                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">State Name</th>
-                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">State Abbreviation</th>
-                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">Sales Tax Rate</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("state-name") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("state-abbreviation") }</th>
+                                <th className="text-left py-2 pr-4 font-semibold dark:text-white">{ t("sales-tax-rate") }</th>
                                 <th></th>
                                 <th></th>
                             </tr>
