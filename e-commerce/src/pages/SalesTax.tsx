@@ -33,12 +33,12 @@ import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
 import { createBasicAuthToken } from "../utils/Auth";
 import { formatPercentage } from "../utils/Formatters";
-import { MdEdit } from "react-icons/md";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
 import ApiContext from "../ApiContext";
 import DeleteSalesTaxButton from "../components/DeleteSalesTaxButton";
+import EditSalesTaxButton from "../components/EditSalesTaxButton";
 import Spinner from "../components/Spinner";
 import useFetchSalesTaxes from "../hooks/useFetchSalesTaxes";
 import toast from "react-hot-toast";
@@ -179,12 +179,7 @@ export default function SalesTax(): JSX.Element {
                                         <td className="py-2 pr-4 dark:text-white">{salesTax.abbreviation}</td>
                                         <td className="py-2 pr-4 dark:text-white">{formatPercentage(salesTax.rate)}</td>
                                         <td>
-                                            <div
-                                                className="bg-blue-400 dark:bg-blue-600 rounded-full hover:cursor-pointer hover:scale-110 inline-flex items-center justify-center w-10 h-10 transition-all"
-                                                title={ t("edit") }
-                                            >
-                                                <MdEdit />
-                                            </div>
+                                            <EditSalesTaxButton />
                                         </td>
                                         <td>
                                             <DeleteSalesTaxButton onDeleted={ salesTaxDeleted } stateAbbreviation={ salesTax.abbreviation } />
