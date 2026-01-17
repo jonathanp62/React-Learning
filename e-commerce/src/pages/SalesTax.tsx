@@ -37,8 +37,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
 import ApiContext from "../ApiContext";
+import CancelSalesTaxButton from "../components/CancelSalesTaxButton";
 import DeleteSalesTaxButton from "../components/DeleteSalesTaxButton";
 import EditSalesTaxButton from "../components/EditSalesTaxButton";
+import SaveSalesTaxButton from "../components/SaveSalesTaxButton";
 import Spinner from "../components/Spinner";
 import useFetchSalesTaxes from "../hooks/useFetchSalesTaxes";
 import toast from "react-hot-toast";
@@ -58,6 +60,9 @@ export default function SalesTax(): JSX.Element {
     const [newStateAbbreviation, setNewStateAbbreviation] = useState<string>("");
     const [newRate, setNewRate] = useState<string>("");
     const [editingKey, setEditingKey] = useState<string | null>(null);
+    const [editedStateName, setEditedStateName] = useState<string>("");
+    const [editedStateAbbreviation, setEditedStateAbbreviation] = useState<string>("");
+    const [editedRate, setEditedRate] = useState<string>("");
 
     /* Set the state from the fetched sales taxes */
 
@@ -66,11 +71,48 @@ export default function SalesTax(): JSX.Element {
     }, [salesTaxes]);
 
     /**
+     * A sales tax item edit is being canceled
+     */
+    const cancelSalesTaxEdit: () => Promise<void> = async (): Promise<void> => {
+        setEditedStateName("");
+        setEditedStateAbbreviation("");
+        setEditedRate("");
+        setEditingKey(null);
+    };
+
+    /**
+     * A sales tax item edit is being saved
+     */
+    const saveSalesTaxEdit: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
+        console.log("Saving sales tax edit for state: " + abbreviation);
+        console.log("Edited state name: " + editedStateName);
+        console.log("Edited state abbreviation: " + editedStateAbbreviation);
+        console.log("Edited rate: " + editedRate);
+
+        toast.success(t("sales-tax-saved", { state: abbreviation }));
+
+        setEditingKey(null);
+    };
+
+    /**
      * A sales tax item is being edited
      */
     const editSalesTax: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
+        const existing: SalesTaxDocument | undefined = displaySalesTaxes.find(
+            (salesTax: SalesTaxDocument): boolean => salesTax.abbreviation === abbreviation,
+        );
+
+        if (existing) {
+            setEditedStateName(existing.state);
+            setEditedStateAbbreviation(existing.abbreviation);
+            setEditedRate(String(existing.rate));
+        } else {
+            setEditedStateName("");
+            setEditedStateAbbreviation("");
+            setEditedRate("");
+        }
+
         setEditingKey(abbreviation);
-        toast.success(`Sales tax edited for state ${abbreviation}`);
     };
 
     /**
@@ -184,15 +226,54 @@ export default function SalesTax(): JSX.Element {
                             {displaySalesTaxes.map((salesTax: SalesTaxDocument): JSX.Element => {
                                 return (
                                     <tr key={salesTax.documentId} className="border-b border-white dark:border-gray-800">
-                                        <td className="py-2 pr-4 dark:text-white">{salesTax.state}</td>
-                                        <td className="py-2 pr-4 dark:text-white">{salesTax.abbreviation}</td>
-                                        <td className="py-2 pr-4 dark:text-white">{formatPercentage(salesTax.rate)}</td>
-                                        <td>
-                                            <EditSalesTaxButton onEdit={ () => editSalesTax(salesTax.abbreviation) } />
-                                        </td>
-                                        <td>
-                                            <DeleteSalesTaxButton onDeleted={ salesTaxDeleted } stateAbbreviation={ salesTax.abbreviation } />
-                                        </td>
+                                        { editingKey === salesTax.abbreviation ? (
+                                            <>
+                                                <td className="py-2 pr-4">
+                                                    <input
+                                                        className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 dark:bg-gray-900 dark:text-white w-full"
+                                                        value={ editedStateName }
+                                                        onChange={ (e): void => setEditedStateName(e.target.value) }
+                                                        required
+                                                    />
+                                                </td>
+                                                <td className="py-2 pr-4">
+                                                    <input
+                                                        className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 dark:bg-gray-900 dark:text-white w-full"
+                                                        value={ editedStateAbbreviation }
+                                                        onChange={ (e): void => setEditedStateAbbreviation(e.target.value) }
+                                                        maxLength={2}
+                                                        required
+                                                    />
+                                                </td>
+                                                <td className="py-2 pr-4">
+                                                    <input
+                                                        className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 dark:bg-gray-900 dark:text-white w-full"
+                                                        value={ editedRate }
+                                                        onChange={ (e): void => setEditedRate(e.target.value) }
+                                                        inputMode="decimal"
+                                                        required
+                                                    />
+                                                </td>
+                                                <td className="py-2 pr-2">
+                                                    <CancelSalesTaxButton onCancel={ () => cancelSalesTaxEdit() } />
+                                                </td>
+                                                <td className="py-2">
+                                                    <SaveSalesTaxButton onSave={ () => saveSalesTaxEdit(salesTax.abbreviation) } />
+                                                </td>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <td className="py-2 pr-4 dark:text-white">{salesTax.state}</td>
+                                                <td className="py-2 pr-4 dark:text-white">{salesTax.abbreviation}</td>
+                                                <td className="py-2 pr-4 dark:text-white">{formatPercentage(salesTax.rate)}</td>
+                                                <td>
+                                                    <EditSalesTaxButton onEdit={ () => editSalesTax(salesTax.abbreviation) } />
+                                                </td>
+                                                <td>
+                                                    <DeleteSalesTaxButton onDeleted={ salesTaxDeleted } stateAbbreviation={ salesTax.abbreviation } />
+                                                </td>
+                                            </>
+                                        )}
                                     </tr>
                                 );
                             })}
