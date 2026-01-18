@@ -86,7 +86,7 @@ export default function SalesTax(): JSX.Element {
      * @return  {Promise<boolean>}
      */
     const updateSalesTax: () => Promise<{ success: boolean }> = async (): Promise<{ success: boolean }> => {
-        const putUrl: string = `${apiServiceUrl}/sales-tax/`;
+        const putUrl: string = `${apiServiceUrl}/sales-tax/${editingKey}`;
 
         const salesTax = {
             state: editedStateName,
@@ -127,13 +127,11 @@ export default function SalesTax(): JSX.Element {
 
     /**
      * A sales tax item edit is being saved
+     *
+     * @param   {string}        abbreviation  The abbreviation of the state
+     * @return  {Promise<void>}
      */
     const saveSalesTaxEdit: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
-        console.log("Saving sales tax edit for state: " + abbreviation);
-        console.log("Edited state name: " + editedStateName);
-        console.log("Edited state abbreviation: " + editedStateAbbreviation);
-        console.log("Edited rate: " + editedRate);
-
         const { success } = await updateSalesTax();
 
         if (success) {
@@ -153,23 +151,26 @@ export default function SalesTax(): JSX.Element {
 
     /**
      * A sales tax item is being edited
+     *
+     * @param   {string}        documentId    The document ID of the sales tax item
+     * @return  {Promise<void>}
      */
-    const editSalesTax: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
+    const editSalesTax: (documentId: string) => Promise<void> = async (documentId: string): Promise<void> => {
         const existing: SalesTaxDocument | undefined = displaySalesTaxes.find(
-            (salesTax: SalesTaxDocument): boolean => salesTax.abbreviation === abbreviation,
+            (salesTax: SalesTaxDocument): boolean => salesTax.documentId === documentId,
         );
 
         if (existing) {
             setEditedStateName(existing.state);
             setEditedStateAbbreviation(existing.abbreviation);
             setEditedRate(String(existing.rate));
+            setEditingKey(existing.documentId);
         } else {
             setEditedStateName("");
             setEditedStateAbbreviation("");
             setEditedRate("");
+            setEditingKey(null);
         }
-
-        setEditingKey(abbreviation);
     };
 
     /**
@@ -283,7 +284,7 @@ export default function SalesTax(): JSX.Element {
                             {displaySalesTaxes.map((salesTax: SalesTaxDocument): JSX.Element => {
                                 return (
                                     <tr key={salesTax.documentId} className="border-b border-white dark:border-gray-800">
-                                        { editingKey === salesTax.abbreviation ? (
+                                        { editingKey === salesTax.documentId ? (
                                             <>
                                                 <td className="py-2 pr-4">
                                                     <input
@@ -324,7 +325,7 @@ export default function SalesTax(): JSX.Element {
                                                 <td className="py-2 pr-4 dark:text-white">{salesTax.abbreviation}</td>
                                                 <td className="py-2 pr-4 dark:text-white">{formatPercentage(salesTax.rate)}</td>
                                                 <td>
-                                                    <EditSalesTaxButton onEdit={ () => editSalesTax(salesTax.abbreviation) } />
+                                                    <EditSalesTaxButton onEdit={ () => editSalesTax(salesTax.documentId) } />
                                                 </td>
                                                 <td>
                                                     <DeleteSalesTaxButton onDeleted={ salesTaxDeleted } stateAbbreviation={ salesTax.abbreviation } />
