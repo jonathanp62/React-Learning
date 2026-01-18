@@ -64,6 +64,7 @@
   "sales-tax-not-added": "Failed to add sales tax for state: {{state}}",
   "sales-tax-deleted": "Sales tax deleted for state: {{state}}",
   "sales-tax-not-deleted": "Failed to delete sales tax for state: {{state}}",
+  "sales-tax-not-saved": "Failed to save sales tax for state: {{state}}",
   "edit": "Edit",
   "delete": "Delete",
   "add": "Add",

@@ -81,6 +81,51 @@ export default function SalesTax(): JSX.Element {
     };
 
     /**
+     * Saves the updated sales tax.
+     *
+     * @return  {Promise<boolean>}
+     */
+    const updateSalesTax: () => Promise<{ success: boolean }> = async (): Promise<{ success: boolean }> => {
+        const putUrl: string = `${apiServiceUrl}/sales-tax/`;
+
+        const salesTax = {
+            state: editedStateName,
+            abbreviation: editedStateAbbreviation,
+            rate: editedRate
+        }
+
+        try {
+            const response: Response = await fetch(putUrl, {
+                method: 'PUT',
+                body: JSON.stringify(salesTax),
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+
+            if (debug) {
+                console.log("Response:");
+                console.log({
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                    url: response.url,
+                    ok: response.ok,
+                    redirected: response.redirected,
+                    type: response.type
+                });
+            }
+
+            return { success: response.ok };
+        } catch (error) {
+            console.log(error);
+            return { success: false };
+        }
+    };
+
+    /**
      * A sales tax item edit is being saved
      */
     const saveSalesTaxEdit: (abbreviation: string) => Promise<void> = async (abbreviation: string): Promise<void> => {
@@ -89,7 +134,19 @@ export default function SalesTax(): JSX.Element {
         console.log("Edited state abbreviation: " + editedStateAbbreviation);
         console.log("Edited rate: " + editedRate);
 
-        toast.success(t("sales-tax-saved", { state: abbreviation }));
+        const { success } = await updateSalesTax();
+
+        if (success) {
+            toast.success(t("sales-tax-saved", {state: abbreviation}));
+
+            await refetchSalesTaxes();
+
+            setEditedStateName("");
+            setEditedStateAbbreviation("");
+            setEditedRate("");
+        } else {
+            toast.error(t("sales-tax-not-saved", { state: abbreviation}));
+        }
 
         setEditingKey(null);
     };
@@ -143,7 +200,7 @@ export default function SalesTax(): JSX.Element {
             rate: rateNumber
         };
 
-        const { success } = await saveSalesTax(next);
+        const { success } = await addSalesTax(next);
 
         if (success) {
             toast.success(t("sales-tax-added", { state: abbreviation }));
@@ -159,12 +216,12 @@ export default function SalesTax(): JSX.Element {
     }
 
     /**
-     * Saves the sales tax.
+     * Saves the new sales tax.
      *
      * @param   {SalesTaxDocument}  salesTaxDocument  The sales tax document
      * @return  {Promise<boolean>}
      */
-    const saveSalesTax: (salesTaxDocument: SalesTaxDocument) => Promise<{ success: boolean }> = async (salesTaxDocument: SalesTaxDocument): Promise<{ success: boolean }> => {
+    const addSalesTax: (salesTaxDocument: SalesTaxDocument) => Promise<{ success: boolean }> = async (salesTaxDocument: SalesTaxDocument): Promise<{ success: boolean }> => {
         const postUrl: string = `${apiServiceUrl}/sales-tax/`;
 
         const salesTax = {
