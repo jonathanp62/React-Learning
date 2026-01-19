@@ -1,13 +1,14 @@
 /*
+ * (#)index.tsx 0.5.0   01/19/2026
  * (#)index.tsx 0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +41,7 @@ import TextField from "./TextField";
  * @param   {InputFieldsProps}    props   The props for the component
  * @returns {JSX.Element}
  */
-export default function InputFields({ name, type, label, options, placeholder, defaultValue, register, errorMessage }: Readonly<InputFieldsProps>): JSX.Element {
+export default function InputFields({ name, type, label, options, placeholder, value, defaultValue, register, errorMessage }: Readonly<InputFieldsProps>): JSX.Element {
     if (type === "select") {
         return (
             <SelectField
@@ -59,6 +60,7 @@ export default function InputFields({ name, type, label, options, placeholder, d
                 register={ register }
                 label={ label }
                 placeholder={ placeholder }
+                value={ value }
                 errorMessage={ errorMessage } />
         );
     }

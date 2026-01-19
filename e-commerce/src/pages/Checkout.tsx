@@ -1,13 +1,14 @@
 /*
+ * (#)Checkout.tsx  0.5.0   01/19/2026
  * (#)Checkout.tsx  0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +44,7 @@ import { useTranslation } from 'react-i18next';
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { setOrder } from "../redux/slices/OrderSlice.ts";
+import { setOrder } from "../redux/slices/OrderSlice";
 
 import fetchSalesTax from '../utils/SalesTax';
 import formConfig from "../configuration/formConfig";
@@ -61,6 +62,8 @@ export default function Checkout(): JSX.Element {
     const { t } = useTranslation();
     const { apiServiceUrl, debug, users } = useContext(ApiContext);
 
+    const order: Order = useSelector((state: RootState): Order => state.order);
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
         resolver: yupResolver(formSchema)
     });
@@ -68,6 +71,12 @@ export default function Checkout(): JSX.Element {
     const navigate: NavigateFunction = useNavigate();
     const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
+
+    const getValue: (key: keyof FormValues) => string = (key: keyof FormValues): string => {
+        const value: string = order[key];
+
+        return value ?? "";
+    };
 
     /**
      * Handles the form submission and navigates to the review page.
@@ -138,6 +147,7 @@ export default function Checkout(): JSX.Element {
                             {section.fields.map(field => {
                                     const {id, name, type, label, options, placeholder, defaultValue} = field;
                                     const fieldName = name as keyof FormValues;
+                                    const value: string = getValue(fieldName);
 
                                     return (
                                         <InputField
@@ -147,6 +157,7 @@ export default function Checkout(): JSX.Element {
                                             type={ type }
                                             label={ label }
                                             options={ options }
+                                            value={ value }
                                             defaultValue={ defaultValue }
                                             register={ register }
                                             errorMessage={ errors[fieldName]?.message  }

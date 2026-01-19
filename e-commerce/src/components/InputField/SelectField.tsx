@@ -1,13 +1,14 @@
 /*
+ * (#)SelectField.tsx   0.5.0   01/19/2026
  * (#)SelectField.tsx   0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,11 +38,11 @@ import type { SelectFieldProps } from "../../types/SelectFieldProps";
  * @param   {SelectFieldProps}  props   The props for the component
  * @returns {JSX.Element}
  */
-export default function SelectField({ name, label, options, defaultValue, register, errorMessage }: Readonly<SelectFieldProps>): JSX.Element {
+export default function SelectField({ name, label, options, defaultValue, value, register, errorMessage }: Readonly<SelectFieldProps>): JSX.Element {
     return (
         <div className="select-container">
             <label className="dark:text-white" htmlFor={ name }>{ label }</label>
-            <select className="select-field peer dark:text-white" defaultValue={ defaultValue } id={ name } { ...register(name) }>
+            <select className="select-field peer dark:text-white" defaultValue={ defaultValue } value={ value } id={ name } { ...register(name) }>
                 {options?.map(option => (
                     <option
                         key={ option.value }
