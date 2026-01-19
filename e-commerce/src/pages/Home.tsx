@@ -1,4 +1,5 @@
 /*
+ * (#)Home.tsx  0.5.0   01/19/2026
  * (#)Home.tsx  0.4.0   12/17/2025
  * (#)Home.tsx  0.3.0   11/20/2025
  *
@@ -8,7 +9,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -263,9 +264,17 @@ export default function Home(): JSX.Element {
 
             {/* Product item grid */}
 
-            <div className="flex-1 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div
+                className={
+                    loading
+                        ? "flex-1 flex justify-center items-center"
+                        : "flex-1 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+                }
+            >
                 {loading ? (
-                    <Spinner />
+                    <div className="w-full">
+                        <Spinner />
+                    </div>
                 ) : filtered.length > 0 ? (
                     filtered.map((post: Product): JSX.Element => <ProductItem key={post.id} post={post} />)
                 ) : error ? (
