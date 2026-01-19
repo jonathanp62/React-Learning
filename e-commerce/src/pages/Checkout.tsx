@@ -61,24 +61,15 @@ import InputField from "../components/InputField";
 export default function Checkout(): JSX.Element {
     const { t } = useTranslation();
     const { apiServiceUrl, debug, users } = useContext(ApiContext);
-
     const order: Order = useSelector((state: RootState): Order => state.order);
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
         resolver: yupResolver(formSchema)
     });
 
-    const order: Order = useSelector((state: RootState): Order => state.order);
-
     const navigate: NavigateFunction = useNavigate();
     const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
-
-    const getValue: (key: keyof FormValues) => string = (key: keyof FormValues): string => {
-        const value: string = order[key];
-
-        return value ?? "";
-    };
 
     /**
      * Handles the form submission and navigates to the review page.
@@ -211,9 +202,7 @@ export default function Checkout(): JSX.Element {
                             {section.fields.map(field => {
                                     const {id, name, type, label, options, placeholder, defaultValue} = field;
                                     const fieldName = name as keyof FormValues;
-                                    const value: string = getValue(fieldName);
-
-                                    let value: string | undefined = getValue(name);
+                                    const value: string | undefined = getValue(name);
 
                                     return (
                                         <InputField
@@ -224,7 +213,6 @@ export default function Checkout(): JSX.Element {
                                             label={ label }
                                             value={ value }
                                             options={ options }
-                                            value={ value }
                                             defaultValue={ defaultValue }
                                             register={ register }
                                             errorMessage={ errors[fieldName]?.message  }

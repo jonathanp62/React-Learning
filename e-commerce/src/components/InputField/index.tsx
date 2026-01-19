@@ -74,7 +74,6 @@ export default function InputFields({ name, type, label, options, placeholder, v
                 label={ label }
                 value={ value }
                 placeholder={ placeholder }
-                value={ value }
                 errorMessage={ errorMessage } />
         );
     }

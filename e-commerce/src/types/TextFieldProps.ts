@@ -38,7 +38,6 @@ export interface TextFieldProps {
     readonly label: string
     readonly value?: string
     readonly placeholder?: string;
-    readonly value?: string;
     readonly register: UseFormRegister<any>;
     readonly errorMessage?: string;
 }
