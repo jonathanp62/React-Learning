@@ -1,13 +1,14 @@
 /*
+ * (#)TextFieldProps.ts 0.5.0   01/19/2026
  * (#)TextFieldProps.ts 0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +36,7 @@ import type { UseFormRegister } from "react-hook-form";
 export interface TextFieldProps {
     readonly name: string
     readonly label: string
+    readonly value?: string
     readonly placeholder?: string;
     readonly register: UseFormRegister<any>;
     readonly errorMessage?: string;
