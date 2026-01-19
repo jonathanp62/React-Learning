@@ -1,13 +1,14 @@
 /*
+ * (#)Review.tsx    0.5.0   01/19/2026
  * (#)Review.tsx    0.4.0   12/24/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.5.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +29,7 @@
  * SOFTWARE.
  */
 
-import type { JSX} from "react";
+import type { JSX } from "react";
 import type { NavigateFunction } from "react-router-dom";
 import type { Order } from "../types/Order";
 import type { OrderDocument } from "../types/OrderDocument";
@@ -80,6 +81,20 @@ export default function Review(): JSX.Element  {
         } else {
             toast.error(t("order-place-failed"));
         }
+    }
+
+    /**
+     * Handles the continue shopping action.
+     */
+    const handleContinueShopping: () => void = (): void => {
+        navigate("/");
+    }
+
+    /**
+     * Handles the customer info action.
+     */
+    const handleCustomerInfo: () => void = (): void => {
+        navigate("/checkout");
     }
 
     /**
@@ -205,12 +220,24 @@ export default function Review(): JSX.Element  {
                     <p className="mt-0 font-bold dark:text-white">
                         <span className="font-normal">{order.email}</span>
                     </p>
-                    <div className="w-full flex justify-left">
+                    <div className="w-full flex flex-col items-start gap-3 mt-10 mb-10">
                         <button
                             onClick={ handlePlaceOrder }
-                            className="mb-10 mt-10 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                            className="bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
                         >
                             { t("place-order") }
+                        </button>
+                        <button
+                            onClick={ handleContinueShopping }
+                            className="bg-blue-400 dark:bg-blue-600 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                        >
+                            { t("continue-shopping") }
+                        </button>
+                        <button
+                            onClick={ handleCustomerInfo }
+                            className="bg-blue-400 dark:bg-blue-600 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                        >
+                            { t("customer-info") }
                         </button>
                     </div>
                 </div>

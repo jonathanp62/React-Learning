@@ -73,5 +73,7 @@
   "delete-sales-tax-message": "Are you sure you want to delete the sales tax for {{state}}",
   "state-name": "State Name",
   "state-abbreviation": "State Abbreviation",
-  "sales-tax-rate": "Sales Tax Rate"
+  "sales-tax-rate": "Sales Tax Rate",
+  "continue-shopping": "Continue Shopping",
+  "customer-info": "Customer Information"
 }
