@@ -43,22 +43,36 @@ import TextField from "./TextField";
  */
 export default function InputFields({ name, type, label, options, placeholder, value, defaultValue, register, errorMessage }: Readonly<InputFieldsProps>): JSX.Element {
     if (type === "select") {
-        return (
-            <SelectField
-                name={ name }
-                label={ label }
-                defaultValue={ defaultValue }
-                register={ register }
-                errorMessage={ errorMessage }
-                options={ options }
-            />
-        );
+        if (value === undefined) {
+            return (
+                <SelectField
+                    name={name}
+                    label={label}
+                    defaultValue={defaultValue}
+                    register={register}
+                    errorMessage={errorMessage}
+                    options={options}
+                />
+            );
+        } else {
+            return (
+                <SelectField
+                    name={name}
+                    label={label}
+                    defaultValue={value}
+                    register={register}
+                    errorMessage={errorMessage}
+                    options={options}
+                />
+            );
+        }
     } else {
         return (
             <TextField
                 name={ name }
                 register={ register }
                 label={ label }
+                value={ value }
                 placeholder={ placeholder }
                 value={ value }
                 errorMessage={ errorMessage } />

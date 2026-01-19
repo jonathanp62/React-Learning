@@ -68,6 +68,8 @@ export default function Checkout(): JSX.Element {
         resolver: yupResolver(formSchema)
     });
 
+    const order: Order = useSelector((state: RootState): Order => state.order);
+
     const navigate: NavigateFunction = useNavigate();
     const dispatch = useDispatch();
     const cart: Product[] = useSelector((state: RootState): Product[] => state.cart);
@@ -131,6 +133,68 @@ export default function Checkout(): JSX.Element {
         navigate("/review");
     };
 
+    /**
+     * Gets the value of a field.
+     *
+     * @param   {string}                fieldName   The name of the field
+     * @return  {string | undefined}                The value of the field
+     */
+    function getValue(fieldName: string): string | undefined {
+        let value: string | undefined;
+
+        switch (fieldName) {
+            case "firstName":
+                if (order.firstName !== "") {
+                    value = order.firstName;
+                }
+                break;
+            case "lastName":
+                if (order.firstName !== "") {
+                    value = order.lastName;
+                }
+                break;
+            case "address":
+                if (order.address !== "") {
+                    value = order.address;
+                }
+                break;
+            case "city":
+                if (order.city !== "") {
+                    value = order.city;
+                }
+                break;
+            case "state":
+                if (order.state !== "") {
+                    value = order.state;
+                }
+                break;
+            case "zipCode":
+                if (order.zipCode !== "") {
+                    value = order.zipCode;
+                }
+                break;
+            case "country":
+                if (order.country !== "") {
+                    value = order.country;
+                }
+                break;
+            case "phone":
+                if (order.phone !== "") {
+                    value = order.phone;
+                }
+                break;
+            case "email":
+                if (order.email !== "") {
+                    value = order.email;
+                }
+                break;
+            default:
+                break;
+        }
+
+        return value;
+    }
+
     return (
         <>
             <div className="w-full max-w-[1000px] mx-auto pt-4 relative">
@@ -149,6 +213,8 @@ export default function Checkout(): JSX.Element {
                                     const fieldName = name as keyof FormValues;
                                     const value: string = getValue(fieldName);
 
+                                    let value: string | undefined = getValue(name);
+
                                     return (
                                         <InputField
                                             key={ id }
@@ -156,6 +222,7 @@ export default function Checkout(): JSX.Element {
                                             name={ name }
                                             type={ type }
                                             label={ label }
+                                            value={ value }
                                             options={ options }
                                             value={ value }
                                             defaultValue={ defaultValue }

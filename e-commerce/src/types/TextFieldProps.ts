@@ -36,6 +36,7 @@ import type { UseFormRegister } from "react-hook-form";
 export interface TextFieldProps {
     readonly name: string
     readonly label: string
+    readonly value?: string
     readonly placeholder?: string;
     readonly value?: string;
     readonly register: UseFormRegister<any>;

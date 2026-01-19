@@ -47,6 +47,7 @@ export default function TextField({ name, label, value, placeholder, register, e
                 id={ name }
                 value={ value }
                 placeholder={ placeholder }
+                value={ value }
                 type="text"
                 { ...register(name) }
             />
