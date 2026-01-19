@@ -74,7 +74,7 @@ export default function Layout(): JSX.Element {
                 <div className="bg-slate-300 dark:bg-black fixed w-full z-10">
                     <Navbar />
                 </div>
-                <div className="flex-1 pt-16 flex">
+                <div className="flex-1 pt-16">
                     <Outlet />
                 </div>
                 <Footer />
