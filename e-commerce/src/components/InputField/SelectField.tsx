@@ -42,7 +42,7 @@ export default function SelectField({ name, label, options, defaultValue, value,
     return (
         <div className="select-container">
             <label className="dark:text-white" htmlFor={ name }>{ label }</label>
-            <select className="select-field peer dark:text-white" defaultValue={ defaultValue } value={ value } id={ name } { ...register(name) }>
+            <select className="select-field peer dark:text-white" defaultValue={ defaultValue } id={ name } { ...register(name) }>
                 {options?.map(option => (
                     <option
                         key={ option.value }

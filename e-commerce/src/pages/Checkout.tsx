@@ -41,7 +41,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from 'react-i18next';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { setOrder } from "../redux/slices/OrderSlice";
@@ -63,9 +63,23 @@ export default function Checkout(): JSX.Element {
     const { apiServiceUrl, debug, users } = useContext(ApiContext);
     const order: Order = useSelector((state: RootState): Order => state.order);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
         resolver: yupResolver(formSchema)
     });
+
+    useEffect(() => {
+        reset({
+            firstName: order.firstName,
+            lastName: order.lastName,
+            address: order.address,
+            city: order.city,
+            state: order.state,
+            zipCode: order.zipCode,
+            country: order.country,
+            phone: order.phone,
+            email: order.email
+        });
+    }, [order, reset]);
 
     const navigate: NavigateFunction = useNavigate();
     const dispatch = useDispatch();
@@ -99,7 +113,7 @@ export default function Checkout(): JSX.Element {
             console.log(salesTaxDocument);
         }
 
-        const order: Order = {
+        const newOrder: Order = {
             orderId: uuidv4(),
             orderDate: isoNow,
             firstName: data.firstName,
@@ -117,12 +131,40 @@ export default function Checkout(): JSX.Element {
 
         if (debug) {
             console.log("Order:");
-            console.log(order);
+            console.log(newOrder);
         }
 
-        dispatch(setOrder(order));
+        dispatch(setOrder(newOrder));
         navigate("/review");
     };
+
+    /**
+     * Handles the new customer button click by clearing the customer information from the order.
+     *
+     * @return  {Promise<void>}
+     */
+    const handleNewCustomer: () => Promise<void> = async (): Promise<void> => {
+        const now: Date = new Date();
+        const isoNow: string = now.toISOString();
+
+        const updatedOrder: Order = {
+            orderId: uuidv4(),
+            orderDate: isoNow,
+            firstName: "",
+            lastName: "",
+            address: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            country: "",
+            phone: "",
+            email: "",
+            taxRate: 0,
+            products: cart
+        }
+
+        dispatch(setOrder(updatedOrder));
+    }
 
     /**
      * Gets the value of a field.
@@ -225,8 +267,15 @@ export default function Checkout(): JSX.Element {
 
                     <div className="w-full flex justify-center">
                         <button
+                            type="button"
+                            onClick={ handleNewCustomer }
+                            className="mb-10 mt-10 mr-1 bg-gray-400 dark:bg-gray-300 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                        >
+                            New Customer
+                        </button>
+                        <button
                             type="submit"
-                            className="mb-10 mt-10 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
+                            className="mb-10 mt-10 ml-1 bg-green-700 w-[200px] text-white py-2 rounded-md hover:scale-110 transition-all"
                         >
                             { t("review-order") }
                         </button>

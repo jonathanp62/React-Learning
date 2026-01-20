@@ -45,7 +45,7 @@ export default function TextField({ name, label, value, placeholder, register, e
             <input
                 className="text-field peer dark:text-white"
                 id={ name }
-                value={ value }
+                defaultValue={ value }
                 placeholder={ placeholder }
                 type="text"
                 { ...register(name) }
