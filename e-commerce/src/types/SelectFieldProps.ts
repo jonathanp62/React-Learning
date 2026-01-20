@@ -39,7 +39,6 @@ export interface SelectFieldProps {
     readonly label: string
     readonly options?: SelectOption[];
     readonly defaultValue?: string;
-    readonly value?: string;
     readonly register: UseFormRegister<any>;
     readonly errorMessage?: string;
 }

@@ -38,7 +38,7 @@ import type { SelectFieldProps } from "../../types/SelectFieldProps";
  * @param   {SelectFieldProps}  props   The props for the component
  * @returns {JSX.Element}
  */
-export default function SelectField({ name, label, options, defaultValue, value, register, errorMessage }: Readonly<SelectFieldProps>): JSX.Element {
+export default function SelectField({ name, label, options, defaultValue, register, errorMessage }: Readonly<SelectFieldProps>): JSX.Element {
     return (
         <div className="select-container">
             <label className="dark:text-white" htmlFor={ name }>{ label }</label>
