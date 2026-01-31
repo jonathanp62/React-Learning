@@ -1,0 +1,62 @@
+[
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "21117",
+    "distanceInMiles": 783.812,
+    "distanceInKilometers": 1261.423
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "21234",
+    "distanceInMiles": 795.434,
+    "distanceInKilometers": 1280.127
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "12302",
+    "distanceInMiles": 1011.425,
+    "distanceInKilometers": 1627.731
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "21769",
+    "distanceInMiles": 744.376,
+    "distanceInKilometers": 1197.957
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "92501",
+    "distanceInMiles": 1558.989,
+    "distanceInKilometers": 2508.95
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "75201",
+    "distanceInMiles": 423.083,
+    "distanceInKilometers": 680.886
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "97123",
+    "distanceInMiles": 1869.073,
+    "distanceInKilometers": 3007.983
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "98101",
+    "distanceInMiles": 1873.873,
+    "distanceInKilometers": 3015.707
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "02108",
+    "distanceInMiles": 1132.941,
+    "distanceInKilometers": 1823.292
+  },
+  {
+    "fromZipCode": "38118",
+    "toZipCode": "60601",
+    "distanceInMiles": 489.647,
+    "distanceInKilometers": 788.01
+  }
+]
