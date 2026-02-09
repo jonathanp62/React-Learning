@@ -1,8 +1,9 @@
 /*
+ * (#)SalesTax.tsx  0.6.0   02/09/2026
  * (#)SalesTax.tsx  0.5.0   01/08/2026
  *
  * @author  Jonathan Parker
- * @version 0.5.0
+ * @version 0.6.0
  * @since   0.5.0
  *
  * MIT License
@@ -33,6 +34,7 @@ import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
 import { createBasicAuthToken } from "../utils/Auth";
 import { formatPercentage } from "../utils/Formatters";
+import { logResponse } from "../utils/Logging";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
@@ -105,18 +107,7 @@ export default function SalesTax(): JSX.Element {
                 },
             });
 
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
+            logResponse(response, debug);
 
             return { success: response.ok };
         } catch (error) {
@@ -242,18 +233,7 @@ export default function SalesTax(): JSX.Element {
                 },
             });
 
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
+            logResponse(response, debug);
 
             return { success: response.ok };
         } catch (error) {

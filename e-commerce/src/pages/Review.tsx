@@ -1,9 +1,10 @@
 /*
+ * (#)Review.tsx    0.6.0   02/09/2026
  * (#)Review.tsx    0.5.0   01/19/2026
  * (#)Review.tsx    0.4.0   12/24/2025
  *
  * @author  Jonathan Parker
- * @version 0.5.0
+ * @version 0.6.0
  * @since   0.4.0
  *
  * MIT License
@@ -42,13 +43,14 @@ import { createBasicAuthToken } from "../utils/Auth";
 import { getTax, computeGrandTotal } from "../utils/Calculators";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
+import { logResponse } from "../utils/Logging";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import toast from "react-hot-toast";
-import ApiContext from "../ApiContext.ts";
+import ApiContext from "../ApiContext";
 
 /**
  * The order review page.
@@ -116,18 +118,7 @@ export default function Review(): JSX.Element  {
                 },
             });
 
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
+            logResponse(response, debug);
 
             const document: OrderDocument = await response.json();
 

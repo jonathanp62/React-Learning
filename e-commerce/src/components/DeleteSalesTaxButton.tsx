@@ -1,8 +1,9 @@
 /*
+ * (#)DeleteSalesTaxButton.tsx  0.6.0   02/09/2026
  * (#)DeleteSalesTaxButton.tsx  0.5.0   01/15/2026
  *
  * @author  Jonathan Parker
- * @version 0.5.0
+ * @version 0.6.0
  * @since   0.5.0
  *
  * MIT License
@@ -31,6 +32,7 @@
 import {type JSX, useContext} from "react";
 
 import { createBasicAuthToken } from "../utils/Auth";
+import { logResponse } from "../utils/Logging";
 import { MdDelete } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
@@ -98,18 +100,7 @@ export default function DeleteSalesTaxButton(
                 },
             });
 
-            if (debug) {
-                console.log("Response:");
-                console.log({
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: Object.fromEntries(response.headers.entries()),
-                    url: response.url,
-                    ok: response.ok,
-                    redirected: response.redirected,
-                    type: response.type
-                });
-            }
+            logResponse(response, debug);
 
             return { success: response.ok };
         } catch (error) {
