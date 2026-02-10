@@ -32,9 +32,8 @@
 import type { JSX } from "react";
 import type { SalesTaxDocument } from "../types/SalesTaxDocument";
 
-import { createBasicAuthToken } from "../utils/Auth";
+import { fetchUpdate } from "../utils/Fetching";
 import { formatPercentage } from "../utils/Formatters";
-import { logResponse } from "../utils/Logging";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
@@ -96,24 +95,14 @@ export default function SalesTax(): JSX.Element {
             rate: editedRate
         }
 
-        try {
-            const response: Response = await fetch(putUrl, {
-                method: 'PUT',
-                body: JSON.stringify(salesTax),
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            });
+        const response: Response = await fetchUpdate(
+            'PUT',
+            putUrl,
+            JSON.stringify(salesTax),
+            users.READWRITE,
+            debug);
 
-            logResponse(response, debug);
-
-            return { success: response.ok };
-        } catch (error) {
-            console.log(error);
-            return { success: false };
-        }
+        return { success: response.ok };
     };
 
     /**
@@ -222,24 +211,15 @@ export default function SalesTax(): JSX.Element {
             rate: salesTaxDocument.rate
         }
 
-        try {
-            const response: Response = await fetch(postUrl, {
-                method: 'POST',
-                body: JSON.stringify(salesTax),
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            });
+        const response: Response = await fetchUpdate(
+            'POST',
+            postUrl,
+            JSON.stringify(salesTax),
+            users.READWRITE,
+            debug
+        );
 
-            logResponse(response, debug);
-
-            return { success: response.ok };
-        } catch (error) {
-            console.log(error);
-            return { success: false };
-        }
+        return { success: response.ok };
     };
 
     return (

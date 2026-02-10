@@ -39,11 +39,10 @@ import type { RootState } from "../redux/Store";
 
 import { clear } from "../redux/slices/CartSlice";
 import { clearOrder } from "../redux/slices/OrderSlice";
-import { createBasicAuthToken } from "../utils/Auth";
+import { fetchUpdate } from "../utils/Fetching";
 import { getTax, computeGrandTotal } from "../utils/Calculators";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
-import { logResponse } from "../utils/Logging";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -107,35 +106,26 @@ export default function Review(): JSX.Element  {
     const placeOrder: () => Promise<{ success: boolean; orderId: string }> = async (): Promise<{ success: boolean; orderId: string }> => {
         const postUrl: string = `${apiServiceUrl}/order`;
 
-        try {
-            const response: Response = await fetch(postUrl, {
-                method: 'POST',
-                body: JSON.stringify(order),
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': `Basic ${createBasicAuthToken(users.READWRITE)}`,
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            });
+        const response: Response = await fetchUpdate(
+            'POST',
+            postUrl,
+            JSON.stringify(order),
+            users.READWRITE,
+            debug
+        );
 
-            logResponse(response, debug);
+        const document: OrderDocument = await response.json();
 
-            const document: OrderDocument = await response.json();
+        console.log(`Order document saved: ${document.documentId}`);
 
-            console.log(`Order document saved: ${document.documentId}`);
-
-            if (debug) {
-                console.log(document);
-            }
-
-            return {
-                success: response.ok,
-                orderId: response.ok ? document.orderId : "",
-            };
-        } catch (error) {
-            console.log(error);
-            return { success: false, orderId: "" };
+        if (debug) {
+            console.log(document);
         }
+
+        return {
+            success: response.ok,
+            orderId: response.ok ? document.orderId : "",
+        };
     };
 
     return (

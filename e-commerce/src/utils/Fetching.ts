@@ -1,5 +1,5 @@
 /*
- * (#)Logging.ts    0.6.0   02/09/2026
+ * (#)Fetching.ts   0.6.0   02/10/2026
  *
  * @author  Jonathan Parker
  * @version 0.6.0
@@ -28,20 +28,40 @@
  * SOFTWARE.
  */
 
+import type { User } from "../types/User";
+
+import { createBasicAuthToken } from "./Auth";
+import { logResponse } from "./Logging";
+
 /**
- * Logs the response to the console.
+ * Uses fetch to update a resource on the server.
  *
- * @param   {Response}    response    The response
+ * @param   {string}    httpVerb
+ * @param   {string}    url
+ * @param   {string}    body
+ * @param   {User}      user
+ * @param   {boolean}   debug
+ * @returns             {Promise<Response>}
  */
-export function logResponse(response: Response): void {
-    console.log("Response:");
-    console.log({
-        status: response.status,
-        statusText: response.statusText,
-        headers: Object.fromEntries(response.headers.entries()),
-        url: response.url,
-        ok: response.ok,
-        redirected: response.redirected,
-        type: response.type
-    });
+export async function fetchUpdate(httpVerb: string, url: string, body: string, user: User, debug: boolean): Promise<Response> {
+    try {
+        const response: Response = await fetch(url, {
+            method: httpVerb,
+            body: body,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Basic ${createBasicAuthToken(user)}`,
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+
+        if (debug) {
+            logResponse(response);
+        }
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        return Promise.reject(error);
+    }
 }
