@@ -112,7 +112,7 @@ export default function Checkout(): JSX.Element {
         }
 
         if (debug && salesTaxDocument) {
-            console.log("Sales Tax Document:");
+            console.log(t("sales-tax-document") + ':');
             console.log(salesTaxDocument);
         }
 
@@ -133,7 +133,7 @@ export default function Checkout(): JSX.Element {
         }
 
         if (debug) {
-            console.log("Order:");
+            console.log(t("order") + ':');
             console.log(newOrder);
         }
 

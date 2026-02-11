@@ -76,5 +76,7 @@
   "sales-tax-rate": "Sales Tax Rate",
   "continue-shopping": "Continue Shopping",
   "customer-info": "Customer Information",
-  "unable-to-get-sales-tax-rate": "Unable to get sales tax rate"
+  "unable-to-get-sales-tax-rate": "Unable to get sales tax rate",
+  "sales-tax-document": "Sales Tax Document",
+  "response": "Response"
 }

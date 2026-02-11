@@ -28,13 +28,15 @@
  * SOFTWARE.
  */
 
+import i18n from "../i18n";
+
 /**
  * Logs the response to the console.
  *
  * @param   {Response}    response    The response
  */
 export function logResponse(response: Response): void {
-    console.log("Response:");
+    console.log(i18n.t("response") + ':');
     console.log({
         status: response.status,
         statusText: response.statusText,
