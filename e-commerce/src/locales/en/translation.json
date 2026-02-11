@@ -75,5 +75,6 @@
   "state-abbreviation": "State Abbreviation",
   "sales-tax-rate": "Sales Tax Rate",
   "continue-shopping": "Continue Shopping",
-  "customer-info": "Customer Information"
+  "customer-info": "Customer Information",
+  "unable-to-get-sales-tax-rate": "Unable to get sales tax rate"
 }
