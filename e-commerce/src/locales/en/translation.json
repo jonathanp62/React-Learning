@@ -78,5 +78,6 @@
   "customer-info": "Customer Information",
   "unable-to-get-sales-tax-rate": "Unable to get sales tax rate",
   "sales-tax-document": "Sales Tax Document",
-  "response": "Response"
+  "response": "Response",
+  "order-document-saved": "Order document saved: {{documentId}}"
 }

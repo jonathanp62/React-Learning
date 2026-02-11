@@ -116,7 +116,7 @@ export default function Review(): JSX.Element  {
 
         const document: OrderDocument = await response.json();
 
-        console.log(`Order document saved: ${document.documentId}`);
+        console.log(t("order-document-saved", { documentId: document.documentId }));
 
         if (debug) {
             console.log(document);
