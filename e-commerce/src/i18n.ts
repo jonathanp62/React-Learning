@@ -1,13 +1,14 @@
 /*
+ * (#)i18n.ts   0.6.0   02/11/2026
  * (#)i18n.js   0.3.0   11/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.3.0
+ * @version 0.6.0
  * @since   0.3.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,31 +29,32 @@
  * SOFTWARE.
  */
 
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from "react-i18next";
 
-// Import your translation files.
-import enTranslation from './locales/en/translation.json';
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+
+// Import your translation files
+import enTranslation from "./locales/en/translation.json";
 
 // The translations
 const resources = {
     en: {
         translation: enTranslation,
     },
-};
+} as const;
 
 i18n
-    .use(LanguageDetector) // Detects the user's language.
-    .use(initReactI18next) // Passes the i18n instance to react-i18next.
-    .init({ // Initializes i18next.
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
         resources,
-        lng: 'en', // default language
-        fallbackLng: 'en', // fallback language if translation not found
+        lng: "en",
+        fallbackLng: "en",
         interpolation: {
-            escapeValue: false, // React already escapes values
+            escapeValue: false,
         },
-        debug: false
+        debug: false,
     });
 
 export default i18n;
