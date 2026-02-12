@@ -1,13 +1,14 @@
 /*
+ * (#)useLoadProducts.ts   0.6.0   02/12/2026
  * (#)useLoadProducts.ts   0.4.0   12/23/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.6.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +68,7 @@ const useLoadProducts: () => {loading: boolean, error: string | null} = (): {loa
                     const productsData: Product[] = await res.json();
 
                     if (debug) {
-                        console.log("Products");
+                        console.log(t("products"));
                         console.log(productsData);
                     }
 
