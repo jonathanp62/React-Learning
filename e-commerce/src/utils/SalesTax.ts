@@ -1,13 +1,14 @@
 /*
+ * (#)Sales.ts  0.6.0   02/12/2026
  * (#)Sales.ts  0.4.0   12/20/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.6.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +62,7 @@ async function fetchSalesTax(url: string, state: string, user: User, debug: bool
             salesTaxDocument = await res.json();
 
             if (debug) {
-                console.log("Sales Tax");
+                console.log(t("sales-tax"));
                 console.log(salesTaxDocument);
             }
         } else if (res.status === 404) {
