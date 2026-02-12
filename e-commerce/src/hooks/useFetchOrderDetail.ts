@@ -1,8 +1,9 @@
 /*
+ * (#)useFetchOrderDetail.ts    0.6.0   02/12/2026
  * (#)useFetchOrderDetail.ts    0.4.0   12/22/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.6.0
  * @since   0.4.0
  *
  * MIT License
@@ -71,7 +72,7 @@ const useFetchOrderDetail: (orderId: string | undefined) => {order: OrderDocumen
                         const orderDocument: OrderDocument = await res.json();
 
                         if (debug) {
-                            console.log("Order");
+                            console.log(t("order"));
                             console.log(orderDocument);
                         }
 
