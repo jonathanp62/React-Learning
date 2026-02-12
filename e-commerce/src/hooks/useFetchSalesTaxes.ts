@@ -1,8 +1,9 @@
 /*
+ * (#)useFetchTaxess.ts 0.6.0   02/12/2026
  * (#)useFetchTaxess.ts 0.5.0   01/08/2026
  *
  * @author  Jonathan Parker
- * @version 0.5.0
+ * @version 0.6.0
  * @since   0.5.0
  *
  * MIT License
@@ -68,7 +69,7 @@ const useFetchSalesTaxes: () => {salesTaxes: SalesTaxDocument[], loading: boolea
                 const salesTaxDocuments: SalesTaxDocument[] = await res.json();
 
                 if (debug) {
-                    console.log("Sales Taxes");
+                    console.log(t("sales-taxes"));
                     console.log(salesTaxDocuments);
                 }
 

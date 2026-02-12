@@ -56,6 +56,7 @@
   "tax": "Tax",
   "all-orders": "All Orders",
   "sales-tax": "Sales Tax",
+  "sales-taxes": "Sales Taxes",
   "sales-tax-not-found": "Sales tax not found for state: {{state}}",
   "sales-tax-unauthorized": "Unauthorized to fetch sales tax for state: {{state}}",
   "sales-tax-failed-to-fetch": "Failed to fetch sales tax for state: {{state}}",
