@@ -36,18 +36,18 @@
     "debug": false
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.0",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "@vitejs/plugin-react": "^5.1.0",
-    "baseline-browser-mapping": "^2.9.18",
-    "eslint": "^9.39.1",
+    "@eslint/js": "^9.39.3",
+    "@types/node": "^24.11.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "baseline-browser-mapping": "^2.10.0",
+    "eslint": "^9.39.3",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.2"
+    "typescript-eslint": "^8.56.1",
+    "vite": "^7.3.1"
   }
 }
