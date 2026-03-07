@@ -1,10 +1,11 @@
 /*
+ * (#)Checkout.tsx  0.7.0   03/07/2026
  * (#)Checkout.tsx  0.6.0   02/11/2026
  * (#)Checkout.tsx  0.5.0   01/19/2026
  * (#)Checkout.tsx  0.4.0   12/15/2025
  *
  * @author  Jonathan Parker
- * @version 0.6.0
+ * @version 0.7.0
  * @since   0.4.0
  *
  * MIT License
@@ -129,6 +130,7 @@ export default function Checkout(): JSX.Element {
             phone: data.phone,
             email: data.email,
             taxRate: salesTaxDocument?.rate || 0,
+            shippingCost: 0,
             products: cart
         }
 
@@ -163,6 +165,7 @@ export default function Checkout(): JSX.Element {
             phone: "",
             email: "",
             taxRate: 0,
+            shippingCost: 0,
             products: cart
         }
 

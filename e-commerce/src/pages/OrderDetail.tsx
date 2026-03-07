@@ -1,13 +1,14 @@
 /*
+ * (#)OrderDetail.tsx   0.7.0   03/07/2026
  * (#)OrderDetail.tsx   0.4.0   12/19/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.7.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -90,6 +91,9 @@ export default function OrderDetail(): JSX.Element {
                         </p>
                         <p className="mt-0 font-bold dark:text-white">
                             <span>{ t("tax") }: {formatPrice(getTax(order))}</span>
+                        </p>
+                        <p className="mt-0 font-bold dark:text-white">
+                            <span>{ t("shipping") }: {formatPrice(order.shippingCost)}</span>
                         </p>
                         <p className="mt-0 font-bold dark:text-white">
                             <span>{ t("total-amount") }: {formatPrice(computeGrandTotal(order))}</span>
