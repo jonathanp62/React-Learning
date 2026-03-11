@@ -1,10 +1,11 @@
 /*
+ * (#)Review.tsx    0.7.0   03/11/2026
  * (#)Review.tsx    0.6.0   02/09/2026
  * (#)Review.tsx    0.5.0   01/19/2026
  * (#)Review.tsx    0.4.0   12/24/2025
  *
  * @author  Jonathan Parker
- * @version 0.6.0
+ * @version 0.7.0
  * @since   0.4.0
  *
  * MIT License
@@ -50,6 +51,7 @@ import { useTranslation } from 'react-i18next';
 
 import toast from "react-hot-toast";
 import ApiContext from "../ApiContext";
+import useFetchShippingCost from "../hooks/useFetchShippingCost";
 
 /**
  * The order review page.
@@ -63,6 +65,12 @@ export default function Review(): JSX.Element  {
     const navigate: NavigateFunction = useNavigate();
     const order: Order = useSelector((state: RootState): Order => state.order);
     const dispatch = useDispatch();
+
+    const { shippingCost, loading, error } = useFetchShippingCost(
+        order.zipCode.slice(0, 5),
+        computeProductsTotal(order.products),
+        order.products.length
+    );
 
     /**
      * Handles the place order action.
