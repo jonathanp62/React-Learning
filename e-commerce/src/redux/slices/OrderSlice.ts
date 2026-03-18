@@ -1,13 +1,14 @@
 /*
+ * (#)OrderSlice.ts 0.7.0   03/18/2026
  * (#)OrderSlice.ts 0.4.0   12/24/2025
  *
  * @author  Jonathan Parker
- * @version 0.4.0
+ * @version 0.7.0
  * @since   0.4.0
  *
  * MIT License
  *
- * Copyright (c) 2025 Jonathan M. Parker
+ * Copyright (c) 2025, 2026 Jonathan M. Parker
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +46,7 @@ const initialState: Order = {
     phone: "",
     email: "",
     taxRate: 0,
+    shippingCost: 0,
     products: []
 };
 
@@ -55,12 +57,15 @@ const OrderSlice = createSlice({
         setOrder: (_state: Order, action: PayloadAction<Order>): Order => {
             return action.payload;
         },
+        setShippingCost: (state: Order, action: PayloadAction<number>): void => {
+            state.shippingCost = action.payload;
+        },
         clearOrder: (_state: Order): Order => {
             return initialState;
         }
     }
 })
 
-export const { clearOrder, setOrder } = OrderSlice.actions;
+export const { clearOrder, setOrder, setShippingCost } = OrderSlice.actions;
 
 export default OrderSlice.reducer;

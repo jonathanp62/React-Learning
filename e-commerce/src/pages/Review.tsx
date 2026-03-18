@@ -39,12 +39,12 @@ import type { Product } from "../types/Product";
 import type { RootState } from "../redux/Store";
 
 import { clear } from "../redux/slices/CartSlice";
-import { clearOrder } from "../redux/slices/OrderSlice";
+import { clearOrder, setShippingCost } from "../redux/slices/OrderSlice";
 import { fetchUpdate } from "../utils/Fetching";
 import { getTax, computeGrandTotal } from "../utils/Calculators";
 import { computeProductsTotal } from "../utils/Reducers";
 import { formatIso8601Date, formatPhone, formatPrice, formatRating } from "../utils/Formatters";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -71,6 +71,12 @@ export default function Review(): JSX.Element  {
         computeProductsTotal(order.products),
         order.products.length
     );
+
+    useEffect((): void => {
+        if (shippingCost !== null) {
+            dispatch(setShippingCost(shippingCost.totalCostRounded));
+        }
+    }, [dispatch, shippingCost]);
 
     /**
      * Handles the place order action.
@@ -172,6 +178,9 @@ export default function Review(): JSX.Element  {
                     </p>
                     <p className="mt-0 font-bold dark:text-white">
                         <span>{ t("tax") }: {formatPrice(getTax(order))}</span>
+                    </p>
+                    <p className="mt-0 font-bold dark:text-white">
+                        <span>{ t("shipping") }: {formatPrice(order.shippingCost)}</span>
                     </p>
                     <p className="mt-0 font-bold dark:text-white">
                         <span>{ t("total-amount") }: {formatPrice(computeGrandTotal(order))}</span>
