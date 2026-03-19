@@ -32,6 +32,7 @@ import type { ShippingCost } from "../types/ShippingCost";
 
 import { createBasicAuthToken } from "../utils/Auth";
 import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import ApiContext from "../ApiContext.ts";
 
@@ -47,6 +48,7 @@ import ApiContext from "../ApiContext.ts";
  */
 const useFetchShippingCost: (toZipCode: string, subTotal: number, items: number) => {shippingCost: ShippingCost | null, loading: boolean, error: string | null} = (toZipCode: string, subTotal: number, items: number): {shippingCost: ShippingCost | null, loading: boolean, error: string | null} => {
     const { apiServiceUrl, debug, users } = useContext(ApiContext);
+    const { t } = useTranslation();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [shippingCost, setShippingCost] = useState<ShippingCost | null>(null);
@@ -70,21 +72,23 @@ const useFetchShippingCost: (toZipCode: string, subTotal: number, items: number)
                     const shippingCost: ShippingCost = await res.json();
 
                     if (debug) {
-                        //console.log(t("order"));
+                        console.log(t("shipping-cost"));
                         console.log(shippingCost);
                     }
 
                     setShippingCost(shippingCost);
                 } else if (res.status === 404) {
-                    //setError(t("order-not-found"));
+                    setError(t("shipping-cost-not-found"));
+                    setShippingCost(null);
+                } else if (res.status === 401) {
+                    setError(t("shipping-cost-not-authorized"));
                     setShippingCost(null);
                 } else {
-                    //setError(t("error-loading-order", {orderId: orderId}));
+                    setError(t("error-loading-shipping-cost"));
                     setShippingCost(null);
                 }
             } catch (err) {
-                setError(`Failed to calculate shipping cost: ${err}`);
-                //setError(`${t("error-loading-order", {orderId: orderId})}: ${err}`);
+                setError(`${t("error-loading-shipping-cost")}: ${err}`);
                 setShippingCost(null);
             } finally {
                 setLoading(false);
