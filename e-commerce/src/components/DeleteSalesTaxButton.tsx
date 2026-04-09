@@ -1,9 +1,10 @@
 /*
+ * (#)DeleteSalesTaxButton.tsx  0.7.0   04/09/2026
  * (#)DeleteSalesTaxButton.tsx  0.6.0   02/09/2026
  * (#)DeleteSalesTaxButton.tsx  0.5.0   01/15/2026
  *
  * @author  Jonathan Parker
- * @version 0.6.0
+ * @version 0.7.0
  * @since   0.5.0
  *
  * MIT License
@@ -100,7 +101,9 @@ export default function DeleteSalesTaxButton(
                 },
             });
 
-            logResponse(response, debug);
+            if (debug) {
+                logResponse(response);
+            }
 
             return { success: response.ok };
         } catch (error) {
