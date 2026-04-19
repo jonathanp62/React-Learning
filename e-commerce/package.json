@@ -31,7 +31,7 @@
     "yup": "^1.7.1"
   },
   "appConfig": {
-    "apiBaseUrl": "https://fakestoreapi.com/products",
+    "apiBaseUrl": "http://localhost:8080/react/learning/api/e-commerce/fakestore/products",
     "apiServiceUrl": "http://localhost:8080/react/learning/api/e-commerce",
     "debug": false
   },
